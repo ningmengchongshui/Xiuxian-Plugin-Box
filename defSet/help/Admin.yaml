@@ -13,15 +13,6 @@
 - group: 
   list:
     - icon: help-icon_32
-      title: "#修仙清理弱水阁"
-      desc: "清除全部物品"
-    - icon: help-icon_32
-      title: "#修仙清除+编号"
-      desc: "清除特定物品"
-    - icon: help-icon_32
-      title: "#修仙打扫客栈"
-      desc: "清理客栈消息"
-    - icon: help-icon_32
       title: "#修仙删除数据"
       desc: "删除错误数据"
     - icon: help-icon_32
@@ -34,9 +25,6 @@
 - group: 
   list:
     - icon: help-icon_58
-      title: "#修仙配置"
-      desc: "查看当前配置"
-    - icon: help-icon_58
       title: "#修仙关闭云崽"
       desc: "屏蔽云崽的所有功能"
     - icon: help-icon_58
@@ -48,6 +36,9 @@
     - icon: help-icon_58
       title: "#修仙添加主人+QQ"
       desc: "#修仙删除主人+QQ"
+    - icon: help-icon_58
+      title: "#修仙配置"
+      desc: "查看当前配置"
       
 - group: 
   list:
@@ -55,17 +46,8 @@
       title: "#修仙更新"
       desc: "更新修仙模拟器插件"
     - icon: help-icon_58
-      title: "#修仙全部更新"
-      desc: "更新后需#重启"
-    - icon: help-icon_58
       title: "#修仙安装+扩展名"
       desc: "#修仙安装宗门"
     - icon: help-icon_58
       title: "#修仙升级版本"
       desc: "了解V1.2升级V2.0方法"
-    - icon: help-icon_58
-      title: "#修仙状态"
-      desc: "查看修仙运行"
-    - icon: help-icon_58
-      title: "#修仙清理缓存"
-      desc: "清理修仙系统缓存"
