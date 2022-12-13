@@ -1,14 +1,14 @@
-const dirname='plugins/Xiuxian-Plugin-Box/resources';
+const dirname='plugins/Xiuxian-Plugin-Box/resources'
 export default class base {
   constructor(e = {}) {
-    this.e = e;
-    this.userId = e?.user_id;
-    this.model = 'Xiuxian-Plugin-Box';
-    this._path = process.cwd().replace(/\\/g, '/');
-  };
+    this.e = e
+    this.userId = e?.user_id
+    this.model = 'Xiuxian-Plugin-Box'
+    this._path = process.cwd().replace(/\\/g, '/')
+  }
   get prefix() {
-    return `Yz:Xiuxian-Plugin-Box:${this.model}:`;
-  };
+    return `Yz:Xiuxian-Plugin-Box:${this.model}:`
+  }
   get screenData() {
     return {
       //html保存id
@@ -18,6 +18,6 @@ export default class base {
       /** 绝对路径 */
       //插件资源路径
       pluResPath: `${this._path}/${dirname}/`,
-    };
-  };
-};
+    }
+  }
+}
