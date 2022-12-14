@@ -1,0 +1,29 @@
+- {
+    version: 2,
+    data:
+      [
+        Third edition,
+      ],
+    content: 
+      [
+      {line: 支持附加插件以扩展功能},
+      {line: 扩展与框架分离互不影响},
+      {line: 可随意安装组装更新删除},
+      {line: Xiuxian-Plugin-Box/plugins},
+      {line: 支持定义配置参数与帮助文档},
+      {line: Xiuxian-Plugin-Box/config/},
+      {line: 更改云崽私聊以降低账号风险},
+      {line: 更改云崽配置以屏蔽云崽功能},
+      {line: Yunzai-Bot/config/config/},
+      {line: 修改存档可移步此目录进行},
+      {line: resources/data/birth/xiuxian},
+      {line: 自动备份数据移步此目录查看},
+      {line: Yunzai-Bot/XiuxianData},
+      {line: 若修仙社区版本时间变动},
+      {line: 即框架版本不再支持更新},
+      {line: 强行更新，必报错，必重开},
+      {line: 在更新前请对比时间节点},
+      {line: 此机制不影响扩展更新},
+      ],
+    time: 2022-11-24-08:00
+  }
