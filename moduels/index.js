@@ -1,6 +1,7 @@
-import FS from 'node:fs'
-import path from 'path'
 import { appname } from './yunzai/index.js'
+import noderequire from './db/noderequire.js'
+const FS=noderequire.fs()
+const PATH=noderequire.path()
 class index {
   toindex = async (input) => {
     let filepath = `./plugins/${appname}/` + input
@@ -18,7 +19,7 @@ class index {
               let y = file.replace('.js', '')
               name.push(y)
             }
-            var pathname = path.join(dir, file)
+            var pathname = PATH.join(dir, file)
             if (FS.statSync(pathname).isDirectory()) {
               travel(pathname, callback)
             } else {
