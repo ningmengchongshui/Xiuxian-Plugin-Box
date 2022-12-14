@@ -2,7 +2,7 @@ import plugin from '../../../../lib/plugins/plugin.js'
 import { Numbers, Add_lingshi, Read_wealth, search_thing_name, Write_wealth, addKnapsack } from '../../moduels/xiuxian/index.js'
 import { At } from '../../moduels/yunzai/index.js'
 import { yunzaiConfig } from '../../moduels/yunzai/index.js'
-export class adminmoney extends plugin {
+export class admoney extends plugin {
     constructor() {
         super(yunzaiConfig('admin', [
             {

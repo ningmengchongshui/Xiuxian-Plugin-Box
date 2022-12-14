@@ -1,7 +1,7 @@
 import plugin from '../../../../lib/plugins/plugin.js'
 import defSet from '../../moduels/xiuxian/defSet.js'
 import { yunzaiConfig } from '../../moduels/yunzai/index.js'
-export class adminrobot extends plugin {
+export class adrobot extends plugin {
     constructor() {
         super(yunzaiConfig('admin', [
             {
