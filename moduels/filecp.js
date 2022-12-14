@@ -2,7 +2,7 @@ import fs from 'node:fs'
 import { appname } from './yunzai/index.js'
 class filecp {
   constructor() {
-    this.file(['xiuxian', 'task', 'Help',  'Admin'])
+    this.file(['xiuxian', 'Help',  'Admin'])
     this.help()
   }
   Pluginfile = (name,config) => {
@@ -42,7 +42,7 @@ class filecp {
   upfile = () => {
     let cf = []
     const filepath = `./plugins/${appname}/defSet/`
-    const config = ['xiuxian', 'task', 'Help',  'Admin']
+    const config = ['xiuxian', 'Help',  'Admin']
     const readdirectory = (dir) => {
       let files = fs.readdirSync(dir)
       files.forEach(async item => {
