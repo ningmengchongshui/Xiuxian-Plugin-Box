@@ -1,7 +1,7 @@
 import plugin from '../../../../lib/plugins/plugin.js'
 import nodefs from '../../moduels/db/nodefs.js'
 import { existplayer, Read_action, point_map, sortBy, Read_level, Read_battle } from '../../moduels/xiuxian/index.js'
-import { get_toplist_img } from '../../moduels/yunzai/showData.js'
+import { get_toplist_img } from '../../moduels/yunzai/data.js'
 import { yunzaiConfig } from '../../moduels/yunzai/index.js'
 export class toplist extends plugin {
     constructor() {
