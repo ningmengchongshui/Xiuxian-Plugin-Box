@@ -1,5 +1,5 @@
 import fs from 'node:fs'
-import { appname } from './yunzai/index.js'
+import { appname } from '../yunzai/index.js'
 class filecp {
   constructor() {
     this.file(['xiuxian', 'Help',  'Admin'])

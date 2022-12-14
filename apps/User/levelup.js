@@ -1,5 +1,5 @@
 import plugin from '../../../../lib/plugins/plugin.js'
-import config from '../../moduels/config.js'
+import config from '../../moduels/xiuxian/config.js'
 import { yunzaiConfig } from '../../moduels/yunzai/index.js'
 import { GenerateCD, Read_level, Write_level, updata_equipment, Read_Life, Write_Life } from '../../moduels/xiuxian/index.js'
 import { Go } from '../../moduels/yunzai/index.js'

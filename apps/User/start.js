@@ -1,5 +1,5 @@
 import plugin from '../../../../lib/plugins/plugin.js'
-import config from '../../moduels/config.js'
+import config from '../../moduels/xiuxian/config.js'
 import { yunzaiConfig } from '../../moduels/yunzai/index.js'
 import { userstart, GenerateCD, deletelife, offaction, exist } from '../../moduels/xiuxian/index.js'
 import { get_player_img } from '../../moduels/yunzai/showData.js'

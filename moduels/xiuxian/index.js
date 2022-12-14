@@ -1,6 +1,6 @@
 import fs from 'fs'
 import path from 'path'
-import data from './data.js'
+
 /**
  * 随机获得奖励
  * @param {概率} P 

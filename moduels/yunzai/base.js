@@ -1,13 +1,14 @@
-const dirname='plugins/Xiuxian-Plugin-Box/resources'
+import { appname } from './index.js'
+const dirname=`plugins/${appname}/resources`
 export default class base {
   constructor(e = {}) {
     this.e = e
     this.userId = e?.user_id
-    this.model = 'Xiuxian-Plugin-Box'
+    this.model = `${appname}`
     this._path = process.cwd().replace(/\\/g, '/')
   }
   get prefix() {
-    return `Yz:Xiuxian-Plugin-Box:${this.model}:`
+    return `Yz:${appname}:${this.model}:`
   }
   get screenData() {
     return {

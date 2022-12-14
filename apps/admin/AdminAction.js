@@ -1,8 +1,8 @@
 import plugin from '../../../../lib/plugins/plugin.js'
-import filecp from '../../moduels/filecp.js'
+import filecp from '../../moduels/xiuxian/filecp.js'
 import nodefs from '../../moduels/db/nodefs.js'
 import noderequire from '../../moduels/db/noderequire.js'
-import dataup from '../../moduels/dataup.js'
+import dataup from '../../moduels/xiuxian/dataup.js'
 import { appname, yunzaiConfig } from '../../moduels/yunzai/index.js'
 let timer = ''
 export class AdminAction extends plugin {

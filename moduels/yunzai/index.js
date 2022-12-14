@@ -1,6 +1,7 @@
+import nodefs from '../db/nodefs.js'
+import PATH from 'path'
 import { __dirname } from '../db/nodefs.js'
 import { existplayer } from '../xiuxian/index.js'
-import PATH from 'path'
 //插件名字
 export const appname = 'Xiuxian-Plugin-Box'
 //插件优先级
@@ -20,7 +21,6 @@ export const __PATH = {
     'action': PATH.join(__dirname, '/resources/data/birth/xiuxian/action'),
     'battle': PATH.join(__dirname, '/resources/data/birth/xiuxian/battle'),
     'equipment': PATH.join(__dirname, '/resources/data/birth/xiuxian/equipment'),
-    'level': PATH.join(__dirname, '/resources/data/birth/xiuxian/level'),
     'talent': PATH.join(__dirname, '/resources/data/birth/xiuxian/talent'),
     'wealth': PATH.join(__dirname, '/resources/data/birth/xiuxian/wealth'),
     'najie': PATH.join(__dirname, '/resources/data/birth/xiuxian/najie'),
@@ -75,3 +75,35 @@ export const At = async (e) => {
     }
     return B
 }
+//
+
+nodefs.newlist(__PATH['Level'], 'Level_list', [])
+nodefs.newlist(__PATH['Level'], 'Level_list', [
+    ...nodefs.getlist(__PATH['fixedLevel'], 'Level_list.json')
+])
+nodefs.newlist(__PATH['Level'], 'LevelMax_list', [])
+nodefs.newlist(__PATH['Level'], 'LevelMax_list', [
+    ...nodefs.getlist(__PATH['fixedLevel'], 'LevelMax_list.json')
+])
+nodefs.newlist(__PATH['all'], 'all', [])
+nodefs.newlist(__PATH['all'], 'all', [
+    ...nodefs.getlist(__PATH['fixedequipment'], 'json'),
+    ...nodefs.getlist(__PATH['fixedgoods'], 'json')
+])
+nodefs.newlist(__PATH['all'], 'commodities', [])
+nodefs.newlist(__PATH['all'], 'commodities', [
+    ...nodefs.getlist(__PATH['fixedgoods'], '0.json')
+])
+nodefs.newlist(__PATH['all'], 'dropsItem', [])
+nodefs.newlist(__PATH['all'], 'dropsItem', [
+    ...nodefs.getlist(__PATH['fixedequipment'], 'json'),
+    ...nodefs.getlist(__PATH['fixedgoods'], 'json')
+])
+nodefs.newlist(__PATH['position'], 'position', [])
+nodefs.newlist(__PATH['position'], 'position', [
+    ...nodefs.getlist(__PATH['fixedposition'], 'json')
+])
+nodefs.newlist(__PATH['position'], 'point', [])
+nodefs.newlist(__PATH['position'], 'point', [
+    ...nodefs.getlist(__PATH['fixepoint'], 'json')
+])

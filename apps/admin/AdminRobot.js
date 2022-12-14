@@ -1,5 +1,5 @@
 import plugin from '../../../../lib/plugins/plugin.js'
-import defSet from '../../moduels/defSet.js'
+import defSet from '../../moduels/xiuxian/defSet.js'
 import { yunzaiConfig } from '../../moduels/yunzai/index.js'
 export class AdminRobot extends plugin {
     constructor() {

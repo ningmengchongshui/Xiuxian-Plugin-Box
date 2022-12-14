@@ -1,5 +1,5 @@
 import plugin from '../../../../lib/plugins/plugin.js'
-import config from '../../moduels/config.js'
+import config from '../../moduels/xiuxian/config.js'
 import { get_najie_img } from '../../moduels/yunzai/showData.js'
 import { yunzaiConfig } from '../../moduels/yunzai/index.js'
 import { segment } from 'oicq'

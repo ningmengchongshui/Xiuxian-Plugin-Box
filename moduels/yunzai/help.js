@@ -1,14 +1,14 @@
 import base from './base.js'
-import xiuxianCfg from '../config.js'
+import config from '../xiuxian/config.js'
 export default class Help extends base {
   constructor(e) {
     super(e)
     this.model0 = 'help'
     this.model = 'help'
-    this.versionData = xiuxianCfg.getdefSet('version', 'version')
+    this.versionData = config.getdefSet('version', 'version')
   }
   database = async (data1, data2) => {
-    let helpData = xiuxianCfg.getConfig(data1, data2)
+    let helpData = config.getConfig(data1, data2)
     const version = this.versionData[0].version
     return {
       ...this.screenData,

@@ -2,6 +2,7 @@ import fs from 'fs'
 import template from 'art-template'
 import path from 'path'
 import puppeteer from 'puppeteer'
+import { appname } from './index.js'
 class common {
     constructor() {
         //浏览器配置
@@ -50,7 +51,7 @@ class common {
      */
     getTemplatePath = async () => {
         //路径分隔符都使用 /
-        let file_path = path.resolve().replace(/\\/g, '/') + '/plugins/Xiuxian-Plugin-Box/resources/template/'
+        let file_path = path.resolve().replace(/\\/g, '/') + `/plugins/${appname}/resources/template/`
         return file_path
     }
     /**

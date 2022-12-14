@@ -1,6 +1,6 @@
 import fs from 'node:fs'
 import path from 'path'
-import {existplayer,userstart} from './xiuxian/index.js'
+import {existplayer,userstart} from './index.js'
 const __dirname = `${path.resolve()}${path.sep}plugins`
 class dataup {
   constructor() { }

@@ -1,6 +1,6 @@
 import plugin from '../../../../lib/plugins/plugin.js'
 import common from '../../../../lib/common/common.js'
-import config from '../../moduels/config.js'
+import config from '../../moduels/xiuxian/config.js'
 import { yunzaiConfig } from '../../moduels/yunzai/index.js'
 import { segment } from 'oicq'
 import { offaction, Add_experience, Add_blood, existplayer, Read_level, Read_talent, Add_experiencemax } from '../../moduels/xiuxian/index.js'

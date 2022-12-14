@@ -1,19 +1,16 @@
 import fs from 'node:fs'
 import path from 'path'
-import { createRequire } from 'module'
-const require = createRequire(import.meta.url)
+import noderequire from '../db/noderequire.js'
 const __dirname = `${path.resolve()}${path.sep}plugins${path.sep}Xiuxian-Plugin-Box${path.sep}config${path.sep}xiuxian${path.sep}xiuxian.yaml`
 class XiuxianYaml {
   constructor() {
     try {
-      this.YAML = require('yamljs')
+      this.YAML = noderequire.yamlJs()
     } catch { 
-
     }
     try {
-      this.yaml = require('js-yaml')
+      this.yaml = noderequire.jsYaml()
     } catch { 
-      
     }
   }
   config = (name, size) => {

@@ -1,5 +1,5 @@
 import plugin from '../../../../lib/plugins/plugin.js'
-import config from '../../moduels/config.js'
+import config from '../../moduels/xiuxian/config.js'
 import { yunzaiConfig } from '../../moduels/yunzai/index.js'
 import { Write_player, point_map, Read_action, GenerateCD, Read_player, Read_wealth, Write_Life, Read_Life, Add_lingshi } from '../../moduels/xiuxian/index.js'
 import { Go } from '../../moduels/yunzai/index.js'

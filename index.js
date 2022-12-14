@@ -1,4 +1,4 @@
-import Config from './moduels/config.js'
+import Config from './moduels/xiuxian/config.js'
 import index from './moduels/index.js'
 import Schedule from './moduels/xiuxian/schedule.js'
 const version = Config.getdefSet('version', 'version')
