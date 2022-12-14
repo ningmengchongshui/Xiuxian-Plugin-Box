@@ -26,46 +26,46 @@ class nodefs {
      * @param {原数据} sum 
      * @param {新数据} newsum 
      */
-    list = (PATH, name, sum, newsum) => {
-        const dir = path.join(PATH, `${name}.json`)
+    list = (path, name, sum, newsum) => {
+        const dir = PATH.join(path, `${name}.json`)
         const new_ARR = JSON.stringify([...sum, ...newsum], '', '\t')
-        fs.writeFileSync(dir, new_ARR, 'utf8', (err) => { })
+        FS.writeFileSync(dir, new_ARR, 'utf8', (err) => { })
     }
     /**
      * @param {地址} path 
      * @param {表名} name 
      * @param {数据} sum 
      */
-    newlist = (PATH, name, sum) => {
-        const dir = path.join(PATH, `${name}.json`)
+    newlist = (path, name, sum) => {
+        const dir = PATH.join(path, `${name}.json`)
         const new_ARR = JSON.stringify(sum, '', '\t')
-        fs.writeFileSync(dir, new_ARR, 'utf8', (err) => { })
+        FS.writeFileSync(dir, new_ARR, 'utf8', (err) => { })
     }
     /**
      * @param {地址} PATH 
      * @param {检索条件} type 
      */
-    getlist = (PATH, type) => {
+    getlist = (path, type) => {
         const newsum = []
         const data = []
         const travel = (dir, callback) => {
-            fs.readdirSync(dir).forEach((file) => {
-                var pathname = path.join(dir, file)
-                if (fs.statSync(pathname).isDirectory()) {
+            FS.readdirSync(dir).forEach((file) => {
+                var pathname = PATH.join(dir, file)
+                if (FS.statSync(pathname).isDirectory()) {
                     travel(pathname, callback)
                 } else {
                     callback(pathname)
                 }
             })
         }
-        travel(PATH, (pathname) => {
+        travel(path, (pathname) => {
             let temporary = pathname.search(type)
             if (temporary != -1) {
                 newsum.push(pathname)
             }
         })
         newsum.forEach((file) => {
-            data.push(...JSON.parse(fs.readFileSync(file)))
+            data.push(...JSON.parse(FS.readFileSync(file)))
         })
         return data
     }

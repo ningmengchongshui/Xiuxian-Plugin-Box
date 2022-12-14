@@ -22,14 +22,11 @@ export class AdminAction extends plugin {
         if (!e.isMaster) {
             return
         }
-        const command = 'git  pull'
         const sum = await nodefs.returnPathName(`./plugins/${appname}/plugins/`)
         const that = this
-        e.reply(noderequire.childProcessExecUpDate(command, `${appname}`))
-        sum.forEach(async (item) => {
-            if (item != 'xiuxian-plugin') {
-                e.reply(noderequire.childProcessExecUpDate(command, `${appname}/plugins/${item}`))
-            }
+        e.reply(noderequire.childProcessExecUpDate('git  pull', `${appname}`))
+        sum.forEach((item) => {
+            e.reply(noderequire.childProcessExecUpDate('git  pull', `${appname}/plugins/${item}`))
         })
         timer && clearTimeout(timer)
         timer = setTimeout(async () => {
@@ -63,7 +60,7 @@ export class AdminAction extends plugin {
         if (map.hasOwnProperty(name)) {
             e.reply(noderequire.childProcessExecInstall(map[name], name))
         } else {
-            e.reply('该插件不存在')
+            e.reply('扩展名不存在')
         }
         return true
     }

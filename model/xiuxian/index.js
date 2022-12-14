@@ -84,6 +84,26 @@ export const userstart = async (UID) => {
     await Write_Life(life)
     return '创建成功'
 }
+
+export const deletegame=async()=>{
+    await Write_Exchange([])
+    await Write_Forum([])
+    await Write_Life([])
+    await this.deleteredis()
+    return '删除成功'
+}
+
+export const deleteredis=async()=>{
+    const allkey = await redis.keys('xiuxian:*', (err, data) => { })
+    if (allkey) {
+        allkey.forEach(async (item) => {
+            await redis.del(item)
+        })
+        return '删除完成'
+    }else{
+        return '无一花草'
+    }
+}
 export const deletelife = async (UID) => {
     let life = await Read_Life()
     life = await life.filter(item => item.qq != UID)
@@ -655,6 +675,13 @@ export const Add_najie_thing = async (najie, najie_thing, thing_acount) => {
         return najie
     }
 }
+export const addKnapsack=async(UID,searchsthing,quantity)=>{
+    let najie = await Read_najie(UID)
+    najie = await Add_najie_thing(najie, searchsthing, quantity)
+    await Write_najie(UID, najie)
+    return
+}
+
 //发送转发消息
 export const ForwardMsg = async (e, data) => {
     const msgList = []
