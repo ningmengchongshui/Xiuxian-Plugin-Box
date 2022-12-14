@@ -1,48 +1,14 @@
-import FS from 'node:fs'
 import { appname } from '../yunzai/index.js'
+import noderequire from '../db/noderequire.js'
+const FS = noderequire.fs()
 class filecp {
   constructor() {
-    this.file(['xiuxian', 'Help',  'Admin'])
+    this.file(['xiuxian', 'Help', 'Admin'])
     this.help()
   }
-  Pluginfile = (name,config) => {
+  Pluginfile = (name, config) => {
     let cf = []
     const filepath = `./plugins/${appname}/plugins/${name}/defSet/`
-    const readdirectory=(dir)=>{
-      let files = FS.readdirSync(dir)
-      files.forEach(async item => {
-        let filepath1 = `${dir}/${item}` 
-        let stat = FS.statSync(filepath1)
-        if (!stat.isFile()) {
-          let file = filepath1.replace(`${filepath}/`, '')
-          cf.push(file)
-        }
-      })
-    }
-    readdirectory(filepath)
-    const filepath0 = `./plugins/${appname}/config/`
-    for (var j = 0; j < cf.length ;j++) {
-      for (var i = 0 ;i < config.length ;i++) {
-        let x = `${filepath0}${cf[j]}/${config[i]}.yaml`
-        let y = `${filepath}${cf[j]}/${config[i]}.yaml`
-        if (!FS.existsSync(x)) {
-          FS.cp(y, x, (err) => {
-            if (err) { }
-          })
-        }else {
-          FS.rmSync(`${x}`)
-          FS.cp(y, x, (err) => {
-            if (err) { }
-          })
-        }
-      }
-    }
-    return
-  }
-  upfile = () => {
-    let cf = []
-    const filepath = `./plugins/${appname}/defSet/`
-    const config = ['xiuxian', 'Help',  'Admin']
     const readdirectory = (dir) => {
       let files = FS.readdirSync(dir)
       files.forEach(async item => {
@@ -56,8 +22,43 @@ class filecp {
     }
     readdirectory(filepath)
     const filepath0 = `./plugins/${appname}/config/`
-    for (var j = 0 ;j < cf.length ;j++) {
-      for (var i = 0; i < config.length ;i++) {
+    for (var j = 0; j < cf.length; j++) {
+      for (var i = 0; i < config.length; i++) {
+        let x = `${filepath0}${cf[j]}/${config[i]}.yaml`
+        let y = `${filepath}${cf[j]}/${config[i]}.yaml`
+        if (!FS.existsSync(x)) {
+          FS.cp(y, x, (err) => {
+            if (err) { }
+          })
+        } else {
+          FS.rmSync(`${x}`)
+          FS.cp(y, x, (err) => {
+            if (err) { }
+          })
+        }
+      }
+    }
+    return
+  }
+  upfile = () => {
+    let cf = []
+    const filepath = `./plugins/${appname}/defSet/`
+    const config = ['xiuxian', 'Help', 'Admin']
+    const readdirectory = (dir) => {
+      let files = FS.readdirSync(dir)
+      files.forEach(async item => {
+        let filepath1 = `${dir}/${item}`
+        let stat = FS.statSync(filepath1)
+        if (!stat.isFile()) {
+          let file = filepath1.replace(`${filepath}/`, '')
+          cf.push(file)
+        }
+      })
+    }
+    readdirectory(filepath)
+    const filepath0 = `./plugins/${appname}/config/`
+    for (var j = 0; j < cf.length; j++) {
+      for (var i = 0; i < config.length; i++) {
         let x = `${filepath0}${cf[j]}/${config[i]}.yaml`
         let y = `${filepath}${cf[j]}/${config[i]}.yaml`
         if (FS.existsSync(y)) {
@@ -72,7 +73,7 @@ class filecp {
   file = (config) => {
     let cf = []
     const filepath = `./plugins/${appname}/defSet/`
-    const readdirectory=(dir)=>{
+    const readdirectory = (dir) => {
       let files = FS.readdirSync(dir)
       files.forEach(async item => {
         let filepath1 = `${dir}/${item}`
@@ -85,8 +86,8 @@ class filecp {
     }
     readdirectory(filepath)
     const filepath0 = `./plugins/${appname}/config/`
-    for (var j = 0 ;j < cf.length; j++) {
-      for (var i = 0 ;i < config.length ;i++) {
+    for (var j = 0; j < cf.length; j++) {
+      for (var i = 0; i < config.length; i++) {
         let x = `${filepath0}${cf[j]}/${config[i]}.yaml`
         let y = `${filepath}${cf[j]}/${config[i]}.yaml`
         if (!FS.existsSync(x)) {

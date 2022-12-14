@@ -1,17 +1,17 @@
-import FS from 'node:fs'
-import path from 'path'
 import noderequire from '../db/noderequire.js'
+const FS = noderequire.fs()
+const path = noderequire.path()
 const __dirname = `${path.resolve()}${path.sep}plugins${path.sep}Xiuxian-Plugin-Box${path.sep}config${path.sep}xiuxian${path.sep}xiuxian.yaml`
 class XiuxianYaml {
   constructor() {
     try {
       this.YAML = noderequire.yamlJs()
-    } catch { 
+    } catch {
     }
     try {
       this.yaml = noderequire.jsYaml()
-    } catch { 
-    } 
+    } catch {
+    }
   }
   config = (name, size) => {
     const map = {

@@ -1,12 +1,13 @@
-import FS from 'fs'
-import path from 'path'
-
+import { __PATH } from '../yunzai/index.jx'
+import noderequire from '../db/noderequire.js'
+const FS = noderequire.fs()
+const PATH = noderequire.path()
 /**
  * 随机获得奖励
  * @param {概率} P 
  * @returns 
  */
-export const randomReward=async(P)=>{
+export const randomReward = async (P) => {
     return
 }
 
@@ -165,8 +166,8 @@ export const deletelife = async (UID) => {
 /**
  * 读取数据
  */
-const Read = async (UID, PATH) => {
-    const dir = path.join(`${PATH}/${UID}.json`)
+const Read = async (UID, path) => {
+    const dir = PATH.join(`${path}/${UID}.json`)
     const the = {
         player: ''
     }
@@ -180,8 +181,8 @@ const Read = async (UID, PATH) => {
     return the.player
 }
 //写入数据
-const Write = async (UID, player, PATH) => {
-    const dir = path.join(PATH, `${UID}.json`)
+const Write = async (UID, player, path) => {
+    const dir = PATH.join(path, `${UID}.json`)
     const new_ARR = JSON.stringify(player, '', '\t')
     FS.writeFileSync(dir, new_ARR, 'utf8', (err) => {
     })
@@ -790,7 +791,7 @@ const CDname = {
 /**
  * 冷却检测
  */
-export const GenerateCD = async (UID, CDid,CDTime) => {
+export const GenerateCD = async (UID, CDid, CDTime) => {
     const now_time = new Date().getTime()
     const remainTime = await redis.ttl(`xiuxian:player:${UID}:${CDid}`)
     const time = {
@@ -844,7 +845,7 @@ export const Write_Forum = async (wupin) => {
 }
 //读取
 export const Read_Forum = async () => {
-    const dir = path.join(`${__PATH.Forum}/Forum.json`)
+    const dir = PATH.join(`${__PATH.Forum}/Forum.json`)
     let Forum = await newRead(dir)
     if (Forum == 1) {
         await Write_Forum([])
@@ -860,7 +861,7 @@ export const Write_Exchange = async (wupin) => {
 }
 //读交易表
 export const Read_Exchange = async () => {
-    const dir = path.join(`${__PATH.Exchange}/Exchange.json`)
+    const dir = PATH.join(`${__PATH.Exchange}/Exchange.json`)
     let Exchange = await newRead(dir)
     if (Exchange == 1) {
         await Write_Exchange([])
@@ -894,7 +895,7 @@ export const Write_Life = async (wupin) => {
 }
 //读寿命表
 export const Read_Life = async () => {
-    const dir = path.join(`${__PATH.life}/life.json`)
+    const dir = PATH.join(`${__PATH.life}/life.json`)
     let Life = await newRead(dir)
     if (Life == 1) {
         await Write_Life([])

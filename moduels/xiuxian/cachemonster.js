@@ -4,7 +4,7 @@ const name1 = ['蜥', '狮', '鹏', '雕', '雀', '豹', '虎', '龟', '猫', '�
 const name2 = ['兵', '将', '兽', '魔', '妖', '大妖', '王', '皇', '帝', '神']
 class Cachemonster {
     monsterscache = async (i) => {
-        while (true) { 
+        while (true) {
             if (alldata.length <= i) {
                 alldata.push({
                     label: 24,

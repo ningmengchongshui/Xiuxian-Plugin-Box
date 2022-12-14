@@ -1,9 +1,9 @@
-import FS from 'node:fs'
-import path from 'path'
 import { __dirname } from '../db/nodefs.js'
 import { offaction, Read_Life, Write_Life } from './index.js'
 import noderequire from '../db/noderequire.js'
+const FS = noderequire.fs()
 const schedule = noderequire.nodeSchedule()
+const path = noderequire.path()
 class Schedule {
     scheduleJobflie = (time) => {
         schedule.scheduleJob(time, () => {
@@ -13,7 +13,7 @@ class Schedule {
             const D = myDate.getDate()
             const h = myDate.getHours()
             const m = myDate.getMinutes()
-            const s = myDate.getSeconds() 
+            const s = myDate.getSeconds()
             const PATH = `${__dirname}${path.sep}resources${path.sep}data${path.sep}birth${path.sep}xiuxian`
             const NEW_PATH = `${path.resolve()}${path.sep}plugins${path.sep}XiuxianData${path.sep}${Y}${M}${D}${h}${m}${s}`
             FS.cp(PATH, NEW_PATH, { recursive: true }, (err) => {

@@ -3,7 +3,7 @@ import noderequire from "../db/noderequire.js"
 import { appname } from '../yunzai/index.js'
 const FS = noderequire.fs()
 const chokidar = noderequire.chokidar()
-const YAML=noderequire.yaml()
+const YAML = noderequire.yaml()
 class Config {
     constructor() {
         this.defSetPath = `./plugins/${appname}/defSet/`
