@@ -1,8 +1,9 @@
-import YAML from 'yaml'
-import FS from 'node:fs'
-import chokidar from 'chokidar'
 import lodash from 'lodash'
-import { appname } from './yunzai/index.js'
+import noderequire from "../db/noderequire.js"
+import { appname } from '../yunzai/index.js'
+const FS = noderequire.fs()
+const chokidar = noderequire.chokidar()
+const YAML=noderequire.yaml()
 class Config {
     constructor() {
         this.defSetPath = `./plugins/${appname}/defSet/`

@@ -1,7 +1,7 @@
 import plugin from '../../../../lib/plugins/plugin.js'
 import filecp from '../../moduels/xiuxian/filecp.js'
 import nodefs from '../../moduels/db/nodefs.js'
-import noderequire from '../../moduels/db/noderequire.js'
+import childprocess from '../../moduels/db/childprocess.js'
 import dataup from '../../moduels/xiuxian/dataup.js'
 import { appname, yunzaiConfig } from '../../moduels/yunzai/index.js'
 let timer = ''
@@ -33,9 +33,9 @@ export class AdminAction extends plugin {
         }
         const sum = await nodefs.returnPathName(`./plugins/${appname}/plugins/`)
         const that = this
-        e.reply(noderequire.childProcessExecUpDate('git  pull', `${appname}`))
+        e.reply(childprocess.ExecUpDate('git  pull', `${appname}`))
         sum.forEach((item) => {
-            e.reply(noderequire.childProcessExecUpDate('git  pull', `${appname}/plugins/${item}`))
+            e.reply(childprocess.ExecUpDate('git  pull', `${appname}/plugins/${item}`))
         })
         timer && clearTimeout(timer)
         timer = setTimeout(async () => {
@@ -46,7 +46,7 @@ export class AdminAction extends plugin {
                 if (process.argv[1].includes('pm2')) {
                     cmd = 'npm run restart'
                 }
-                e.reply(noderequire.childProcessExecRestart(cmd, that.key))
+                e.reply(childprocess.ExecRestart(cmd, that.key))
                 filecp.upfile()
             }
             catch (error) {
@@ -67,7 +67,7 @@ export class AdminAction extends plugin {
             '黑市': 'git clone  https://gitee.com/waterfeet/xiuxian-yihongyuan-plugin.git ./plugins/Xiuxian-Plugin-Box/plugins/xiuxian-yihongyuan-plugin/',
         }
         if (map.hasOwnProperty(name)) {
-            e.reply(noderequire.childProcessExecInstall(map[name], name))
+            e.reply(childprocess.ExecInstall(map[name], name))
         } else {
             e.reply('扩展名不存在')
         }

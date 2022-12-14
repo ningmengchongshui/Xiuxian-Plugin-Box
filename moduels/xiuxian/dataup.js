@@ -1,6 +1,7 @@
-import FS from 'node:fs'
+import noderequire from "../db/noderequire.js"
 import path from 'path'
 import {existplayer,userstart} from './index.js'
+const FS = noderequire.fs()
 const __dirname = `${path.resolve()}${path.sep}plugins`
 class dataup {
   constructor() { }

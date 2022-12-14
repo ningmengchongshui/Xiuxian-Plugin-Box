@@ -1,17 +1,18 @@
-import FS from 'fs'
-import template from 'art-template'
-import path from 'path'
-import puppeteer from 'puppeteer'
+import noderequire from "../db/noderequire.js"
+const PATH = noderequire.path()
+const template = noderequire.artTemplate()
+const FS = noderequire.fs()
+const puppeteer = noderequire.puppeteer()
 import { appname } from '../yunzai/index.js'
 class common {
     constructor() {
         //浏览器配置
         this.config = {
-            headless: true, 
+            headless: true,
             args: [
                 '--disable-gpu',
                 '--disable-dev-shm-usage',
-                '--disable-setuid-sandbox', 
+                '--disable-setuid-sandbox',
                 '--no-first-run',
                 '--no-sandbox',
                 '--no-zygote',
@@ -51,7 +52,7 @@ class common {
      */
     getTemplatePath = async () => {
         //路径分隔符都使用 /
-        let file_path = path.resolve().replace(/\\/g, '/') + `/plugins/${appname}/resources/template/`
+        let file_path = PATH.resolve().replace(/\\/g, '/') + `/plugins/${appname}/resources/template/`
         return file_path
     }
     /**

@@ -1,6 +1,6 @@
-
-import FS from 'node:fs'
-import PATH from 'path'
+import noderequire from "./noderequire.js"
+const PATH = noderequire.path()
+const FS = noderequire.fs()
 export const __dirname = `${PATH.resolve()}`
 class nodefs {
     /**
@@ -20,11 +20,16 @@ class nodefs {
         })
         return sum
     }
-
-    returnjson=async()=>{
+    /**
+     * 
+     * @param {地址} path 
+     * @returns 子目录名
+     */
+    //得到该目录下所有json文件的文件名
+    jsonName=async(path)=>{
         const playerList = []
         const files = FS
-            .readdirSync('')  //tudo
+            .readdirSync(path)  //tudo
             .filter((file) => file.endsWith('.json'))
         files.forEach((item) => {
             const file = item.replace('.json', '')
