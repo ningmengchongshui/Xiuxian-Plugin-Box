@@ -8,6 +8,7 @@ export const appname = 'Xiuxian-Plugin-Box'
 //插件优先级
 export const NEW__dirname = `${__dirname}/plugins/${appname}` 
 export const __PATH = {
+    //基础
     'fixepoint': PATH.join(NEW__dirname, '/resources/data/fixed/point'),
     'fixedposition': PATH.join(NEW__dirname, '/resources/data/fixed/position'),
     'fixedequipment': PATH.join(NEW__dirname, '/resources/data/fixed/equipment'),
@@ -15,19 +16,22 @@ export const __PATH = {
     'fixedLevel': PATH.join(NEW__dirname, '/resources/data/fixed/Level'),
     'fixedoccupation': PATH.join(NEW__dirname, '/resources/data/fixed/occupation'),
     'fixedtalent': PATH.join(NEW__dirname, '/resources/data/fixed/talent'),
+    //生成
     'all': PATH.join(NEW__dirname, '/resources/data/birth/all'),
     'position': PATH.join(NEW__dirname, '/resources/data/birth/position'),
     'Level': PATH.join(NEW__dirname, '/resources/data/birth/Level'),
-    'player': PATH.join(__dirname, '/resources/data/birth/xiuxian/player'),
-    'action': PATH.join(__dirname, '/resources/data/birth/xiuxian/action'),
-    'battle': PATH.join(__dirname, '/resources/data/birth/xiuxian/battle'),
-    'equipment': PATH.join(__dirname, '/resources/data/birth/xiuxian/equipment'),
-    'talent': PATH.join(__dirname, '/resources/data/birth/xiuxian/talent'),
-    'wealth': PATH.join(__dirname, '/resources/data/birth/xiuxian/wealth'),
-    'najie': PATH.join(__dirname, '/resources/data/birth/xiuxian/najie'),
-    'Exchange': PATH.join(__dirname, '/resources/data/birth/Exchange'),
-    'Forum': PATH.join(__dirname, '/resources/data/birth/Forum'),
-    'life': PATH.join(__dirname, '/resources/data/birth/xiuxian/life')
+    //玩家
+    'player': PATH.join(NEW__dirname, '/resources/data/birth/xiuxian/player'),
+    'action': PATH.join(NEW__dirname, '/resources/data/birth/xiuxian/action'),
+    'battle': PATH.join(NEW__dirname, '/resources/data/birth/xiuxian/battle'),
+    'equipment': PATH.join(NEW__dirname, '/resources/data/birth/xiuxian/equipment'),
+    'talent': PATH.join(NEW__dirname, '/resources/data/birth/xiuxian/talent'),
+    'wealth': PATH.join(NEW__dirname, '/resources/data/birth/xiuxian/wealth'),
+    'najie': PATH.join(NEW__dirname, '/resources/data/birth/xiuxian/najie'),
+    'Exchange': PATH.join(NEW__dirname, '/resources/data/birth/exchange'),
+    'Forum': PATH.join(NEW__dirname, '/resources/data/birth/forum'),
+    //寿命
+    'life': PATH.join(NEW__dirname, '/resources/data/birth/xiuxian/life')
 }
 export const yunzaiConfig = (name, rule) => {
     return { name: name, dsc: name, event: 'message', priority: 400, rule: rule }
@@ -78,13 +82,13 @@ export const At = async (e) => {
 }
 //
 
-nodefs.newlist(__PATH['Level'], 'Level_list', [])
-nodefs.newlist(__PATH['Level'], 'Level_list', [
-    ...nodefs.getlist(__PATH['fixedLevel'], 'Level_list.json')
+nodefs.newlist(__PATH['Level'], 'levellist0', [])
+nodefs.newlist(__PATH['Level'], 'levellist0', [
+    ...nodefs.getlist(__PATH['fixedLevel'], 'levellist0.json')
 ])
-nodefs.newlist(__PATH['Level'], 'LevelMax_list', [])
-nodefs.newlist(__PATH['Level'], 'LevelMax_list', [
-    ...nodefs.getlist(__PATH['fixedLevel'], 'LevelMax_list.json')
+nodefs.newlist(__PATH['Level'], 'levellist1', [])
+nodefs.newlist(__PATH['Level'], 'levellist1', [
+    ...nodefs.getlist(__PATH['fixedLevel'], 'levellist1.json')
 ])
 nodefs.newlist(__PATH['all'], 'all', [])
 nodefs.newlist(__PATH['all'], 'all', [

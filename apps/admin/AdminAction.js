@@ -5,7 +5,7 @@ import childprocess from '../../moduels/db/childprocess.js'
 import dataup from '../../moduels/xiuxian/dataup.js'
 import { appname, yunzaiConfig } from '../../moduels/yunzai/index.js'
 let timer = ''
-export class AdminAction extends plugin {
+export class adminaction extends plugin {
     constructor() {
         super(yunzaiConfig('admin', [
             {

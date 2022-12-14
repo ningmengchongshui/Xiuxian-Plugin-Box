@@ -1,5 +1,4 @@
 import base from './base.js'
-//yunzai
 export default class Version extends base {
   constructor(e) {
     super(e)

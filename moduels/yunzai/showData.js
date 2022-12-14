@@ -1,5 +1,4 @@
 import puppeteer from '../../../../lib/puppeteer/puppeteer.js'
-//yunzai
 import Show from './show.js'
 import config from '../xiuxian/config.js'
 import { talentname, Read_battle, Read_player, Read_wealth, Read_talent, Read_equipment, Read_level, Read_najie, Read_Life, existplayer } from '../xiuxian/index.js'
@@ -101,7 +100,7 @@ export const get_player_img = async (e) => {
         talent: talent,
         talentsize: size
     }
-    const data1 = await new Show(e).get_Data('User/player', 'player', myData)
+    const data1 = await new Show(e).get_Data('user/player', 'player', myData)
     const img = await puppeteer.screenshot('player', {
         ...data1,
     })
@@ -123,7 +122,7 @@ export const get_equipment_img = async (e) => {
         life: life,
         equipment: equipment
     }
-    const data1 = await new Show(e).get_Data('User/equipment', 'equipment', myData)
+    const data1 = await new Show(e).get_Data('user/equipment', 'equipment', myData)
     const img = await puppeteer.screenshot('equipment', {
         ...data1,
     })
@@ -164,7 +163,7 @@ export const get_najie_img = async (e) => {
         daoju_list: daoju_list,
         danyao_list: danyao_list
     }
-    const data1 = await new Show(e).get_Data('User/najie', 'najie', myData)
+    const data1 = await new Show(e).get_Data('user/najie', 'najie', myData)
     const img = await puppeteer.screenshot('najie', {
         ...data1,
     })

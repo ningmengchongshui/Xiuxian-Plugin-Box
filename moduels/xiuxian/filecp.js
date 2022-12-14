@@ -3,7 +3,7 @@ import noderequire from '../db/noderequire.js'
 const FS = noderequire.fs()
 class filecp {
   constructor() {
-    this.file(['xiuxian', 'Help', 'Admin'])
+    this.file(['xiuxian', 'help', 'admin'])
     this.help()
   }
   Pluginfile = (name, config) => {
@@ -43,7 +43,7 @@ class filecp {
   upfile = () => {
     let cf = []
     const filepath = `./plugins/${appname}/defSet/`
-    const config = ['xiuxian', 'Help', 'Admin']
+    const config = ['xiuxian', 'help', 'admin']
     const readdirectory = (dir) => {
       let files = FS.readdirSync(dir)
       files.forEach(async item => {

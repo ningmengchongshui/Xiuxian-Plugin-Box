@@ -1,8 +1,8 @@
 import plugin from '../../../../lib/plugins/plugin.js'
-import XiuxianYaml from '../../moduels/xiuxian/Yaml.js'
+import XiuxianYaml from '../../moduels/xiuxian/yaml.js'
 import { deletegame, deleteredis } from '../../moduels/xiuxian/index.js'
 import { yunzaiConfig } from '../../moduels/yunzai/index.js'
-export class AdminYaml extends plugin {
+export class adminyaml extends plugin {
     constructor() {
         super(yunzaiConfig('admin', [
             {
