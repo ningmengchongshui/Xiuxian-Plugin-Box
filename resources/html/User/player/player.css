@@ -1,9 +1,4 @@
-@font-face {
-  font-family:"xiuxian";
-  src: url('../../../font/_GBK.TTF');
-  font-weight: normal;
-  font-style: normal;
-}
+
 
 body {
   width: 100%;
@@ -11,7 +6,6 @@ body {
   text-align: center;
   background-image: url('player.jpg');
   background-size: 100% auto;
-  font-family: xiuxain;
 }
 .user_top {
   display:grid;
