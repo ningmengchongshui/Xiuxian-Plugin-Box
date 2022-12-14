@@ -2,25 +2,20 @@ import plugin from '../../../../lib/plugins/plugin.js'
 import data from '../../model/XiuxianData.js'
 import config from '../../model/Config.js'
 import fs from 'node:fs'
-import { Go, GenerateCD, __PATH, Read_level, Write_level, updata_equipment, Read_Life, Write_Life } from '../../model/Xiuxian.js'
+import { yunzaiConfig } from '../../model/yunzai/index.js'
+import { Go, GenerateCD, __PATH, Read_level, Write_level, updata_equipment, Read_Life, Write_Life } from '../../model/xiuxian/index.js'
 export class levelup extends plugin {
     constructor() {
-        super({
-            name: 'levelup',
-            dsc: 'levelup',
-            event: 'message',
-            priority: 600,
-            rule: [
-                {
-                    reg: '^#突破$',
-                    fnc: 'Level_up'
-                },
-                {
-                    reg: '^#破体$',
-                    fnc: 'LevelMax_up'
-                }
-            ]
-        })
+        super(yunzaiConfig('',[
+            {
+                reg: '^#突破$',
+                fnc: 'Level_up'
+            },
+            {
+                reg: '^#破体$',
+                fnc: 'LevelMax_up'
+            }
+        ]))
         this.xiuxianConfigData = config.getConfig('xiuxian', 'xiuxian')
     }
     LevelMax_up = async (e) => {

@@ -1,24 +1,19 @@
 import plugin from '../../../../lib/plugins/plugin.js'
 import config from '../../model/Config.js'
-import { Go, Read_action, point_map, existplayer, GenerateCD, __PATH, At, battle, Read_equipment, Anyarray, Write_equipment, Read_najie, Add_najie_thing, Write_najie, Read_level, Write_level, Read_wealth, Write_wealth } from '../../model/Xiuxian.js'
+import { Go, Read_action, point_map, existplayer, GenerateCD, __PATH, At, battle, Read_equipment, Anyarray, Write_equipment, Read_najie, Add_najie_thing, Write_najie, Read_level, Write_level, Read_wealth, Write_wealth } from '../../model/xiuxian/index.js'
+import { yunzaiConfig } from '../../model/yunzai/index.js'
 export class allbattle extends plugin {
     constructor() {
-        super({
-            name: 'allbattle',
-            dsc: 'allbattle',
-            event: 'message',
-            priority: 600,
-            rule: [
-                {
-                    reg: '^#攻击.*$',
-                    fnc: 'Attack'
-                },
-                {
-                    reg: '^#洗手$',
-                    fnc: 'HandWashing'
-                }
-            ]
-        })
+        super(yunzaiConfig('allbattle', [
+            {
+                reg: '^#攻击.*$',
+                fnc: 'Attack'
+            },
+            {
+                reg: '^#洗手$',
+                fnc: 'HandWashing'
+            }
+        ]))
         this.xiuxianConfigData = config.getConfig('xiuxian', 'xiuxian')
     }
     Attack = async (e) => {
@@ -85,12 +80,6 @@ export class allbattle extends plugin {
         await redis.expire(`xiuxian:player:${user.A}:${CDid}`, CDTime * 60)
         return
     }
-
-
-    /**
-     * 此功能需要回  天机门
-     */
-
     HandWashing = async (e) => {
         if (!e.isGroup) {
             return

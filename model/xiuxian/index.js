@@ -1,22 +1,6 @@
 import fs from 'fs'
 import path from 'path'
-import data from './XiuxianData.js'
-//插件地址
-export const __dirname = `${path.resolve()}${path.sep}plugins${path.sep}Xiuxian-Plugin-Box`
-//插件地址链
-export const __PATH = {
-    player: path.join(__dirname, '/resources/data/birth/xiuxian/player'),
-    action: path.join(__dirname, '/resources/data/birth/xiuxian/action'),
-    battle: path.join(__dirname, '/resources/data/birth/xiuxian/battle'),
-    equipment: path.join(__dirname, '/resources/data/birth/xiuxian/equipment'),
-    level: path.join(__dirname, '/resources/data/birth/xiuxian/level'),
-    talent: path.join(__dirname, '/resources/data/birth/xiuxian/talent'),
-    wealth: path.join(__dirname, '/resources/data/birth/xiuxian/wealth'),
-    najie: path.join(__dirname, '/resources/data/birth/xiuxian/najie'),
-    Exchange: path.join(__dirname, '/resources/data/birth/Exchange'),
-    Forum: path.join(__dirname, '/resources/data/birth/Forum'),
-    life: path.join(__dirname, '/resources/data/birth/xiuxian/life')
-}
+import data from '../XiuxianData.js'
 /**
  * 读取数据
  */

@@ -1,33 +1,28 @@
 import plugin from '../../../../lib/plugins/plugin.js'
 import config from '../../model/Config.js'
+import { yunzaiConfig } from '../../model/yunzai/index.js'
 import { get_player_img } from '../../model/showData.js'
-import { existplayer, exist_najie_thing_name, Read_najie, Add_experiencemax, Write_najie, Numbers, Add_najie_thing, Add_blood, Add_experience, get_talent, Write_talent, player_efficiency, Read_talent, Read_level } from '../../model/Xiuxian.js'
+import { existplayer, exist_najie_thing_name, Read_najie, Add_experiencemax, Write_najie, Numbers, Add_najie_thing, Add_blood, Add_experience, get_talent, Write_talent, player_efficiency, Read_talent, Read_level } from '../../model/xiuxian/index.js'
 export class home extends plugin {
     constructor() {
-        super({
-            name: 'home',
-            dsc: 'home',
-            event: 'message',
-            priority: 600,
-            rule: [
-                {
-                    reg: '^#服用.*$',
-                    fnc: 'consumption_danyao'
-                },
-                {
-                    reg: '^#学习.*$',
-                    fnc: 'add_gongfa'
-                },
-                {
-                    reg: '^#忘掉.*$',
-                    fnc: 'delete_gongfa'
-                },
-                {
-                    reg: '^#消耗.*$',
-                    fnc: 'consumption_daoju'
-                }
-            ]
-        })
+        super(yunzaiConfig('',[
+            {
+                reg: '^#服用.*$',
+                fnc: 'consumption_danyao'
+            },
+            {
+                reg: '^#学习.*$',
+                fnc: 'add_gongfa'
+            },
+            {
+                reg: '^#忘掉.*$',
+                fnc: 'delete_gongfa'
+            },
+            {
+                reg: '^#消耗.*$',
+                fnc: 'consumption_daoju'
+            }
+        ]))
         this.xiuxianConfigData = config.getConfig('xiuxian', 'xiuxian')
     }
     consumption_danyao = async (e) => {

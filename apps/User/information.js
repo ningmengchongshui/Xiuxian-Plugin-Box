@@ -1,28 +1,23 @@
 import plugin from '../../../../lib/plugins/plugin.js'
 import { get_equipment_img, get_player_img } from '../../model/showData.js'
-import { existplayer } from '../../model/Xiuxian.js'
+import { yunzaiConfig } from '../../model/yunzai/index.js'
+import { existplayer } from '../../model/xiuxian/index.js'
 export class information extends plugin {
     constructor() {
-        super({
-            name: 'information',
-            dsc: 'information',
-            event: 'message',
-            priority: 600,
-            rule: [
-                {
-                    reg: '^#基础信息$',
-                    fnc: 'Show_player'
-                },
-                {
-                    reg: '^#面板信息$',
-                    fnc: 'show_equipment',
-                },
-                {
-                    reg: '^#功法信息$',
-                    fnc: 'show_gongfa',
-                }
-            ]
-        })
+        super(yunzaiConfig('',[
+            {
+                reg: '^#基础信息$',
+                fnc: 'Show_player'
+            },
+            {
+                reg: '^#面板信息$',
+                fnc: 'show_equipment',
+            },
+            {
+                reg: '^#功法信息$',
+                fnc: 'show_gongfa',
+            }
+        ]))
     }
     Show_player = async (e) => {
         const usr_qq = e.user_id

@@ -1,24 +1,19 @@
 import plugin from '../../../../lib/plugins/plugin.js'
 import config from '../../model/Config.js'
-import { Add_lingshi, existplayer,point_map,Read_action, Read_najie, Write_najie } from '../../model/Xiuxian.js'
+import { yunzaiConfig } from '../../model/yunzai/index.js'
+import { Add_lingshi, existplayer,point_map,Read_action, Read_najie, Write_najie } from '../../model/xiuxian/index.js'
 export class onekey extends plugin {
     constructor() {
-        super({
-            name: 'onekey',
-            dsc: 'onekey',
-            event: 'message',
-            priority: 600,
-            rule: [
-                {
-                    reg: '^#一键出售所有$',
-                    fnc: 'OneKey_all'
-                },
-                {
-                    reg: '^#一键出售.*$',
-                    fnc: 'OneKey_key'
-                }
-            ]
-        })
+        super(yunzaiConfig('',[
+            {
+                reg: '^#一键出售所有$',
+                fnc: 'OneKey_all'
+            },
+            {
+                reg: '^#一键出售.*$',
+                fnc: 'OneKey_key'
+            }
+        ]))
         this.xiuxianConfigData = config.getConfig('xiuxian', 'xiuxian')
     }
     OneKey_all = async (e) => {

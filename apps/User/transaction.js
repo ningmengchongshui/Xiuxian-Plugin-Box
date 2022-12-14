@@ -1,7 +1,7 @@
 import plugin from '../../../../lib/plugins/plugin.js'
 import data from '../../model/XiuxianData.js'
 import fs from 'node:fs'
-import { Numbers, Read_wealth, Add_lingshi, point_map, exist_najie_thing_name, Add_najie_thing, existplayer, ForwardMsg, __PATH, Read_najie, Write_najie, Read_action } from '../../model/Xiuxian.js'
+import { Numbers, Read_wealth, Add_lingshi, point_map, exist_najie_thing_name, Add_najie_thing, existplayer, ForwardMsg, __PATH, Read_najie, Write_najie, Read_action } from '../../model/xiuxian/index.js'
 export class transaction extends plugin {
     constructor() {
         super({

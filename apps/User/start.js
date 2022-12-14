@@ -2,30 +2,25 @@ import plugin from '../../../../lib/plugins/plugin.js'
 import data from '../../model/XiuxianData.js'
 import config from '../../model/Config.js'
 import fs from 'fs'
+import { yunzaiConfig } from '../../model/yunzai/index.js'
 import { segment } from 'oicq'
-import { __PATH, Write_player, GenerateCD, get_talent, Write_najie, Write_talent, Write_battle, Write_level, Write_wealth, player_efficiency, Write_action, Write_equipment, Write_Life, Read_Life, offaction, Anyarray, exist } from '../../model/Xiuxian.js'
+import { __PATH, Write_player, GenerateCD, get_talent, Write_najie, Write_talent, Write_battle, Write_level, Write_wealth, player_efficiency, Write_action, Write_equipment, Write_Life, Read_Life, offaction, Anyarray, exist } from '../../model/xiuxian/index.js'
 import { get_player_img } from '../../model/showData.js'
 export class start extends plugin {
     constructor() {
-        super({
-            name: 'start',
-            dsc: 'start',
-            event: 'message',
-            priority: 600,
-            rule: [
-                {
-                    reg: '^#降临世界$',
-                    fnc: 'Create_player'
-                },
-                {
-                    reg: '^#再入仙途$',
-                    fnc: 'reCreate_player'
-                }
-            ]
-        })
+        super(yunzaiConfig('', [
+            {
+                reg: '^#降临世界$',
+                fnc: 'Create_player'
+            },
+            {
+                reg: '^#再入仙途$',
+                fnc: 'reCreate_player'
+            }
+        ]))
         this.xiuxianConfigData = config.getConfig('xiuxian', 'xiuxian')
     }
-    
+
     Create_player = async (e) => {
         const group = this.xiuxianConfigData.group.white
         if (group != 0) {
@@ -40,9 +35,9 @@ export class start extends plugin {
         const ifexistplay = await exist(usr_qq)
         if (!ifexistplay) {
             const img = await get_player_img(e)
-            if(img==undefined){
+            if (img == undefined) {
                 e.reply('已死亡，需要#再入仙途')
-            }else{
+            } else {
                 e.reply(img)
             }
             return

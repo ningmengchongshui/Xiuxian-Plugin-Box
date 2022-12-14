@@ -1,27 +1,22 @@
 import plugin from '../../../../lib/plugins/plugin.js'
-import { __PATH, At, Numbers, Add_lingshi, Read_wealth, search_thing_name, Read_najie, Add_najie_thing, Write_najie, Write_wealth } from '../../model/Xiuxian.js'
+import { __PATH, At, Numbers, Add_lingshi, Read_wealth, search_thing_name, Read_najie, Add_najie_thing, Write_najie, Write_wealth } from '../../model/xiuxian/index.js'
+import { yunzaiConfig } from '../../model/yunzai/index.js'
 export class AdminMoney extends plugin {
     constructor() {
-        super({
-            name: 'AdminMoney',
-            dsc: 'AdminMoney',
-            event: 'message',
-            priority: 400,
-            rule: [
-                {
-                    reg: '^#修仙扣除.*$',
-                    fnc: 'Deduction'
-                },
-                {
-                    reg: '^#修仙补偿.*$',
-                    fnc: 'Fuli'
-                },
-                {
-                    reg: '^#修仙馈赠.*$',
-                    fnc: 'gifts'
-                }
-            ],
-        })
+        super(yunzaiConfig('admin', [
+            {
+                reg: '^#修仙扣除.*$',
+                fnc: 'Deduction'
+            },
+            {
+                reg: '^#修仙补偿.*$',
+                fnc: 'Fuli'
+            },
+            {
+                reg: '^#修仙馈赠.*$',
+                fnc: 'gifts'
+            }
+        ]))
     }
     gifts = async (e) => {
         if (!e.isMaster) {
@@ -31,15 +26,13 @@ export class AdminMoney extends plugin {
         if (B == 0) {
             return
         }
-        const thing_name = e.msg.replace('#修仙馈赠', '')
-        const code = thing_name.split('\*')
-        const [name,acount] = code
+        const [name, acount] = e.msg.replace('#修仙馈赠', '').split('\*')
         const searchsthing = await search_thing_name(name)
         if (searchsthing == 1) {
             e.reply(`世界没有${name}`)
             return
         }
-        const quantity=await Numbers(acount)
+        const quantity = await Numbers(acount)
         let najie = await Read_najie(B)
         najie = await Add_najie_thing(najie, searchsthing, quantity)
         await Write_najie(B, najie)
@@ -54,8 +47,7 @@ export class AdminMoney extends plugin {
         if (B == 0) {
             return
         }
-        let lingshi = e.msg.replace('#修仙扣除', '')
-        lingshi = await Numbers(lingshi)
+        const lingshi = await Numbers(e.msg.replace('#修仙扣除', ''))
         const player = await Read_wealth(B)
         if (player.lingshi < lingshi) {
             e.reply('他好穷的')
@@ -70,8 +62,7 @@ export class AdminMoney extends plugin {
         if (!e.isMaster) {
             return
         }
-        let lingshi = e.msg.replace('#修仙补偿', '')
-        lingshi = await Numbers(lingshi)
+        const lingshi = await Numbers(e.msg.replace('#修仙补偿', ''))
         const B = await At(e)
         if (B == 0) {
             return

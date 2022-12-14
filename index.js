@@ -1,7 +1,8 @@
 import Config from './model/Config.js'
 import index from './model/index.js'
-import Xiuxianschedule from './model/XiuxianSchedule.js'
-Xiuxianschedule.scheduleJobflie('0 0 */1 * * ?')
+import Schedule from './model/xiuxian/schedule.js'
+Schedule.scheduleJobflie('0 0 */1 * * ?')
+Schedule.allLife('0 0 */1 * * ?')
 const versionData = Config.getdefSet('version', 'version')
 const xiuxain = await index.toindex('apps')
 const plugin = await index.toindex('plugins')

@@ -2,73 +2,70 @@ import plugin from '../../../../lib/plugins/plugin.js'
 import filecp from '../../model/filecp.js'
 import nodefs from '../../model/nodefs.js'
 import noderequire from '../../model/noderequire.js'
-const { exec } = noderequire.childProcess()
+import { appname, yunzaiConfig } from '../../model/yunzai/index.js'
 let timer = ''
 export class AdminAction extends plugin {
     constructor() {
-        super({
-            name: 'admin',
-            dsc: 'admin',
-            event: 'message',
-            priority: 400,
-            rule: [
-                {
-                    reg: '^#修仙更新',
-                    fnc: 'checkout',
-                }
-            ],
-        })
+        super(yunzaiConfig('admin', [
+            {
+                reg: '^#修仙更新',
+                fnc: 'checkout',
+            },
+            {
+                reg: '^#修仙安装.*',
+                fnc: 'xiuxianSystem',
+            }
+        ]))
         this.key = 'xiuxian:restart'
     }
     checkout = async (e) => {
         if (!e.isMaster) {
             return
         }
-        const that = this
         const command = 'git  pull'
-        const sum = await nodefs.returnPathName('./plugins/Xiuxian-Plugin-Box/plugins/')
-        //更新box
-        e.reply(noderequire.childProcessExec(command, 'Xiuxian-Plugin-Box'))
-        //更新插件
+        const sum = await nodefs.returnPathName(`./plugins/${appname}/plugins/`)
+        const that = this
+        e.reply(noderequire.childProcessExecUpDate(command, `${appname}`))
         sum.forEach(async (item) => {
             if (item != 'xiuxian-plugin') {
-                e.reply(noderequire.childProcessExec(command, `Xiuxian-Plugin-Box/plugins/${item}`))
+                e.reply(noderequire.childProcessExecUpDate(command, `${appname}/plugins/${item}`))
             }
         })
-        //重启
         timer && clearTimeout(timer)
         timer = setTimeout(async () => {
             try {
-                const data = JSON.stringify({
-                    isGroup: !!e.isGroup,
-                    id: e.isGroup ? e.group_id : e.user_id,
-                })
+                const data = JSON.stringify({ isGroup: !!e.isGroup, id: e.isGroup ? e.group_id : e.user_id, })
                 await redis.set(that.key, data, { EX: 120 })
-                let cm = 'npm run start'
+                let cmd = 'npm run start'
                 if (process.argv[1].includes('pm2')) {
-                    cm = 'npm run restart'
+                    cmd = 'npm run restart'
                 }
-                exec(cm, (error, stdout, stderr) => {
-                    if (error) {
-                        redis.del(that.key)
-                        e.reply(`重启失败\nError code: ${error.code}\n${error.stack}\n`)
-                        logger.error(`重启失败\n${error.stack}`)
-                    } else if (stdout) {
-                        logger.mark('重启成功,运行已转为后台')
-                        logger.mark('查看日志请用命令:npm run log')
-                        logger.mark('停止后台运行命令:npm stop')
-                        process.exit()
-                    }
-                })
+                e.reply(noderequire.childProcessExecRestart(cmd, that.key))
                 filecp.upfile()
             }
             catch (error) {
                 redis.del(that.key)
-                const ise = error.stack ?? error
-                e.reply(`重启失败了\n${ise}`)
+                e.reply(`重启失败了\n${error.stack ?? error}`)
             }
         }, 1000)
         return
+    }
+    xiuxianSystem = async (e) => {
+        if (!e.isMaster) {
+            return
+        }
+        const name = e.msg.replace('#修仙安装', '')
+        const map = {
+            '宗门': 'git clone  https://gitee.com/mg1105194437/xiuxian-association-pluging.git ./plugins/Xiuxian-Plugin-Box/plugins/xiuxian-association-pluging/',
+            '家园': 'git clone  https://gitee.com/mmmmmddddd/xiuxian-home-plugin.git ./plugins/Xiuxian-Plugin-Box/plugins/xiuxian-home-plugin/',
+            '黑市': 'git clone  https://gitee.com/waterfeet/xiuxian-yihongyuan-plugin.git ./plugins/Xiuxian-Plugin-Box/plugins/xiuxian-yihongyuan-plugin/',
+        }
+        if (map.hasOwnProperty(name)) {
+            e.reply(noderequire.childProcessExecInstall(map[name], name))
+        } else {
+            e.reply('该插件不存在')
+        }
+        return true
     }
     init = async () => {
         let restart = await redis.get(this.key)

@@ -1,30 +1,25 @@
 import plugin from '../../../../lib/plugins/plugin.js'
 import config from '../../model/Config.js'
 import { get_najie_img } from '../../model/showData.js'
+import { yunzaiConfig } from '../../model/yunzai/index.js'
 import { segment } from 'oicq'
-import { existplayer, Go, Read_najie, point_map,Read_action,Add_lingshi, Write_najie, Numbers, Add_najie_lingshi, Read_wealth } from '../../model/Xiuxian.js'
+import { existplayer, Go, Read_najie, point_map, Read_action, Add_lingshi, Write_najie, Numbers, Add_najie_lingshi, Read_wealth } from '../../model/xiuxian/index.js'
 export class action extends plugin {
     constructor() {
-        super({
-            name: 'action',
-            dsc: 'action',
-            event: 'message',
-            priority: 600,
-            rule: [
-                {
-                    reg: '^#储物袋$',
-                    fnc: 'Show_najie'
-                },
-                {
-                    reg: '^#升级储物袋$',
-                    fnc: 'Lv_up_najie'
-                },
-                {
-                    reg: '^#(存|取)灵石(.*)$',
-                    fnc: 'Take_lingshi'
-                }
-            ]
-        })
+        super(yunzaiConfig('action', [
+            {
+                reg: '^#储物袋$',
+                fnc: 'Show_najie'
+            },
+            {
+                reg: '^#升级储物袋$',
+                fnc: 'Lv_up_najie'
+            },
+            {
+                reg: '^#(存|取)灵石(.*)$',
+                fnc: 'Take_lingshi'
+            }
+        ]))
         this.xiuxianConfigData = config.getConfig('xiuxian', 'xiuxian')
     }
     Show_najie = async (e) => {
@@ -43,10 +38,10 @@ export class action extends plugin {
             return
         }
         const usr_qq = e.user_id
-        const action=await Read_action(usr_qq)
-        const address_name='炼器师协会'
-        const map=await point_map(action,address_name)
-        if(!map){
+        const action = await Read_action(usr_qq)
+        const address_name = '炼器师协会'
+        const map = await point_map(action, address_name)
+        if (!map) {
             e.reply(`需[#城池名+${address_name}]`)
             return
         }

@@ -1,25 +1,20 @@
 import plugin from '../../../../lib/plugins/plugin.js'
 import config from '../../model/Config.js'
-import { __PATH, Write_player, point_map,Read_action,Go, GenerateCD, Read_player, Read_wealth, Write_Life, Read_Life, Add_lingshi } from '../../model/Xiuxian.js'
+import { yunzaiConfig } from '../../model/yunzai/index.js'
+import { __PATH, Write_player, point_map,Read_action,Go, GenerateCD, Read_player, Read_wealth, Write_Life, Read_Life, Add_lingshi } from '../../model/xiuxian/index.js'
 import { get_player_img } from '../../model/showData.js'
 export class modify extends plugin {
     constructor() {
-        super({
-            name: 'modify',
-            dsc: 'modify',
-            event: 'message',
-            priority: 600,
-            rule: [
-                {
-                    reg: '^#改名.*$',
-                    fnc: 'Change_name'
-                },
-                {
-                    reg: '^#设置道宣.*$',
-                    fnc: 'Change_autograph'
-                }
-            ]
-        })
+        super(yunzaiConfig('',[
+            {
+                reg: '^#改名.*$',
+                fnc: 'Change_name'
+            },
+            {
+                reg: '^#设置道宣.*$',
+                fnc: 'Change_autograph'
+            }
+        ]))
         this.xiuxianConfigData = config.getConfig('xiuxian', 'xiuxian')
     }
     Change_name = async (e) => {

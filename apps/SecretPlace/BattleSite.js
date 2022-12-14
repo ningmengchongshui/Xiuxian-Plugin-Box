@@ -3,25 +3,20 @@ import Cachemonster from '../../model/cachemonster.js'
 import data from '../../model/XiuxianData.js'
 import config from '../../model/Config.js'
 import fs from 'node:fs'
-import { Gomini, Go, Read_action, ForwardMsg, Read_battle, monsterbattle, Add_experiencemax, Add_experience, Add_lingshi, GenerateCD, Add_najie_thing, Read_najie, Write_najie, Read_talent } from '../../model/Xiuxian.js'
+import { Gomini, Go, Read_action, ForwardMsg, Read_battle, monsterbattle, Add_experiencemax, Add_experience, Add_lingshi, GenerateCD, Add_najie_thing, Read_najie, Write_najie, Read_talent } from '../../model/xiuxian/index.js'
+import { yunzaiConfig } from '../../model/yunzai/index.js'
 export class battlesite extends plugin {
     constructor() {
-        super({
-            name: 'battlesite',
-            dsc: 'battlesite',
-            event: 'message',
-            priority: 600,
-            rule: [
-                {
-                    reg: '^#击杀.*$',
-                    fnc: 'Kill'
-                },
-                {
-                    reg: '^#探索怪物$',
-                    fnc: 'Exploremonsters'
-                }
-            ]
-        })
+        super(yunzaiConfig('battlesite', [
+            {
+                reg: '^#击杀.*$',
+                fnc: 'Kill'
+            },
+            {
+                reg: '^#探索怪物$',
+                fnc: 'Exploremonsters'
+            }
+        ]))
         this.xiuxianConfigData = config.getConfig('xiuxian', 'xiuxian')
     }
     Kill = async (e) => {
@@ -82,7 +77,7 @@ export class battlesite extends plugin {
                     najie = await Add_najie_thing(najie, dropsItemList[random], 1)
                     msg.push(`得到[${dropsItemList[random].name}]`)
                     await Write_najie(usr_qq, najie)
-                }else{
+                } else {
                     e.reply('储物袋已满')
                 }
             }

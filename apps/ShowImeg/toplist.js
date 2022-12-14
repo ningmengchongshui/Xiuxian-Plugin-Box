@@ -1,45 +1,35 @@
 import plugin from '../../../../lib/plugins/plugin.js'
 import fs from 'fs'
-import { existplayer, __PATH, Read_action,point_map,sortBy, Read_level, Read_battle } from '../../model/Xiuxian.js'
+import { existplayer, __PATH, Read_action, point_map, sortBy, Read_level, Read_battle } from '../../model/xiuxian/index.js'
 import { get_toplist_img } from '../../model/showData.js'
+import { yunzaiConfig } from '../../model/yunzai/index.js'
 export class toplist extends plugin {
     constructor() {
-        super({
-            name: 'toplist',
-            dsc: 'toplist',
-            event: 'message',
-            priority: 600,
-            rule: [
-                {
-                    reg: '^#封神榜$',
-                    fnc: 'TOP_Immortal'
-                },
-                {
-                    reg: '^#至尊榜$',
-                    fnc: 'TOP_genius'
-                },
-                {
-                    reg: '^#杀神榜$',
-                    fnc: 'TOP_prestige'
-                }
-            ]
-        })
+        super(yunzaiConfig('secretplace', [
+            {
+                reg: '^#封神榜$',
+                fnc: 'TOP_Immortal'
+            },
+            {
+                reg: '^#至尊榜$',
+                fnc: 'TOP_genius'
+            },
+            {
+                reg: '^#杀神榜$',
+                fnc: 'TOP_prestige'
+            }
+        ]))
     }
-    
-    /**
-     * 此功能需要回  天机门
-     */
-
     TOP_prestige = async (e) => {
         const usr_qq = e.user_id
         const ifexistplay = await existplayer(usr_qq)
         if (!ifexistplay) {
             return
         }
-        const action=await Read_action(usr_qq)
-        const address_name='天机门'
-        const map=await point_map(action,address_name)
-        if(!map){
+        const action = await Read_action(usr_qq)
+        const address_name = '天机门'
+        const map = await point_map(action, address_name)
+        if (!map) {
             e.reply(`需[#城池名+${address_name}]`)
             return
         }
@@ -84,10 +74,10 @@ export class toplist extends plugin {
         if (!ifexistplay) {
             return
         }
-        const action=await Read_action(usr_qq)
-        const address_name='天机门'
-        const map=await point_map(action,address_name)
-        if(!map){
+        const action = await Read_action(usr_qq)
+        const address_name = '天机门'
+        const map = await point_map(action, address_name)
+        if (!map) {
             e.reply(`需[#城池名+${address_name}]`)
             return
         }
@@ -133,10 +123,10 @@ export class toplist extends plugin {
         if (!ifexistplay) {
             return
         }
-        const action=await Read_action(usr_qq)
-        const address_name='天机门'
-        const map=await point_map(action,address_name)
-        if(!map){
+        const action = await Read_action(usr_qq)
+        const address_name = '天机门'
+        const map = await point_map(action, address_name)
+        if (!map) {
             e.reply(`需[#城池名+${address_name}]`)
             return
         }

@@ -1,39 +1,34 @@
 import plugin from '../../../../lib/plugins/plugin.js'
 import defSet from '../../model/defSet.js'
+import { yunzaiConfig } from '../../model/yunzai/index.js'
 export class AdminRobot extends plugin {
     constructor() {
-        super({
-            name: 'AdminRobot',
-            dsc: 'AdminRobot',
-            event: 'message',
-            priority: 400,
-            rule: [
-                {
-                    reg: '^#修仙关闭云崽',
-                    fnc: 'CloseRobot',
-                },
-                {
-                    reg: '^#修仙关闭云崽帮助',
-                    fnc: 'CloseRobothelp',
-                },
-                {
-                    reg: '^#修仙添加主人.*',
-                    fnc: 'AddMaster',
-                },
-                {
-                    reg: '^#修仙删除主人.*',
-                    fnc: 'DeleteMaster',
-                },
-                {
-                    reg: '^#修仙开启云崽私聊',
-                    fnc: 'OnGroup',
-                },
-                {
-                    reg: '^#修仙关闭云崽私聊',
-                    fnc: 'OffGroup',
-                }
-            ],
-        })
+        super(yunzaiConfig('admin',[
+            {
+                reg: '^#修仙关闭云崽',
+                fnc: 'CloseRobot',
+            },
+            {
+                reg: '^#修仙关闭云崽帮助',
+                fnc: 'CloseRobothelp',
+            },
+            {
+                reg: '^#修仙添加主人.*',
+                fnc: 'AddMaster',
+            },
+            {
+                reg: '^#修仙删除主人.*',
+                fnc: 'DeleteMaster',
+            },
+            {
+                reg: '^#修仙开启云崽私聊',
+                fnc: 'OnGroup',
+            },
+            {
+                reg: '^#修仙关闭云崽私聊',
+                fnc: 'OffGroup',
+            }
+        ]))
     }
     OffGroup = async (e) => {
         if (!e.isMaster) {
@@ -53,16 +48,14 @@ export class AdminRobot extends plugin {
         if (!e.isMaster) {
             return
         }
-        const QQ = e.msg.replace('#修仙添加主人', '')
-        e.reply(defSet.AddMaster(QQ))
+        e.reply(defSet.AddMaster(e.msg.replace('#修仙添加主人', '')))
         return
     }
     DeleteMaster = async (e) => {
         if (!e.isMaster) {
             return
         }
-        const QQ = e.msg.replace('#修仙删除主人', '')
-        e.reply(defSet.DeleteMaster(QQ))
+        e.reply(defSet.DeleteMaster(e.msg.replace('#修仙删除主人', '')))
         return
     }
     CloseRobot = async (e) => {

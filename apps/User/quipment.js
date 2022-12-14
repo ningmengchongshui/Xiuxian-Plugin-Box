@@ -1,24 +1,19 @@
 import plugin from '../../../../lib/plugins/plugin.js'
 import config from '../../model/Config.js'
-import { existplayer, exist_najie_thing_name, Read_najie, Read_equipment, Write_equipment, Write_najie, Add_najie_thing } from '../../model/Xiuxian.js'
+import { yunzaiConfig } from '../../model/yunzai/index.js'
+import { existplayer, exist_najie_thing_name, Read_najie, Read_equipment, Write_equipment, Write_najie, Add_najie_thing } from '../../model/xiuxian/index.js'
 export class quipment extends plugin {
     constructor() {
-        super({
-            name: 'quipment',
-            dsc: 'quipment',
-            event: 'message',
-            priority: 600,
-            rule: [
-                {
-                    reg: '^#装备.*$',
-                    fnc: 'add_equipment'
-                },
-                {
-                    reg: '^#卸下.*$',
-                    fnc: 'delete_equipment'
-                }
-            ]
-        })
+        super(yunzaiConfig('',[
+            {
+                reg: '^#装备.*$',
+                fnc: 'add_equipment'
+            },
+            {
+                reg: '^#卸下.*$',
+                fnc: 'delete_equipment'
+            }
+        ]))
         this.xiuxianConfigData = config.getConfig('xiuxian', 'xiuxian')
     }
     add_equipment = async (e) => {

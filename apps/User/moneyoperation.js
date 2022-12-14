@@ -1,27 +1,22 @@
 import plugin from '../../../../lib/plugins/plugin.js'
 import data from '../../model/XiuxianData.js'
 import config from '../../model/Config.js'
+import { yunzaiConfig } from '../../model/yunzai/index.js'
 import { segment } from 'oicq'
 import fs from 'node:fs'
-import {Read_action,point_map, Read_level,Read_najie,Go,Add_najie_thing,Write_najie,Numbers,Add_lingshi,At,GenerateCD, Read_wealth, Write_wealth, Write_action} from '../../model/Xiuxian.js'
+import {Read_action,point_map, Read_level,Read_najie,Go,Add_najie_thing,Write_najie,Numbers,Add_lingshi,At,GenerateCD, Read_wealth, Write_wealth, Write_action} from '../../model/xiuxian/index.js'
 export class moneyoperation extends plugin {
     constructor() {
-        super({
-            name: 'moneyoperation',
-            dsc: 'moneyoperation',
-            event: 'message',
-            priority: 600,
-            rule: [
-                {
-                    reg: '^#赠送灵石.*$',
-                    fnc: 'Give_lingshi'
-                },
-                {
-                    reg: '^#联盟报到$',
-                    fnc: 'New_lingshi'
-                }
-            ]
-        })
+        super(yunzaiConfig('',[
+            {
+                reg: '^#赠送灵石.*$',
+                fnc: 'Give_lingshi'
+            },
+            {
+                reg: '^#联盟报到$',
+                fnc: 'New_lingshi'
+            }
+        ]))
         this.xiuxianConfigData = config.getConfig('xiuxian', 'xiuxian')
     }
     New_lingshi=async(e)=>{

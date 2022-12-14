@@ -1,34 +1,29 @@
 import plugin from '../../../../lib/plugins/plugin.js'
 import common from '../../../../lib/common/common.js'
 import config from '../../model/Config.js'
+import { yunzaiConfig } from '../../model/yunzai/index.js'
 import { segment } from 'oicq'
-import { Gomini, Go, offaction, Add_experience, Add_blood, existplayer, Read_level, Read_talent, Add_experiencemax } from '../../model/Xiuxian.js'
+import { Gomini, Go, offaction, Add_experience, Add_blood, existplayer, Read_level, Read_talent, Add_experiencemax } from '../../model/xiuxian/index.js'
 export class control extends plugin {
     constructor() {
-        super({
-            name: 'control',
-            dsc: 'control',
-            event: 'message',
-            priority: 600,
-            rule: [
-                {
-                    reg: '#降妖$',
-                    fnc: 'Dagong'
-                },
-                {
-                    reg: '#闭关$',
-                    fnc: 'Biguan'
-                },
-                {
-                    reg: '^#出关$',
-                    fnc: 'chuGuan'
-                },
-                {
-                    reg: '^#归来$',
-                    fnc: 'endWork'
-                }
-            ]
-        })
+        super(yunzaiConfig('control', [
+            {
+                reg: '#降妖$',
+                fnc: 'Dagong'
+            },
+            {
+                reg: '#闭关$',
+                fnc: 'Biguan'
+            },
+            {
+                reg: '^#出关$',
+                fnc: 'chuGuan'
+            },
+            {
+                reg: '^#归来$',
+                fnc: 'endWork'
+            }
+        ]))
         this.xiuxianConfigData = config.getConfig('xiuxian', 'xiuxian')
     }
     Biguan = async (e) => {

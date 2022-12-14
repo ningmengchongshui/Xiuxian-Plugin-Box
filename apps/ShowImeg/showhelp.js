@@ -1,24 +1,19 @@
 import plugin from '../../../../lib/plugins/plugin.js'
 import Help from '../../model/help.js'
 import Cache from '../../model/cache.js'
+import { yunzaiConfig } from '../../model/yunzai/index.js'
 export class showhelp extends plugin {
     constructor() {
-        super({
-            name: 'showhelp',
-            dsc: 'showhelp',
-            event: 'message',
-            priority: 600,
-            rule: [
-                {
-                    reg: '^#(修仙帮助|帮助)$',
-                    fnc: 'Xiuxianhelp'
-                },
-                {
-                    reg: '^#修仙管理$',
-                    fnc: 'adminsuper',
-                }
-            ]
-        })
+        super(yunzaiConfig('showhelp',[
+            {
+                reg: '^#(修仙帮助|帮助)$',
+                fnc: 'Xiuxianhelp'
+            },
+            {
+                reg: '^#修仙管理$',
+                fnc: 'adminsuper',
+            }
+        ]))
     }
     Xiuxianhelp = async (e) => {
         const data = await Help.gethelp(e, 'Help')

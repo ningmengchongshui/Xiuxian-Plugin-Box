@@ -2,40 +2,35 @@ import plugin from '../../../../lib/plugins/plugin.js'
 import data from '../../model/XiuxianData.js'
 import fs from 'node:fs'
 import { segment } from 'oicq'
-import { Go, Read_action, Read_level, ForwardMsg,existplayer, Read_wealth, Write_action, Write_wealth, Read_battle } from '../../model/Xiuxian.js'
+import { yunzaiConfig } from '../../model/yunzai/index.js'
+import { Go, Read_action, Read_level, ForwardMsg, existplayer, Read_wealth, Write_action, Write_wealth, Read_battle } from '../../model/xiuxian/index.js'
 const forwardsetTime = []
 const deliverysetTime = []
 const useraction = []
 export class secretplace extends plugin {
     constructor() {
-        super({
-            name: 'secretplace',
-            dsc: 'secretplace',
-            event: 'message',
-            priority: 600,
-            rule: [
-                {
-                    reg: '^#坐标信息$',
-                    fnc: 'xyzaddress'
-                },
-                {
-                    reg: '^#前往.*$',
-                    fnc: 'forward'
-                },
-                {
-                    reg: '^#回到原地$',
-                    fnc: 'returnpiont'
-                },
-                {
-                    reg: '^#传送.*$',
-                    fnc: 'delivery'
-                },
-                {
-                    reg: '^#位置信息$',
-                    fnc: 'show_city'
-                }
-            ]
-        })
+        super(yunzaiConfig('secretplace', [
+            {
+                reg: '^#坐标信息$',
+                fnc: 'xyzaddress'
+            },
+            {
+                reg: '^#前往.*$',
+                fnc: 'forward'
+            },
+            {
+                reg: '^#回到原地$',
+                fnc: 'returnpiont'
+            },
+            {
+                reg: '^#传送.*$',
+                fnc: 'delivery'
+            },
+            {
+                reg: '^#位置信息$',
+                fnc: 'show_city'
+            }
+        ]))
     }
     show_city = async (e) => {
         if (!e.isGroup) {
@@ -46,24 +41,24 @@ export class secretplace extends plugin {
         if (!ifexistplay) {
             return
         }
-        const action=await Read_action(usr_qq)
-        if(action.address!=1){
+        const action = await Read_action(usr_qq)
+        if (action.address != 1) {
             e.reply('你对这里并不了解...')
             return
         }
-        const addressId=`${action.z}-${action.region}-${action.address}`
+        const addressId = `${action.z}-${action.region}-${action.address}`
         const point = JSON.parse(fs.readFileSync(`${data.__PATH.position}/point.json`))
-        const address=[]
-        const msg=[]
-        point.forEach((item)=>{
-            if(item.id.includes(addressId)){
+        const address = []
+        const msg = []
+        point.forEach((item) => {
+            if (item.id.includes(addressId)) {
                 address.push(item)
             }
         })
-        address.forEach((item)=>{
+        address.forEach((item) => {
             msg.push(`地点名:${item.name}\n坐标(${item.x},${item.y})`)
         })
-        await ForwardMsg(e,msg)
+        await ForwardMsg(e, msg)
         return
     }
     returnpiont = async (e) => {
@@ -118,7 +113,7 @@ export class secretplace extends plugin {
         const a = x - mx >= 0 ? x - mx : mx - x
         const b = y - my >= 0 ? y - my : my - y
         const battle = await Read_battle(usr_qq)
-        const the = Math.floor((a + b)-(a + b)*battle.speed*0.01)
+        const the = Math.floor((a + b) - (a + b) * battle.speed * 0.01)
         const time = the >= 0 ? the : 1
         useraction[usr_qq] = setTimeout(async () => {
             forwardsetTime[usr_qq] = 0
