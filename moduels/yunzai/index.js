@@ -1,7 +1,8 @@
 import nodefs from '../db/nodefs.js'
-import PATH from 'path'
+import noderequire from "../db/noderequire.js"
 import { __dirname } from '../db/nodefs.js'
 import { existplayer } from '../xiuxian/index.js'
+const PATH=noderequire.path()
 //插件名字
 export const appname = 'Xiuxian-Plugin-Box'
 //插件优先级
