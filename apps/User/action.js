@@ -1,9 +1,9 @@
 import plugin from '../../../../lib/plugins/plugin.js'
-import config from '../../model/Config.js'
-import { get_najie_img } from '../../model/showData.js'
-import { yunzaiConfig } from '../../model/yunzai/index.js'
+import config from '../../moduels/Config.js'
+import { get_najie_img } from '../../moduels/showData.js'
+import { yunzaiConfig } from '../../moduels/yunzai/index.js'
 import { segment } from 'oicq'
-import { existplayer, Go, Read_najie, point_map, Read_action, Add_lingshi, Write_najie, Numbers, Add_najie_lingshi, Read_wealth } from '../../model/xiuxian/index.js'
+import { existplayer, Go, Read_najie, point_map, Read_action, Add_lingshi, Write_najie, Numbers, Add_najie_lingshi, Read_wealth } from '../../moduels/xiuxian/index.js'
 export class action extends plugin {
     constructor() {
         super(yunzaiConfig('action', [

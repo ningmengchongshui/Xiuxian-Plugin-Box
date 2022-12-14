@@ -1,8 +1,8 @@
 import plugin from '../../../../lib/plugins/plugin.js'
-import filecp from '../../model/filecp.js'
-import nodefs from '../../model/nodefs.js'
-import noderequire from '../../model/noderequire.js'
-import { appname, yunzaiConfig } from '../../model/yunzai/index.js'
+import filecp from '../../moduels/filecp.js'
+import nodefs from '../../moduels/nodefs.js'
+import noderequire from '../../moduels/noderequire.js'
+import { appname, yunzaiConfig } from '../../moduels/yunzai/index.js'
 let timer = ''
 export class AdminAction extends plugin {
     constructor() {

@@ -1,10 +1,10 @@
 import plugin from '../../../../lib/plugins/plugin.js'
-import config from '../../model/Config.js'
+import config from '../../moduels/Config.js'
 import fs from 'fs'
-import { yunzaiConfig } from '../../model/yunzai/index.js'
+import { yunzaiConfig } from '../../moduels/yunzai/index.js'
 import { segment } from 'oicq'
-import { __PATH, userstart, GenerateCD, deletelife, offaction, exist } from '../../model/xiuxian/index.js'
-import { get_player_img } from '../../model/showData.js'
+import { __PATH, userstart, GenerateCD, deletelife, offaction, exist } from '../../moduels/xiuxian/index.js'
+import { get_player_img } from '../../moduels/showData.js'
 export class start extends plugin {
     constructor() {
         super(yunzaiConfig('', [

@@ -1,7 +1,7 @@
 import plugin from '../../../../lib/plugins/plugin.js'
-import Help from '../../model/help.js'
-import Cache from '../../model/cache.js'
-import { yunzaiConfig } from '../../model/yunzai/index.js'
+import Help from '../../moduels/help.js'
+import Cache from '../../moduels/cache.js'
+import { yunzaiConfig } from '../../moduels/yunzai/index.js'
 export class showhelp extends plugin {
     constructor() {
         super(yunzaiConfig('showhelp',[

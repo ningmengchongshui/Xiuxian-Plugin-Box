@@ -1,6 +1,6 @@
 import plugin from '../../../../lib/plugins/plugin.js'
-import XiuxianYaml from '../../model/XiuxianYaml.js'
-import { yunzaiConfig } from '../../model/yunzai/index.js'
+import XiuxianYaml from '../../moduels/XiuxianYaml.js'
+import { yunzaiConfig } from '../../moduels/yunzai/index.js'
 export class AdminYaml extends plugin {
     constructor() {
         super(yunzaiConfig('admin', [

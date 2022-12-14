@@ -1,6 +1,6 @@
 import plugin from '../../../../lib/plugins/plugin.js'
-import { __PATH, At, Numbers, Add_lingshi, Read_wealth, search_thing_name, Write_wealth, addKnapsack } from '../../model/xiuxian/index.js'
-import { yunzaiConfig } from '../../model/yunzai/index.js'
+import { __PATH, At, Numbers, Add_lingshi, Read_wealth, search_thing_name, Write_wealth, addKnapsack } from '../../moduels/xiuxian/index.js'
+import { yunzaiConfig } from '../../moduels/yunzai/index.js'
 export class AdminMoney extends plugin {
     constructor() {
         super(yunzaiConfig('admin', [

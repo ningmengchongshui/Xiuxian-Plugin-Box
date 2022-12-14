@@ -1,10 +1,10 @@
 import plugin from '../../../../lib/plugins/plugin.js'
-import Cachemonster from '../../model/cachemonster.js'
-import data from '../../model/XiuxianData.js'
-import config from '../../model/Config.js'
+import Cachemonster from '../../moduels/cachemonster.js'
+import data from '../../moduels/XiuxianData.js'
+import config from '../../moduels/Config.js'
 import fs from 'node:fs'
-import { Gomini, Go, Read_action, ForwardMsg, Read_battle, monsterbattle, Add_experiencemax, Add_experience, Add_lingshi, GenerateCD, Add_najie_thing, Read_najie, Write_najie, Read_talent } from '../../model/xiuxian/index.js'
-import { yunzaiConfig } from '../../model/yunzai/index.js'
+import { Gomini, Go, Read_action, ForwardMsg, Read_battle, monsterbattle, Add_experiencemax, Add_experience, Add_lingshi, GenerateCD, Add_najie_thing, Read_najie, Write_najie, Read_talent } from '../../moduels/xiuxian/index.js'
+import { yunzaiConfig } from '../../moduels/yunzai/index.js'
 export class battlesite extends plugin {
     constructor() {
         super(yunzaiConfig('battlesite', [

@@ -1,6 +1,6 @@
 import plugin from '../../../../lib/plugins/plugin.js'
-import { deletegame, deleteredis } from '../../model/xiuxian/index.js'
-import { yunzaiConfig } from '../../model/yunzai/index.js'
+import { deletegame, deleteredis } from '../../moduels/xiuxian/index.js'
+import { yunzaiConfig } from '../../moduels/yunzai/index.js'
 export class AdminDelete extends plugin {
     constructor() {
         super(yunzaiConfig('admin', [

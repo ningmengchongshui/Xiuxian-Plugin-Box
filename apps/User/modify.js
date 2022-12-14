@@ -1,8 +1,8 @@
 import plugin from '../../../../lib/plugins/plugin.js'
-import config from '../../model/Config.js'
-import { yunzaiConfig } from '../../model/yunzai/index.js'
-import { __PATH, Write_player, point_map,Read_action,Go, GenerateCD, Read_player, Read_wealth, Write_Life, Read_Life, Add_lingshi } from '../../model/xiuxian/index.js'
-import { get_player_img } from '../../model/showData.js'
+import config from '../../moduels/Config.js'
+import { yunzaiConfig } from '../../moduels/yunzai/index.js'
+import { __PATH, Write_player, point_map,Read_action,Go, GenerateCD, Read_player, Read_wealth, Write_Life, Read_Life, Add_lingshi } from '../../moduels/xiuxian/index.js'
+import { get_player_img } from '../../moduels/showData.js'
 export class modify extends plugin {
     constructor() {
         super(yunzaiConfig('',[

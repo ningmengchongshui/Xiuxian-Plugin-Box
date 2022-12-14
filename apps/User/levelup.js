@@ -1,9 +1,9 @@
 import plugin from '../../../../lib/plugins/plugin.js'
-import data from '../../model/XiuxianData.js'
-import config from '../../model/Config.js'
+import data from '../../moduels/XiuxianData.js'
+import config from '../../moduels/Config.js'
 import fs from 'node:fs'
-import { yunzaiConfig } from '../../model/yunzai/index.js'
-import { Go, GenerateCD, __PATH, Read_level, Write_level, updata_equipment, Read_Life, Write_Life } from '../../model/xiuxian/index.js'
+import { yunzaiConfig } from '../../moduels/yunzai/index.js'
+import { Go, GenerateCD, __PATH, Read_level, Write_level, updata_equipment, Read_Life, Write_Life } from '../../moduels/xiuxian/index.js'
 export class levelup extends plugin {
     constructor() {
         super(yunzaiConfig('',[

@@ -1,8 +1,8 @@
 import plugin from '../../../../lib/plugins/plugin.js'
 import fs from 'fs'
-import { existplayer, __PATH, Read_action, point_map, sortBy, Read_level, Read_battle } from '../../model/xiuxian/index.js'
-import { get_toplist_img } from '../../model/showData.js'
-import { yunzaiConfig } from '../../model/yunzai/index.js'
+import { existplayer, __PATH, Read_action, point_map, sortBy, Read_level, Read_battle } from '../../moduels/xiuxian/index.js'
+import { get_toplist_img } from '../../moduels/showData.js'
+import { yunzaiConfig } from '../../moduels/yunzai/index.js'
 export class toplist extends plugin {
     constructor() {
         super(yunzaiConfig('secretplace', [

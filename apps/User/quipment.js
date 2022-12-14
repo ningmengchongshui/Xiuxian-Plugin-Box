@@ -1,7 +1,7 @@
 import plugin from '../../../../lib/plugins/plugin.js'
-import config from '../../model/Config.js'
-import { yunzaiConfig } from '../../model/yunzai/index.js'
-import { existplayer, exist_najie_thing_name, Read_najie, Read_equipment, Write_equipment, Write_najie, Add_najie_thing } from '../../model/xiuxian/index.js'
+import config from '../../moduels/Config.js'
+import { yunzaiConfig } from '../../moduels/yunzai/index.js'
+import { existplayer, exist_najie_thing_name, Read_najie, Read_equipment, Write_equipment, Write_najie, Add_najie_thing } from '../../moduels/xiuxian/index.js'
 export class quipment extends plugin {
     constructor() {
         super(yunzaiConfig('',[

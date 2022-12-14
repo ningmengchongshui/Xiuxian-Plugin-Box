@@ -1,9 +1,9 @@
 import plugin from '../../../../lib/plugins/plugin.js'
 import common from '../../../../lib/common/common.js'
-import config from '../../model/Config.js'
-import { yunzaiConfig } from '../../model/yunzai/index.js'
+import config from '../../moduels/Config.js'
+import { yunzaiConfig } from '../../moduels/yunzai/index.js'
 import { segment } from 'oicq'
-import { Gomini, Go, offaction, Add_experience, Add_blood, existplayer, Read_level, Read_talent, Add_experiencemax } from '../../model/xiuxian/index.js'
+import { Gomini, Go, offaction, Add_experience, Add_blood, existplayer, Read_level, Read_talent, Add_experiencemax } from '../../moduels/xiuxian/index.js'
 export class control extends plugin {
     constructor() {
         super(yunzaiConfig('control', [

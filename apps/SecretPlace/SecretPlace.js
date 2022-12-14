@@ -1,9 +1,9 @@
 import plugin from '../../../../lib/plugins/plugin.js'
-import data from '../../model/XiuxianData.js'
+import data from '../../moduels/XiuxianData.js'
 import fs from 'node:fs'
 import { segment } from 'oicq'
-import { yunzaiConfig } from '../../model/yunzai/index.js'
-import { Go, Read_action, Read_level, ForwardMsg, existplayer, Read_wealth, Write_action, Write_wealth, Read_battle } from '../../model/xiuxian/index.js'
+import { yunzaiConfig } from '../../moduels/yunzai/index.js'
+import { Go, Read_action, Read_level, ForwardMsg, existplayer, Read_wealth, Write_action, Write_wealth, Read_battle } from '../../moduels/xiuxian/index.js'
 const forwardsetTime = []
 const deliverysetTime = []
 const useraction = []

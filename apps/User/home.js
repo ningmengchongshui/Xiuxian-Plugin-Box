@@ -1,8 +1,8 @@
 import plugin from '../../../../lib/plugins/plugin.js'
-import config from '../../model/Config.js'
-import { yunzaiConfig } from '../../model/yunzai/index.js'
-import { get_player_img } from '../../model/showData.js'
-import { existplayer, exist_najie_thing_name, Read_najie, Add_experiencemax, Write_najie, Numbers, Add_najie_thing, Add_blood, Add_experience, get_talent, Write_talent, player_efficiency, Read_talent, Read_level } from '../../model/xiuxian/index.js'
+import config from '../../moduels/Config.js'
+import { yunzaiConfig } from '../../moduels/yunzai/index.js'
+import { get_player_img } from '../../moduels/showData.js'
+import { existplayer, exist_najie_thing_name, Read_najie, Add_experiencemax, Write_najie, Numbers, Add_najie_thing, Add_blood, Add_experience, get_talent, Write_talent, player_efficiency, Read_talent, Read_level } from '../../moduels/xiuxian/index.js'
 export class home extends plugin {
     constructor() {
         super(yunzaiConfig('',[

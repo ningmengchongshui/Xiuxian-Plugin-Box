@@ -1,6 +1,6 @@
 import plugin from '../../../../lib/plugins/plugin.js'
-import dataup from '../../model/dataup.js'
-import { yunzaiConfig } from '../../model/yunzai/index.js'
+import dataup from '../../moduels/dataup.js'
+import { yunzaiConfig } from '../../moduels/yunzai/index.js'
 export class AdminDataUp extends plugin {
     constructor() {
         super(yunzaiConfig('admin',[

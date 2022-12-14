@@ -1,7 +1,7 @@
 import plugin from '../../../../lib/plugins/plugin.js'
-import config from '../../model/Config.js'
-import { yunzaiConfig } from '../../model/yunzai/index.js'
-import { Add_lingshi, existplayer,point_map,Read_action, Read_najie, Write_najie } from '../../model/xiuxian/index.js'
+import config from '../../moduels/Config.js'
+import { yunzaiConfig } from '../../moduels/yunzai/index.js'
+import { Add_lingshi, existplayer,point_map,Read_action, Read_najie, Write_najie } from '../../moduels/xiuxian/index.js'
 export class onekey extends plugin {
     constructor() {
         super(yunzaiConfig('',[

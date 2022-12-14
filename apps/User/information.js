@@ -1,7 +1,7 @@
 import plugin from '../../../../lib/plugins/plugin.js'
-import { get_equipment_img, get_player_img } from '../../model/showData.js'
-import { yunzaiConfig } from '../../model/yunzai/index.js'
-import { existplayer } from '../../model/xiuxian/index.js'
+import { get_equipment_img, get_player_img } from '../../moduels/showData.js'
+import { yunzaiConfig } from '../../moduels/yunzai/index.js'
+import { existplayer } from '../../moduels/xiuxian/index.js'
 export class information extends plugin {
     constructor() {
         super(yunzaiConfig('',[

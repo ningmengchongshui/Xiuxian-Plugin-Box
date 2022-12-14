@@ -1,6 +1,6 @@
 import plugin from '../../../../lib/plugins/plugin.js'
-import { get_map_img,get_updata_img,get_bulletin_img,get_config_img } from '../../model/showData.js'
-import { yunzaiConfig } from '../../model/yunzai/index.js'
+import { get_map_img,get_updata_img,get_bulletin_img,get_config_img } from '../../moduels/showData.js'
+import { yunzaiConfig } from '../../moduels/yunzai/index.js'
 export class showall extends plugin {
     constructor() {
         super(yunzaiConfig('showall',[
