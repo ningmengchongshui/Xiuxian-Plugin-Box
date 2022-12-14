@@ -1,4 +1,4 @@
-import fs from 'fs'
+import FS from 'fs'
 import template from 'art-template'
 import path from 'path'
 import puppeteer from 'puppeteer'
@@ -28,12 +28,12 @@ class common {
      */
     generateHtml = async (file_path, save_path, data) => {
         //读取文件
-        fs.readFile(file_path, (error, template_data) => {
+        FS.readFile(file_path, (error, template_data) => {
             if (!error) {//文件读取成功
                 template_data = template_data.toString()//模板数据
                 let html = template.render(template_data, data)//生成html文件
                 //存储为html文件
-                fs.writeFile(save_path, html, function (error, res) {
+                FS.writeFile(save_path, html, function (error, res) {
                     if (error) {//文件存储失败
                         logger.error(error)
                     } else {

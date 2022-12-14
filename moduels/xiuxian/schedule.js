@@ -1,4 +1,4 @@
-import fs from 'node:fs'
+import FS from 'node:fs'
 import path from 'path'
 import { __dirname } from '../db/nodefs.js'
 import { offaction, Read_Life, Write_Life } from './index.js'
@@ -16,7 +16,7 @@ class Schedule {
             const s = myDate.getSeconds() 
             const PATH = `${__dirname}${path.sep}resources${path.sep}data${path.sep}birth${path.sep}xiuxian`
             const NEW_PATH = `${path.resolve()}${path.sep}plugins${path.sep}XiuxianData${path.sep}${Y}${M}${D}${h}${m}${s}`
-            fs.cp(PATH, NEW_PATH, { recursive: true }, (err) => {
+            FS.cp(PATH, NEW_PATH, { recursive: true }, (err) => {
                 if (err) {
                     console.error(err)
                 }

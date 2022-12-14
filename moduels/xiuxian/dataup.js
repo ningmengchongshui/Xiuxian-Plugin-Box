@@ -1,4 +1,4 @@
-import fs from 'node:fs'
+import FS from 'node:fs'
 import path from 'path'
 import {existplayer,userstart} from './index.js'
 const __dirname = `${path.resolve()}${path.sep}plugins`
@@ -37,9 +37,9 @@ class dataup {
   getadress = (PATH, type) => {
     const newsum = []
     const travel = (dir, callback) => {
-      fs.readdirSync(dir).forEach((file) => {
+      FS.readdirSync(dir).forEach((file) => {
         var pathname = path.join(dir, file)
-        if (fs.statSync(pathname).isDirectory()) {
+        if (FS.statSync(pathname).isDirectory()) {
           travel(pathname, callback)
         } else {
           callback(pathname)
@@ -70,7 +70,7 @@ class dataup {
    */
   Read = async (PATH) => {
     const dir = path.join(`${PATH}`)
-    let player = fs.readFileSync(dir, 'utf8', (err, data) => {
+    let player = FS.readFileSync(dir, 'utf8', (err, data) => {
       if (err) {
         return 'error'
       }

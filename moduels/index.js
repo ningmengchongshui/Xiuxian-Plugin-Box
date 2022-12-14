@@ -1,4 +1,4 @@
-import fs from 'node:fs'
+import FS from 'node:fs'
 import path from 'path'
 import { appname } from './yunzai/index.js'
 class index {
@@ -8,7 +8,7 @@ class index {
     let name = []
     let newsum = []
     const travel = (dir, callback) => {
-      fs.readdirSync(dir).forEach((file) => {
+      FS.readdirSync(dir).forEach((file) => {
         let model = dir.search('model')
         if (model == -1) {
           let resources = dir.search('resources')
@@ -19,7 +19,7 @@ class index {
               name.push(y)
             }
             var pathname = path.join(dir, file)
-            if (fs.statSync(pathname).isDirectory()) {
+            if (FS.statSync(pathname).isDirectory()) {
               travel(pathname, callback)
             } else {
               callback(pathname)

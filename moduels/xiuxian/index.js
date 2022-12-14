@@ -1,4 +1,4 @@
-import fs from 'fs'
+import FS from 'fs'
 import path from 'path'
 
 /**
@@ -170,7 +170,7 @@ const Read = async (UID, PATH) => {
     const the = {
         player: ''
     }
-    the.player = fs.readFileSync(dir, 'utf8', (err, data) => {
+    the.player = FS.readFileSync(dir, 'utf8', (err, data) => {
         if (err) {
             return 'error'
         }
@@ -183,7 +183,7 @@ const Read = async (UID, PATH) => {
 const Write = async (UID, player, PATH) => {
     const dir = path.join(PATH, `${UID}.json`)
     const new_ARR = JSON.stringify(player, '', '\t')
-    fs.writeFileSync(dir, new_ARR, 'utf8', (err) => {
+    FS.writeFileSync(dir, new_ARR, 'utf8', (err) => {
     })
     return
 }
@@ -906,7 +906,7 @@ export const Read_Life = async () => {
 //新的写入
 export const newRead = async (dir) => {
     try {
-        const newdata = fs.readFileSync(dir, 'utf8', (err, data) => {
+        const newdata = FS.readFileSync(dir, 'utf8', (err, data) => {
             if (err) {
                 return 'error'
             }

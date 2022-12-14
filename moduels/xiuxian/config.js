@@ -1,5 +1,5 @@
 import YAML from 'yaml'
-import fs from 'node:fs'
+import FS from 'node:fs'
 import chokidar from 'chokidar'
 import lodash from 'lodash'
 import { appname } from './yunzai/index.js'
@@ -24,7 +24,7 @@ class Config {
         let file = this.getFilePath(app, name, type)
         let key = `${app}.${name}`
         if (this[type][key]) return this[type][key]
-        this[type][key] = YAML.parse(fs.readFileSync(file, 'utf8'))
+        this[type][key] = YAML.parse(FS.readFileSync(file, 'utf8'))
         this.watch(file, app, name, type)
         return this[type][key]
     }
@@ -52,10 +52,10 @@ class Config {
     saveSet = (app, name, type, data) => {
         let file = this.getFilePath(app, name, type)
         if (lodash.isEmpty(data)) {
-            fs.existsSync(file) && fs.unlinkSync(file)
+            FS.existsSync(file) && FS.unlinkSync(file)
         } else {
             let yaml = YAML.stringify(data)
-            fs.writeFileSync(file, yaml, 'utf8')
+            FS.writeFileSync(file, yaml, 'utf8')
         }
         return
     }

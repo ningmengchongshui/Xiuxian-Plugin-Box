@@ -1,4 +1,4 @@
-import fs from 'node:fs'
+import FS from 'node:fs'
 import path from 'path'
 import noderequire from '../db/noderequire.js'
 const __dirname = `${path.resolve()}${path.sep}plugins${path.sep}Xiuxian-Plugin-Box${path.sep}config${path.sep}xiuxian${path.sep}xiuxian.yaml`
@@ -38,7 +38,7 @@ class XiuxianYaml {
         const data = this.YAML.load(`${__dirname}`)
         data[name0][name1] = Number(size)
         const yamlStr = this.yaml.dump(data)
-        fs.writeFileSync(`${__dirname}`, yamlStr, 'utf8')
+        FS.writeFileSync(`${__dirname}`, yamlStr, 'utf8')
         return `修改${name}为${size}`
       } catch {
         return '请先执行\npnpm i yamljs -w\npnpm i  js-yaml -w'
