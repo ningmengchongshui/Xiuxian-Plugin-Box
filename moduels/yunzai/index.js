@@ -5,7 +5,7 @@ import { existplayer } from '../xiuxian/index.js'
 //插件名字
 export const appname = 'Xiuxian-Plugin-Box'
 //插件优先级
-export const NEW__dirname = `${__dirname}/plugins/${appname}`
+export const NEW__dirname = `${__dirname}/plugins/${appname}` 
 export const __PATH = {
     'fixepoint': PATH.join(NEW__dirname, '/resources/data/fixed/point'),
     'fixedposition': PATH.join(NEW__dirname, '/resources/data/fixed/position'),

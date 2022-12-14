@@ -7,11 +7,11 @@ class common {
     constructor() {
         //浏览器配置
         this.config = {
-            headless: true,
+            headless: true, 
             args: [
                 '--disable-gpu',
                 '--disable-dev-shm-usage',
-                '--disable-setuid-sandbox',
+                '--disable-setuid-sandbox', 
                 '--no-first-run',
                 '--no-sandbox',
                 '--no-zygote',

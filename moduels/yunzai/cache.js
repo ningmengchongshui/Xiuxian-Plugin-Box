@@ -7,7 +7,7 @@ class Cache {
         while (true) {
             if (helpData.length <= i) {
                 helpData.push({
-                    md5: '',
+                    md5: '', 
                     img: '',
                 })
             } else {

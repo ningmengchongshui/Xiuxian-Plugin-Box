@@ -4,7 +4,7 @@ import config from '../xiuxian/config.js'
 import { talentname, Read_battle, Read_player, Read_wealth, Read_talent, Read_equipment, Read_level, Read_najie, Read_Life, existplayer } from '../xiuxian/index.js'
 export const get_map_img = async (e) => {
     const UID = e.user_id
-    const ifexistplay = await existplayer(UID)
+    const ifexistplay = await existplayer(UID) 
     if (!ifexistplay) {
         return
     }

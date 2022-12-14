@@ -5,7 +5,7 @@ export default class base {
     this.e = e 
     this.userId = e?.user_id
     this.model = `${appname}`
-    this._path = process.cwd().replace(/\\/g, '/')
+    this._path = process.cwd().replace(/\\/g, '/') 
   }
   get prefix() {
     return `Yz:${appname}:${this.model}:`

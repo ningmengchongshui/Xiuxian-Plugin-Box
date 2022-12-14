@@ -10,8 +10,7 @@ export default class Help extends base {
   database = async (data1, data2) => {
     let helpData = config.getConfig(data1, data2)
     const version = this.versionData[0].version
-    return {
-      ...this.screenData,
+    return { 
       saveId: 'help',
       version: version,
       helpData,

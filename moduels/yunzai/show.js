@@ -10,7 +10,7 @@ export default class Game extends base {
     this.model = mode2
     return {
       ...this.screenData,
-      saveId: mode2,
+      saveId: mode2, 
       ...myData,
     }
   }
