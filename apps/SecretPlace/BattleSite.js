@@ -1,11 +1,9 @@
 import plugin from '../../../../lib/plugins/plugin.js'
 import Cachemonster from '../../moduels/cachemonster.js'
-import data from '../../moduels/XiuxianData.js'
 import config from '../../moduels/config.js'
-import fs from 'node:fs'
-import {  Read_action, ForwardMsg, Read_battle, monsterbattle, Add_experiencemax, Add_experience, Add_lingshi, GenerateCD, Add_najie_thing, Read_najie, Write_najie, Read_talent } from '../../moduels/xiuxian/index.js'
-import { Gomini,Go } from '../../moduels/yunzai/index.js'
+import { Gomini, Go } from '../../moduels/yunzai/index.js'
 import { yunzaiConfig } from '../../moduels/yunzai/index.js'
+import { Read_action, ForwardMsg, Read_battle, monsterbattle, Add_experiencemax, Add_experience, Add_lingshi, GenerateCD, Add_najie_thing, Read_najie, Write_najie, Read_talent } from '../../moduels/xiuxian/index.js'
 export class battlesite extends plugin {
     constructor() {
         super(yunzaiConfig('battlesite', [
@@ -26,20 +24,17 @@ export class battlesite extends plugin {
             return
         }
         const UID = e.user_id
-        const CDid = '10'
-        const now_time = new Date().getTime()
-        const CDTime = this.xiuxianConfigData.CD.Kill
-        const CD = await GenerateCD(UID, CDid)
-        if (CD != 0) {
-            e.reply(CD)
-            return
-        }
         const name = e.msg.replace('#击杀', '')
         const action = await Read_action(UID)
         const monstersdata = await Cachemonster.monsterscache(action.region)
         const mon = monstersdata.find(item => item.name == name)
         if (!mon) {
             e.reply(`这里没有${name},去别处看看吧`)
+            return
+        }
+        const CD = await GenerateCD(e.user_id, '10', this.xiuxianConfigData.CD.Kill)
+        if (CD != 0) {
+            e.reply(CD)
             return
         }
         const acount = await Cachemonster.add(action.region, Number(1))
@@ -51,7 +46,7 @@ export class battlesite extends plugin {
             buff.msg = Math.floor((Math.random() * (20 - 5))) + Number(5)
             msg.push('怪物突然变异了!')
         }
-        const LevelMax = JSON.parse(fs.readFileSync(`${data.__PATH.Level}/Level_list.json`)).find(item => item.id == mon.level + 1)
+        const LevelMax = ''  //tudo
         const monsters = {
             'nowblood': LevelMax.blood * buff.msg,
             'attack': LevelMax.attack * buff.msg,
@@ -71,7 +66,7 @@ export class battlesite extends plugin {
         if (battle_msg.QQ != 0) {
             const m = Math.floor((Math.random() * (100 - 1))) + Number(1)
             if (m < mon.level * 5) {
-                const dropsItemList = JSON.parse(fs.readFileSync(`${data.__PATH.all}/dropsItem.json`))
+                const dropsItemList = ''  //tudo
                 const random = Math.floor(Math.random() * dropsItemList.length)
                 let najie = await Read_najie(UID)
                 if (najie.thing.length <= 21) {
@@ -99,8 +94,6 @@ export class battlesite extends plugin {
                 await Add_lingshi(UID, mon.level * 25)
             }
         }
-        await redis.set(`xiuxian:player:${UID}:${CDid}`, now_time)
-        await redis.expire(`xiuxian:player:${UID}:${CDid}`, CDTime * 60)
         await ForwardMsg(e, msg)
         return
     }

@@ -3,8 +3,8 @@ import common from '../../../../lib/common/common.js'
 import config from '../../moduels/config.js'
 import { yunzaiConfig } from '../../moduels/yunzai/index.js'
 import { segment } from 'oicq'
-import {  offaction, Add_experience, Add_blood, existplayer, Read_level, Read_talent, Add_experiencemax } from '../../moduels/xiuxian/index.js'
-import { Go,Gomini } from '../../moduels/yunzai/index.js'
+import { offaction, Add_experience, Add_blood, existplayer, Read_level, Read_talent, Add_experiencemax } from '../../moduels/xiuxian/index.js'
+import { Go, Gomini } from '../../moduels/yunzai/index.js'
 export class control extends plugin {
     constructor() {
         super(yunzaiConfig('control', [

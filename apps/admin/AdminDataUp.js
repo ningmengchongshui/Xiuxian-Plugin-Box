@@ -3,7 +3,7 @@ import dataup from '../../moduels/dataup.js'
 import { yunzaiConfig } from '../../moduels/yunzai/index.js'
 export class AdminDataUp extends plugin {
     constructor() {
-        super(yunzaiConfig('admin',[
+        super(yunzaiConfig('admin', [
             {
                 reg: '^#修仙数据升级$',
                 fnc: 'Xiuxiandataup'

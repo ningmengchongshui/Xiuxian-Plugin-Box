@@ -8,5 +8,7 @@ const plugin = await index.toindex('plugins')
 const apps = { ...xiuxain, ...plugin }
 Schedule.scheduleJobflie(task.DataTask)
 Schedule.allLife(task.LifeTask)
-logger.info(`Game-Box&&xiuxian-plugin[V${version[0].version}]`)
+logger.info(`Yunzai-Bot[V3]`)
+logger.info(`Game-Box[V1]`)
+logger.info(`Xiuxian-plugin[V${version[0].version}]`)
 export { apps } 

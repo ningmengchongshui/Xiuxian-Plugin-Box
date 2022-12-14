@@ -1,6 +1,59 @@
 import fs from 'fs'
 import path from 'path'
 import data from '../XiuxianData.js'
+
+/**
+ * 随机获得奖励
+ * @param {概率} P 
+ * @returns 
+ */
+export const randomReward=async(P)=>{
+    return
+}
+
+/**
+ * @param {ID} UID 
+ * @returns 随机丢出一件装备
+ */
+export const randomEquipment = async (UID) => {
+    let equipment = await Read_equipment(UID)
+    let thing
+    if (equipment.length > 0) {
+        thing = await Anyarray(equipment)
+        equipment = equipment.filter(item => item.name != thing.name)
+        await Write_equipment(UID, equipment)
+    }
+    return thing
+}
+
+export const addPrestige = async (UID, size) => {
+    const Level = await Read_level(UID)
+    Level.prestige += size
+    await Write_level(user.A, Level)
+    return
+}
+
+export const randomNuber = async (mini, max) => {
+    return Math.floor((Math.random() * (max - mini) + mini))
+}
+
+export const deletePrestige = async (UID) => {
+    const Level = await Read_level(UID)
+    const money = 10000 * Level.level_id
+    if (Level.prestige > 0) {
+        const wealt = await Read_wealth(UID)
+        if (wealt.lingshi > money) {
+            Level.prestige -= 1
+            wealt.lingshi -= money
+            await Write_level(UID, Level)
+            await Write_wealth(UID, wealt)
+            return '[天机门]南宫问天\n为你清除1点魔力值'
+        }
+        return `[天机门]韩立\n清魔力需要${money}`
+    } else {
+        return '[天机门]李逍遥\n你一身清廉'
+    }
+}
 export const userstart = async (UID) => {
     const new_player = {
         'autograph': '无',//道宣
@@ -85,7 +138,7 @@ export const userstart = async (UID) => {
     return '创建成功'
 }
 
-export const deletegame=async()=>{
+export const deletegame = async () => {
     await Write_Exchange([])
     await Write_Forum([])
     await Write_Life([])
@@ -93,14 +146,14 @@ export const deletegame=async()=>{
     return '删除成功'
 }
 
-export const deleteredis=async()=>{
+export const deleteredis = async () => {
     const allkey = await redis.keys('xiuxian:*', (err, data) => { })
     if (allkey) {
         allkey.forEach(async (item) => {
             await redis.del(item)
         })
         return '删除完成'
-    }else{
+    } else {
         return '无一花草'
     }
 }
@@ -418,113 +471,7 @@ export const monsterbattle = async (e, battleA, battleB) => {
     await Write_battle(e.user_id, battleA)
     return battle_msg
 }
-//战斗模型
-export const battle = async (e, A, B) => {
-    const battle_msg = {
-        msg: [],
-        QQ: 1
-    }
-    const battle = {
-        X: 1,
-        Y: 0,
-        Z: 1
-    }
-    const battle_hurt = {
-        'hurtA': 0,
-        'hurtB': 0
-    }
-    const battleA = await Read_battle(A)
-    const battleB = await Read_battle(B)
-    battle_msg.QQ = A
-    if (battleA.speed >= battleB.speed - 5) {
-        battle_hurt.hurtA = battleA.attack - battleB.defense >= 0 ? battleA.attack - battleB.defense + 1 : 0
-        const T = await battle_probability(battleA.burst)
-        if (T) {
-            battle_hurt.hurtA += Math.floor(battle_hurt.hurtA * battleA.burstmax / 100)
-        }
-        if (battle_hurt.hurtA <= 1) {
-            battle_msg.msg.push('你个老六想偷袭,却连对方的防御都破不了,被对方一巴掌给拍死了!')
-            battleA.nowblood = 0
-            battle_msg.QQ = B
-            await ForwardMsg(e, battle_msg.msg)
-            await Write_battle(A, battleA)
-            return battle_msg.QQ
-        }
-        battleB.nowblood = battleB.nowblood - battle_hurt.hurtA
-        if (battleB.nowblood < 1) {
-            battle_msg.msg.push('你仅出一招,就击败了对方!')
-            battleB.nowblood = 0
-            await ForwardMsg(e, battle_msg.msg)
-            await Write_battle(B, battleB)
-            return battle_msg.QQ
-        } else {
-            battle_msg.msg.push(`你个老六偷袭成功,造成 ${battle_hurt.hurtA}伤害`)
-        }
-    } else {
-        battle_msg.msg.push('你个老六想偷袭,对方却一个转身就躲过去了')
-    }
-    while (true) {
-        battle.X++
-        battle.Z++
-        //分片发送消息
-        if (battle.X == 15) {
-            await ForwardMsg(e, battle_msg.msg)
-            battle_msg.msg = []
-            battle.X = 0
-            battle.Y++
-            if (battle.Y == 2) {
-                //就打2轮回
-                break
-            }
-        }
-        //B开始
-        battle_hurt.hurtB = battleB.attack - battleA.defense >= 0 ? battleB.attack - battleA.defense + 1 : 0
-        const F = await battle_probability(battleB.burst)
-        if (F) {
-            battle_hurt.hurtB += Math.floor(battle_hurt.hurtB * battleB.burstmax / 100)
-        }
-        battleA.nowblood = battleA.nowblood - battle_hurt.hurtB
-        if (battle_hurt.hurtB > 1) {
-            if (battleA.nowblood < 0) {
-                battle_msg.msg.push(`第${battle.Z}回合:对方造成${battle_hurt.hurtB}伤害`)
-                battleA.nowblood = 0
-                battle_msg.QQ = B
-                await ForwardMsg(e, battle_msg.msg)
-                break
-            }
-        } else {
-            battle_msg.msg.push(`第${battle.Z}回合:对方造成${battle_hurt.hurtB}伤害`)
-        }
-        //A开始
-        battle_hurt.hurtA = battleA.attack - battleB.defense >= 0 ? battleA.attack - battleB.defense + 1 : 0
-        const T = await battle_probability(battleA.burst)
-        if (T) {
-            battle_hurt.hurtA += Math.floor(battle_hurt.hurtA * battleA.burstmax / 100)
-        }
-        if (battle_hurt.hurtA <= 1) {
-            //没伤害
-            battle_msg.msg.push('你连对方的防御都破不了,被对方一巴掌给拍死了!')
-            battleA.nowblood = 0
-            battle_msg.QQ = B
-            await ForwardMsg(e, battle_msg.msg)
-            break
-        }
-        battleB.nowblood = battleB.nowblood - battle_hurt.hurtA
-        if (battleB.nowblood < 0) {
-            battle_msg.msg.push(`第${battle.Z}回合:你造成${battle_hurt.hurtA}伤害,并击败了对方!`)
-            battle_msg.msg.push('你击败了对方!')
-            battleB.nowblood = 0
-            await ForwardMsg(e, battle_msg.msg)
-            break
-        } else {
-            battle_msg.msg.push(`第${battle.Z}回合:你造成${battle_hurt.hurtA}伤害`)
-        }
-    }
-    battle_msg.msg.push(`血量剩余:${battleA.nowblood}`)
-    await Write_battle(A, battleA)
-    await Write_battle(B, battleB)
-    return battle_msg.QQ
-}
+
 //暴击率
 export const battle_probability = async (P) => {
     let newp = P
@@ -675,7 +622,14 @@ export const Add_najie_thing = async (najie, najie_thing, thing_acount) => {
         return najie
     }
 }
-export const addKnapsack=async(UID,searchsthing,quantity)=>{
+/**
+ * 
+ * @param {ID} UID 
+ * @param {物品} searchsthing 
+ * @param {数量} quantity 
+ * @returns 
+ */
+export const addKnapsack = async (UID, searchsthing, quantity) => {
     let najie = await Read_najie(UID)
     najie = await Add_najie_thing(najie, searchsthing, quantity)
     await Write_najie(UID, najie)
@@ -837,7 +791,8 @@ const CDname = {
 /**
  * 冷却检测
  */
-export const GenerateCD = async (UID, CDid) => {
+export const GenerateCD = async (UID, CDid,CDTime) => {
+    const now_time = new Date().getTime()
     const remainTime = await redis.ttl(`xiuxian:player:${UID}:${CDid}`)
     const time = {
         h: 0,
@@ -851,15 +806,17 @@ export const GenerateCD = async (UID, CDid) => {
         time.m = time.m < 0 ? 0 : time.m
         time.s = Math.floor((remainTime - time.h * 60 * 60 - time.m * 60))
         time.s = time.s < 0 ? 0 : time.s
-        if (time.h == 0 && time.m == 0 && time.s == 0) {
-            return 0
+        if (time.h != 0 || time.m != 0 || time.s != 0) {
+            return `${CDname[CDid]}冷却${time.h}h${time.m}m${time.s}s`
         }
-        return `${CDname[CDid]}冷却${time.h}h${time.m}m${time.s}s`
     }
+    await redis.set(`xiuxian:player:${UID}:${CDid}`, now_time)
+    await redis.expire(`xiuxian:player:${UID}:${CDid}`, CDTime * 60)
     return 0
+
 }
 //插件CD检测
-export const GenerateCDplugin = async (UID, CDid, CDnameplugin) => {
+export const GenerateCDplugin = async (UID, CDid, CDname) => {
     const remainTime = await redis.ttl(`xiuxian:player:${UID}:${CDid}`)
     const time = {
         h: 0,
@@ -873,11 +830,12 @@ export const GenerateCDplugin = async (UID, CDid, CDnameplugin) => {
         time.m = time.m < 0 ? 0 : time.m
         time.s = Math.floor((remainTime - time.h * 60 * 60 - time.m * 60))
         time.s = time.s < 0 ? 0 : time.s
-        if (time.h == 0 && time.m == 0 && time.s == 0) {
-            return 0
+        if (time.h != 0 || time.m != 0 || time.s != 0) {
+            return `${CDname[CDid]}冷却${time.h}h${time.m}m${time.s}s`
         }
-        return `${CDnameplugin[CDid]}冷却${time.h}h${time.m}m${time.s}s`
     }
+    await redis.set(`xiuxian:player:${UID}:${CDid}`, now_time)
+    await redis.expire(`xiuxian:player:${UID}:${CDid}`, CDTime * 60)
     return 0
 }
 //写入
@@ -990,13 +948,12 @@ export const map_distance = async (A, B) => {
 
 
 //输入：模糊搜索名字并判断是否在此地
-export const point_map = async (action, addressName) => {
+export const point_map = async (UID, addressName) => {
+    const action = await Read_action(UID)
     const point = JSON.parse(fs.readFileSync(`${data.__PATH.position}/point.json`))
     let T = false
-    point.forEach((item, index, arr) => {
-        //存在模糊
+    point.forEach((item) => {
         if (item.name.includes(addressName)) {
-            //且位置配对
             if (action.x == item.x && action.y == item.y) {
                 T = true
             }

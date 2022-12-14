@@ -1,11 +1,11 @@
 import plugin from '../../../../lib/plugins/plugin.js'
 import config from '../../moduels/config.js'
 import { yunzaiConfig } from '../../moduels/yunzai/index.js'
-import { GenerateCD,  Read_level, Write_level, updata_equipment, Read_Life, Write_Life } from '../../moduels/xiuxian/index.js'
+import { GenerateCD, Read_level, Write_level, updata_equipment, Read_Life, Write_Life } from '../../moduels/xiuxian/index.js'
 import { Go } from '../../moduels/yunzai/index.js'
 export class levelup extends plugin {
     constructor() {
-        super(yunzaiConfig('',[
+        super(yunzaiConfig('', [
             {
                 reg: '^#突破$',
                 fnc: 'Level_up'
@@ -86,9 +86,7 @@ export class levelup extends plugin {
         }
         const UID = e.user_id
         const CDTime = this.xiuxianConfigData.CD.Level_up
-        const CDid = '6'
-        const now_time = new Date().getTime()
-        const CD = await GenerateCD(UID, CDid)
+        const CD = await GenerateCD(UID, '6', this.xiuxianConfigData.CD.Level_up)
         if (CD != 0) {
             e.reply(CD)
             return
@@ -103,8 +101,6 @@ export class levelup extends plugin {
             e.reply(`渡劫期修士需[#渡劫]后,方能[#羽化登仙]`)
             return
         }
-        await redis.set(`xiuxian:player:${UID}:${CDid}`, now_time)
-        await redis.expire(`xiuxian:player:${UID}:${CDid}`, CDTime * 60)
         if (player.level_id > 1 && player.rank_id < 4) {
             player.rank_id = player.rank_id + 1
             player.experience -= Level.exp
@@ -130,8 +126,6 @@ export class levelup extends plugin {
             }
             player.experience -= Math.ceil(Level.exp * x)
             await Write_level(UID, player)
-            await redis.set(`xiuxian:player:${UID}:${CDid}`, now_time)
-            await redis.expire(`xiuxian:player:${UID}:${CDid}`, CDTime * 60)
             return
         }
         player.level_id = player.level_id + 1
@@ -148,8 +142,6 @@ export class levelup extends plugin {
             }
         })
         await Write_Life(life)
-        await redis.set(`xiuxian:player:${UID}:${CDid}`, now_time)
-        await redis.expire(`xiuxian:player:${UID}:${CDid}`, CDTime * 60)
         return
     }
 }

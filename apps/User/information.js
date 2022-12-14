@@ -4,7 +4,7 @@ import { yunzaiConfig } from '../../moduels/yunzai/index.js'
 import { existplayer } from '../../moduels/xiuxian/index.js'
 export class information extends plugin {
     constructor() {
-        super(yunzaiConfig('',[
+        super(yunzaiConfig('', [
             {
                 reg: '^#基础信息$',
                 fnc: 'Show_player'

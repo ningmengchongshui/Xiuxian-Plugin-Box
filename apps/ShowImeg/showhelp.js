@@ -4,7 +4,7 @@ import Cache from '../../moduels/cache.js'
 import { yunzaiConfig } from '../../moduels/yunzai/index.js'
 export class showhelp extends plugin {
     constructor() {
-        super(yunzaiConfig('showhelp',[
+        super(yunzaiConfig('showhelp', [
             {
                 reg: '^#(修仙帮助|帮助)$',
                 fnc: 'Xiuxianhelp'

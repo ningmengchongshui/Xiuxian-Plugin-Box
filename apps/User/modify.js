@@ -1,12 +1,12 @@
 import plugin from '../../../../lib/plugins/plugin.js'
 import config from '../../moduels/config.js'
 import { yunzaiConfig } from '../../moduels/yunzai/index.js'
-import { Write_player, point_map,Read_action, GenerateCD, Read_player, Read_wealth, Write_Life, Read_Life, Add_lingshi } from '../../moduels/xiuxian/index.js'
+import { Write_player, point_map, Read_action, GenerateCD, Read_player, Read_wealth, Write_Life, Read_Life, Add_lingshi } from '../../moduels/xiuxian/index.js'
 import { Go } from '../../moduels/yunzai/index.js'
 import { get_player_img } from '../../moduels/yunzai/showData.js'
 export class modify extends plugin {
     constructor() {
-        super(yunzaiConfig('',[
+        super(yunzaiConfig('', [
             {
                 reg: '^#改名.*$',
                 fnc: 'Change_name'
@@ -24,10 +24,10 @@ export class modify extends plugin {
             return
         }
         const UID = e.user_id
-        const action =await Read_action(UID)
-        const address_name='联盟'
-        const map=await point_map(action,address_name)
-        if(!map){
+        const action = await Read_action(UID)
+        const address_name = '联盟'
+        const map = await point_map(action, address_name)
+        if (!map) {
             e.reply(`需[#城池名+${address_name}]`)
             return
         }
@@ -49,16 +49,11 @@ export class modify extends plugin {
             e.reply(`需${lingshi}灵石`)
             return
         }
-        const CDid = '3'
-        const now_time = new Date().getTime()
-        const CDTime = this.xiuxianConfigData.CD.Name
-        const CD = await GenerateCD(UID, CDid)
+        const CD = await GenerateCD(UID, '3', this.xiuxianConfigData.CD.Name)
         if (CD != 0) {
             e.reply(CD)
             return
         }
-        await redis.set(`xiuxian:player:${UID}:${CDid}`,now_time)
-        await redis.expire(`xiuxian:player:${UID}:${CDid}`, CDTime * 60)
         await Add_lingshi(UID, -lingshi)
         const life = await Read_Life()
         life.forEach((item) => {
@@ -88,16 +83,11 @@ export class modify extends plugin {
             e.reply('请正确设置,且道宣最多50字符')
             return
         }
-        const CDid = '4'
-        const now_time = new Date().getTime()
-        const CDTime = this.xiuxianConfigData.CD.Autograph
-        const CD = await GenerateCD(UID, CDid)
+        const CD = await GenerateCD(UID, '4', this.xiuxianConfigData.CD.Autograph)
         if (CD != 0) {
             e.reply(CD)
             return
         }
-        await redis.set(`xiuxian:player:${UID}:${CDid}`,now_time)
-        await redis.expire(`xiuxian:player:${UID}:${CDid}`, CDTime * 60)
         player.autograph = new_msg
         await Write_player(UID, player)
         const img = await get_player_img(e)

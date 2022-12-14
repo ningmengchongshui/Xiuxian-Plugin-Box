@@ -4,7 +4,7 @@ import { yunzaiConfig } from '../../moduels/yunzai/index.js'
 import { existplayer, exist_najie_thing_name, Read_najie, Read_equipment, Write_equipment, Write_najie, Add_najie_thing } from '../../moduels/xiuxian/index.js'
 export class quipment extends plugin {
     constructor() {
-        super(yunzaiConfig('',[
+        super(yunzaiConfig('', [
             {
                 reg: '^#装备.*$',
                 fnc: 'add_equipment'
@@ -58,12 +58,12 @@ export class quipment extends plugin {
         if (!islearned) {
             return
         }
-        const q={
-            "x":0
+        const q = {
+            "x": 0
         }
-        equipment.forEach((item,index,arr)=>{
-            if(item.name==thing_name&&q.x==0){
-                q.x=1
+        equipment.forEach((item, index, arr) => {
+            if (item.name == thing_name && q.x == 0) {
+                q.x = 1
                 arr.splice(index, 1)
             }
         })

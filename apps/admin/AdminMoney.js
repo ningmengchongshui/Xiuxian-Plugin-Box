@@ -34,7 +34,7 @@ export class AdminMoney extends plugin {
             return
         }
         const quantity = await Numbers(acount)
-        await addKnapsack(UID,searchsthing,quantity)
+        await addKnapsack(UID, searchsthing, quantity)
         e.reply(`${UID}获得:${name}`)
         return
     }

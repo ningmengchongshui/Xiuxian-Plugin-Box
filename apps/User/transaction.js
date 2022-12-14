@@ -1,5 +1,5 @@
 import plugin from '../../../../lib/plugins/plugin.js'
-import { Numbers, Read_wealth, Add_lingshi, point_map, exist_najie_thing_name, Add_najie_thing, existplayer, ForwardMsg,  Read_najie, Write_najie, Read_action } from '../../moduels/xiuxian/index.js'
+import { Numbers, Read_wealth, Add_lingshi, point_map, exist_najie_thing_name, Add_najie_thing, existplayer, ForwardMsg, Read_najie, Write_najie, Read_action } from '../../moduels/xiuxian/index.js'
 export class transaction extends plugin {
     constructor() {
         super({

@@ -1,7 +1,6 @@
 import plugin from '../../../../lib/plugins/plugin.js'
 import config from '../../moduels/config.js'
 import { yunzaiConfig } from '../../moduels/yunzai/index.js'
-import { segment } from 'oicq'
 import { userstart, GenerateCD, deletelife, offaction, exist } from '../../moduels/xiuxian/index.js'
 import { get_player_img } from '../../moduels/yunzai/showData.js'
 export class start extends plugin {
@@ -44,22 +43,15 @@ export class start extends plugin {
     }
 
     reCreate_player = async (e) => {
-        const UID = e.user_id
-        const CDTime = this.xiuxianConfigData.CD.Reborn
-        const CDid = '8'
-        const now_time = new Date().getTime()
-        const CD = await GenerateCD(UID, CDid)
+        const CD = await GenerateCD(e.user_id, '8', this.xiuxianConfigData.CD.Reborn)
         if (CD != 0) {
             e.reply(CD)
             return
         }
-        await offaction(UID)
+        await offaction(e.user_id)
         //tudo
-        await deletelife(UID)
-        e.reply([segment.at(UID), '岁月悠悠\n世间终会出现两朵相同的花\n千百年的回眸\n一花凋零\n一花绽\n是否为同一朵\n任后人去评断'])
-        e.reply(await userstart(UID))
-        await redis.set(`xiuxian:player:${UID}:${CDid}`, now_time)
-        await redis.expire(`xiuxian:player:${UID}:${CDid}`, CDTime * 60)
+        await deletelife(e.user_id)
+        e.reply(await userstart(e.user_id))
         return
     }
 }

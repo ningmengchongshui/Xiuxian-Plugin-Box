@@ -3,7 +3,7 @@ import defSet from '../../moduels/defSet.js'
 import { yunzaiConfig } from '../../moduels/yunzai/index.js'
 export class AdminRobot extends plugin {
     constructor() {
-        super(yunzaiConfig('admin',[
+        super(yunzaiConfig('admin', [
             {
                 reg: '^#修仙关闭云崽',
                 fnc: 'CloseRobot',
