@@ -4,7 +4,7 @@ import config from '../../moduels/config.js'
 import { yunzaiConfig } from '../../moduels/yunzai/index.js'
 import { segment } from 'oicq'
 import { offaction, Add_experience, Add_blood, existplayer, Read_level, Read_talent, Add_experiencemax } from '../../moduels/xiuxian/index.js'
-import { Go, Gomini } from '../../moduels/yunzai/index.js'
+import { Go } from '../../moduels/yunzai/index.js'
 export class control extends plugin {
     constructor() {
         super(yunzaiConfig('control', [
@@ -28,7 +28,7 @@ export class control extends plugin {
         this.xiuxianConfigData = config.getConfig('xiuxian', 'xiuxian')
     }
     Biguan = async (e) => {
-        const good = await Gomini(e)
+        const good = await Go(e)
         if (!good) {
             return
         }

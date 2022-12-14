@@ -1,6 +1,4 @@
 import plugin from '../../../../lib/plugins/plugin.js'
-import data from '../../moduels/XiuxianData.js'
-import fs from 'node:fs'
 import { segment } from 'oicq'
 import { yunzaiConfig } from '../../moduels/yunzai/index.js'
 import { Read_action, Read_level, ForwardMsg, existplayer, Read_wealth, Write_action, Write_wealth, Read_battle } from '../../moduels/xiuxian/index.js'
@@ -48,7 +46,7 @@ export class secretplace extends plugin {
             return
         }
         const addressId = `${action.z}-${action.region}-${action.address}`
-        const point = JSON.parse(fs.readFileSync(`${data.__PATH.position}/point.json`))
+        const point = ''
         const address = []
         const msg = []
         point.forEach((item) => {
@@ -99,7 +97,7 @@ export class secretplace extends plugin {
         const x = action.x
         const y = action.y
         const address = e.msg.replace('#前往', '')
-        const point = JSON.parse(fs.readFileSync(`${data.__PATH.position}/point.json`)).find(item => item.name == address)
+        const point = ''
         if (!point) {
             return
         }
@@ -142,7 +140,7 @@ export class secretplace extends plugin {
         const x = action.x
         const y = action.y
         const address = e.msg.replace('#传送', '')
-        const position = JSON.parse(fs.readFileSync(`${data.__PATH.position}/position.json`)).find(item => item.name == address)
+        const position = ''
         if (!position) {
             return
         }
@@ -152,7 +150,7 @@ export class secretplace extends plugin {
             e.reply('[修仙联盟]守境者\n道友请留步')
             return
         }
-        const point = JSON.parse(fs.readFileSync(`${data.__PATH.position}/point.json`))
+        const point = ''
         let key = 0
         point.forEach((item) => {
             const pointID = item.id.split('-')

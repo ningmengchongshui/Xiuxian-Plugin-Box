@@ -1,5 +1,5 @@
 import plugin from '../../../../lib/plugins/plugin.js'
-import Help from '../../moduels/help.js'
+import Help from '../../moduels/yunzai/help.js'
 import Cache from '../../moduels/cache.js'
 import { yunzaiConfig } from '../../moduels/yunzai/index.js'
 export class showhelp extends plugin {

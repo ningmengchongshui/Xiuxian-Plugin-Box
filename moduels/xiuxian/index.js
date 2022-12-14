@@ -1,7 +1,6 @@
 import fs from 'fs'
 import path from 'path'
-import data from '../XiuxianData.js'
-
+import data from './data.js'
 /**
  * 随机获得奖励
  * @param {概率} P 
@@ -60,7 +59,7 @@ export const userstart = async (UID) => {
         'days': 0//签到
     }
     const new_battle = {
-        'nowblood': JSON.parse(fs.readFileSync(`${data.__PATH.Level}/Level_list.json`)).find(item => item.id == 1).blood + JSON.parse(fs.readFileSync(`${data.__PATH.Level}/LevelMax_list.json`)).find(item => item.id == 1).blood,//血量
+        'nowblood': ''
     }
     const new_level = {
         'prestige': 0,//魔力
@@ -80,7 +79,7 @@ export const userstart = async (UID) => {
         'lingshi': 0,
         'xianshi': 0
     }
-    const position = JSON.parse(fs.readFileSync(`${data.__PATH.position}/position.json`)).find(item => item.name == '极西')
+    const position = ''
     const positionID = position.id.split('-')
     const the = {
         mx: Math.floor((Math.random() * (position.x2 - position.x1))) + Number(position.x1),
@@ -305,8 +304,8 @@ export const updata_equipment = async (UID) => {
     const battle = await Read_battle(UID)
     const equipment = await Read_equipment(UID)
     const level = await Read_level(UID)
-    const levelmini = JSON.parse(fs.readFileSync(`${data.__PATH.Level}/Level_list.json`)).find(item => item.id == level.level_id)
-    const levelmax = JSON.parse(fs.readFileSync(`${data.__PATH.Level}/LevelMax_list.json`)).find(item => item.id == level.levelmax_id)
+    const levelmini = ''
+    const levelmax = ''
     const the = {
         attack: 0,
         defense: 0,
@@ -570,7 +569,7 @@ export const player_efficiency = async (UID) => {
  * 根据名字返回物品
  */
 export const search_thing_name = async (thing) => {
-    const ifexist0 = JSON.parse(fs.readFileSync(`${data.__PATH.all}/all.json`)).find(item => item.name == thing)
+    const ifexist0 = ''
     if (!ifexist0) {
         return 1
     }
@@ -580,7 +579,7 @@ export const search_thing_name = async (thing) => {
  * 根据id返回物品
  */
 export const search_thing_id = async (thing_id) => {
-    const ifexist0 = JSON.parse(fs.readFileSync(`${data.__PATH.all}/all.json`)).find(item => item.id == thing_id)
+    const ifexist0 = ''
     if (!ifexist0) {
         return 1
     } else {
@@ -950,7 +949,7 @@ export const map_distance = async (A, B) => {
 //输入：模糊搜索名字并判断是否在此地
 export const point_map = async (UID, addressName) => {
     const action = await Read_action(UID)
-    const point = JSON.parse(fs.readFileSync(`${data.__PATH.position}/point.json`))
+    const point = ''
     let T = false
     point.forEach((item) => {
         if (item.name.includes(addressName)) {

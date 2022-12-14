@@ -1,5 +1,5 @@
-import { __PATH } from './yunzai/index.js'
-import nodefs from './db/nodefs.js'
+import { __PATH } from '../yunzai/index.js'
+import nodefs from '../db/nodefs.js'
 class XiuxianData {
     constructor() {
         this.__PATH = __PATH;

@@ -1,5 +1,5 @@
 import { __dirname } from '../db/nodefs.js'
-import { existplayer,Read_battle } from '../xiuxian/index.js'
+import { existplayer } from '../xiuxian/index.js'
 import PATH from 'path'
 //插件名字
 export const appname = 'Xiuxian-Plugin-Box'
@@ -31,31 +31,10 @@ export const __PATH = {
 export const yunzaiConfig = (name, rule) => {
     return { name: name, dsc: name, event: 'message', priority: 400, rule: rule }
 }
-
-export const Gomini = async (e) => {
-    if (!e.isGroup) {
-        return false
-    }
-    const UID = e.user_id
-    const ifexistplay = await existplayer(UID)
-    if (!ifexistplay) {
-        return false
-    }
-    let action = await redis.get(`xiuxian:player:${UID}:action`)
-    if (action != undefined) {
-        action = JSON.parse(action)
-        if (action.actionName == undefined) {
-            e.reply('存在旧版本残留,请联系主人使用[#修仙删除数据]')
-            return false
-        }
-        e.reply(action.actionName + '中...')
-        return false
-    }
-    return true
-}
-
 /**
- * 状态封锁查询
+ * 指令检测
+ * @param {消息} e 
+ * @returns 真假
  */
 export const Go = async (e) => {
     if (!e.isGroup) {
@@ -76,16 +55,12 @@ export const Go = async (e) => {
         e.reply(`${action.actionName}中...`)
         return false
     }
-    const player = await Read_battle(UID)
-    if (player.nowblood <= 1) {
-        e.reply('血量不足...')
-        return false
-    }
     return true
 }
-
 /**
- * 艾特并返回QQ
+ * 艾特
+ * @param {消息} e 
+ * @returns UID
  */
 export const At = async (e) => {
     const isat = e.message.some((item) => item.type === 'at')
