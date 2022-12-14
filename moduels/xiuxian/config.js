@@ -9,7 +9,7 @@ class Config {
         this.defSet = {}
         this.configPath = `./plugins/${appname}/config/`
         this.config = {}
-        /** 监听文件 */
+        /** 监听文件 */ 
         this.watcher = { config: {}, defSet: {} }
     }
     //原始固定配置

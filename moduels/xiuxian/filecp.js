@@ -11,7 +11,7 @@ class filecp {
     const readdirectory=(dir)=>{
       let files = fs.readdirSync(dir)
       files.forEach(async item => {
-        let filepath1 = `${dir}/${item}`
+        let filepath1 = `${dir}/${item}` 
         let stat = fs.statSync(filepath1)
         if (!stat.isFile()) {
           let file = filepath1.replace(`${filepath}/`, '')

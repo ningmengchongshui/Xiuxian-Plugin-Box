@@ -5,7 +5,7 @@ export const __dirname = `${PATH.resolve()}`
 class nodefs {
     /**
      * @param {地址} filepath 
-     * @returns 所有子目录
+     * @returns 所有子目录 
      */
     returnPathName = async (filepath) => {
         const sum = []

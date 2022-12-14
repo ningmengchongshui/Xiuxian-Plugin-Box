@@ -11,7 +11,7 @@ class XiuxianYaml {
     try {
       this.yaml = noderequire.jsYaml()
     } catch { 
-    }
+    } 
   }
   config = (name, size) => {
     const map = {

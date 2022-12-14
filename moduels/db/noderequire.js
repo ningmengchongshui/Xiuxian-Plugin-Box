@@ -46,7 +46,7 @@ class noderequire {
     }
     yamlJs() {
         return require('yamljs')
-    }
+    } 
     jsYaml() {
         return require('js-yaml')
     }

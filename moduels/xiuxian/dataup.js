@@ -13,7 +13,7 @@ class dataup {
         const user_qq = item.replace(`${NEW__PATH}${path.sep}`, '').replace('.json', '')
         await this.Create_player(user_qq)
         const player = await this.Read(item)
-        let level = await Read_level(user_qq)
+        let level = await Read_level(user_qq) 
         level.level_id = await Numbers(player.level_id / 5)
         level.levelmax_id = await Numbers(player.Physique_id / 5)
         level.experience = await Numbers(player.修为)

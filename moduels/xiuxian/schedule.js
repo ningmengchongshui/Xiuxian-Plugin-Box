@@ -13,7 +13,7 @@ class Schedule {
             const D = myDate.getDate()
             const h = myDate.getHours()
             const m = myDate.getMinutes()
-            const s = myDate.getSeconds()
+            const s = myDate.getSeconds() 
             const PATH = `${__dirname}${path.sep}resources${path.sep}data${path.sep}birth${path.sep}xiuxian`
             const NEW_PATH = `${path.resolve()}${path.sep}plugins${path.sep}XiuxianData${path.sep}${Y}${M}${D}${h}${m}${s}`
             fs.cp(PATH, NEW_PATH, { recursive: true }, (err) => {

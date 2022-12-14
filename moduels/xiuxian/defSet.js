@@ -12,7 +12,7 @@ class defSet {
     try {
       this.yaml = require('js-yaml')
     } catch {}
-  }
+  } 
   ReadConfig = () => {
     try {
       const data = this.YAML.load(group)

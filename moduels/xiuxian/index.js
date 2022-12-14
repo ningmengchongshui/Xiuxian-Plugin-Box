@@ -12,7 +12,7 @@ export const randomReward=async(P)=>{
 
 /**
  * @param {ID} UID 
- * @returns 随机丢出一件装备
+ * @returns 随机丢出一件装备 
  */
 export const randomEquipment = async (UID) => {
     let equipment = await Read_equipment(UID)
