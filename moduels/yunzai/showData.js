@@ -1,10 +1,10 @@
-import Show from './show.js'
-import puppeteer from '../../../lib/puppeteer/puppeteer.js'
-import config from './Config.js'
-import { talentname, Read_battle, Read_player, Read_wealth, Read_talent, Read_equipment, Read_level, Read_najie, Read_Life, existplayer } from './Xiuxian.js.js'
+import puppeteer from '../../../../lib/puppeteer/puppeteer.js'
+import Show from '../show.js'
+import config from '../config.js'
+import { talentname, Read_battle, Read_player, Read_wealth, Read_talent, Read_equipment, Read_level, Read_najie, Read_Life, existplayer } from '../xiuxian/index.js'
 export const get_map_img = async (e) => {
-    const usr_qq = e.user_id
-    const ifexistplay = await existplayer(usr_qq)
+    const UID = e.user_id
+    const ifexistplay = await existplayer(UID)
     if (!ifexistplay) {
         return
     }
@@ -16,8 +16,8 @@ export const get_map_img = async (e) => {
     return img
 }
 export const get_updata_img = async (e) => {
-    const usr_qq = e.user_id
-    const ifexistplay = await existplayer(usr_qq)
+    const UID = e.user_id
+    const ifexistplay = await existplayer(UID)
     if (!ifexistplay) {
         return
     }
@@ -46,8 +46,8 @@ export const get_config_img = async (e) => {
     return img
 }
 export const get_bulletin_img = async (e) => {
-    const usr_qq = e.user_id
-    const ifexistplay = await existplayer(usr_qq)
+    const UID = e.user_id
+    const ifexistplay = await existplayer(UID)
     if (!ifexistplay) {
         return
     }
@@ -62,22 +62,22 @@ export const get_bulletin_img = async (e) => {
     return img
 }
 export const get_player_img = async (e) => {
-    const usr_qq = e.user_id
-    const ifexistplay = await existplayer(usr_qq)
+    const UID = e.user_id
+    const ifexistplay = await existplayer(UID)
     if (!ifexistplay) {
         return
     }
-    const player = await Read_player(usr_qq)
-    const wealt = await Read_wealth(usr_qq)
-    const equipment = await Read_equipment(usr_qq)
-    const talent = await Read_talent(usr_qq)
-    const level = await Read_level(usr_qq)
-    const battle = await Read_battle(usr_qq)
+    const player = await Read_player(UID)
+    const wealt = await Read_wealth(UID)
+    const equipment = await Read_equipment(UID)
+    const talent = await Read_talent(UID)
+    const level = await Read_level(UID)
+    const battle = await Read_battle(UID)
     const linggenname = await talentname(talent)
     let life = await Read_Life()
-    life = life.find(item => item.qq == usr_qq)
+    life = life.find(item => item.qq == UID)
     let name = ''
-    for (var i = 0 ;i < linggenname.length; i++) {
+    for (var i = 0; i < linggenname.length; i++) {
         name = name + linggenname[i]
     }
     let size = Math.trunc(talent.talentsize)
@@ -88,7 +88,7 @@ export const get_player_img = async (e) => {
         size = `+${size}%`
     }
     const myData = {
-        user_id: usr_qq,
+        user_id: UID,
         life: life,
         player: player,
         level: level,
@@ -107,17 +107,17 @@ export const get_player_img = async (e) => {
     return img
 }
 export const get_equipment_img = async (e) => {
-    const usr_qq = e.user_id
-    const ifexistplay = await existplayer(usr_qq)
+    const UID = e.user_id
+    const ifexistplay = await existplayer(UID)
     if (!ifexistplay) {
         return
     }
-    const battle = await Read_battle(usr_qq)
-    const equipment = await Read_equipment(usr_qq)
+    const battle = await Read_battle(UID)
+    const equipment = await Read_equipment(UID)
     let life = await Read_Life()
-    life = life.find(item => item.qq == usr_qq)
+    life = life.find(item => item.qq == UID)
     const myData = {
-        user_id: usr_qq,
+        user_id: UID,
         battle: battle,
         life: life,
         equipment: equipment
@@ -129,16 +129,16 @@ export const get_equipment_img = async (e) => {
     return img
 }
 export const get_najie_img = async (e) => {
-    const usr_qq = e.user_id
-    const ifexistplay = await existplayer(usr_qq)
+    const UID = e.user_id
+    const ifexistplay = await existplayer(UID)
     if (!ifexistplay) {
         return
     }
     let life = await Read_Life()
-    life = life.find(item => item.qq == usr_qq)
-    const player = await Read_player(usr_qq)
-    const battle = await Read_battle(usr_qq)
-    const najie = await Read_najie(usr_qq)
+    life = life.find(item => item.qq == UID)
+    const player = await Read_player(UID)
+    const battle = await Read_battle(UID)
+    const najie = await Read_najie(UID)
     const thing = najie.thing
     const thing_list = []
     const danyao_list = []
@@ -154,7 +154,7 @@ export const get_najie_img = async (e) => {
         }
     })
     const myData = {
-        user_id: usr_qq,
+        user_id: UID,
         player: player,
         life: life,
         battle: battle,
@@ -170,8 +170,8 @@ export const get_najie_img = async (e) => {
     return img
 }
 export const get_toplist_img = async (e, list) => {
-    const usr_qq = e.user_id
-    const ifexistplay = await existplayer(usr_qq)
+    const UID = e.user_id
+    const ifexistplay = await existplayer(UID)
     if (!ifexistplay) {
         return
     }

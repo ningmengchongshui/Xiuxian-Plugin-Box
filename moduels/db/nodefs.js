@@ -20,6 +20,19 @@ class nodefs {
         })
         return sum
     }
+
+    returnjson=async()=>{
+        const playerList = []
+        const files = FS
+            .readdirSync('')  //tudo
+            .filter((file) => file.endsWith('.json'))
+        files.forEach((item) => {
+            const file = item.replace('.json', '')
+            playerList.push(file)
+        })
+        return playerList
+    }
+
     /**
      * @param {地址} path 
      * @param {表名} name 
@@ -78,6 +91,9 @@ class nodefs {
     readFind(choice, listname, result) {
         JSON.parse(FS.readFileSync(`${__PATH[choice]}/${listname}.json`)).find(result)
     }
+
+
+    
 
 }
 export default new nodefs()

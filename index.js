@@ -1,6 +1,6 @@
-import Config from './model/Config.js'
-import index from './model/index.js'
-import Schedule from './model/xiuxian/schedule.js'
+import Config from './moduels/config.js'
+import index from './moduels/index.js'
+import Schedule from './moduels/xiuxian/schedule.js'
 const version = Config.getdefSet('version', 'version')
 const task = Config.getdefSet('task', 'task')
 const xiuxain = await index.toindex('apps')

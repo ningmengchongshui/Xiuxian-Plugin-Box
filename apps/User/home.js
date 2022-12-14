@@ -1,7 +1,7 @@
 import plugin from '../../../../lib/plugins/plugin.js'
-import config from '../../moduels/Config.js'
+import config from '../../moduels/config.js'
 import { yunzaiConfig } from '../../moduels/yunzai/index.js'
-import { get_player_img } from '../../moduels/showData.js'
+import { get_player_img } from '../../moduels/yunzai/showData.js'
 import { existplayer, exist_najie_thing_name, Read_najie, Add_experiencemax, Write_najie, Numbers, Add_najie_thing, Add_blood, Add_experience, get_talent, Write_talent, player_efficiency, Read_talent, Read_level } from '../../moduels/xiuxian/index.js'
 export class home extends plugin {
     constructor() {
@@ -29,8 +29,8 @@ export class home extends plugin {
         if (!e.isGroup) {
             return
         }
-        const usr_qq = e.user_id
-        const ifexistplay = await existplayer(usr_qq)
+        const UID = e.user_id
+        const ifexistplay = await existplayer(UID)
         if (!ifexistplay) {
             return
         }
@@ -38,7 +38,7 @@ export class home extends plugin {
         const code = thing.split('\*')
         let [thing_name, thing_acount] = code
         thing_acount = await Numbers(thing_acount)
-        const najie_thing = await exist_najie_thing_name(usr_qq, thing_name)
+        const najie_thing = await exist_najie_thing_name(UID, thing_name)
         if (najie_thing == 1) {
             e.reply(`没有${thing_name}`)
             return
@@ -50,36 +50,36 @@ export class home extends plugin {
         const id = najie_thing.id.split('-')
         if (id[1] == 1) {
             let blood = parseInt(najie_thing.blood)
-            await Add_blood(usr_qq, blood)
+            await Add_blood(UID, blood)
             e.reply(`血量恢复至${blood}%`)
         } else if (id[1] == 2) {
             let experience = parseInt(najie_thing.experience)
-            await Add_experience(usr_qq, thing_acount * experience)
+            await Add_experience(UID, thing_acount * experience)
             e.reply(`修为增加${thing_acount * najie_thing.experience}`)
         } else if (id[1] == 3) {
             let experiencemax = parseInt(najie_thing.experiencemax)
-            await Add_experiencemax(usr_qq, thing_acount * experiencemax)
+            await Add_experiencemax(UID, thing_acount * experiencemax)
             e.reply(`气血增加${thing_acount * najie_thing.experiencemax}`)
         } else {
             e.reply(`不可服用${thing_name}`)
             return
         }
-        let najie = await Read_najie(usr_qq)
+        let najie = await Read_najie(UID)
         najie = await Add_najie_thing(najie, najie_thing, -thing_acount)
-        await Write_najie(usr_qq, najie)
+        await Write_najie(UID, najie)
         return
     }
     add_gongfa = async (e) => {
         if (!e.isGroup) {
             return
         }
-        const usr_qq = e.user_id
-        const ifexistplay = await existplayer(usr_qq)
+        const UID = e.user_id
+        const ifexistplay = await existplayer(UID)
         if (!ifexistplay) {
             return
         }
         const thing_name = e.msg.replace('#学习', '')
-        const najie_thing = await exist_najie_thing_name(usr_qq, thing_name)
+        const najie_thing = await exist_najie_thing_name(UID, thing_name)
         if (najie_thing == 1) {
             e.reply(`没有[${thing_name}]`)
             return
@@ -88,7 +88,7 @@ export class home extends plugin {
         if (id[0] != 5) {
             return
         }
-        const talent = await Read_talent(usr_qq)
+        const talent = await Read_talent(UID)
         const islearned = talent.AllSorcery.find(item => item.id == najie_thing.id)
         if (islearned) {
             e.reply('学过了')
@@ -99,11 +99,11 @@ export class home extends plugin {
             return
         }
         talent.AllSorcery.push(najie_thing)
-        await Write_talent(usr_qq, talent)
-        await player_efficiency(usr_qq)
-        let najie = await Read_najie(usr_qq)
+        await Write_talent(UID, talent)
+        await player_efficiency(UID)
+        let najie = await Read_najie(UID)
         najie = await Add_najie_thing(najie, najie_thing, -1)
-        await Write_najie(usr_qq, najie)
+        await Write_najie(UID, najie)
         e.reply(`学习${thing_name}`)
         return
     }
@@ -111,24 +111,24 @@ export class home extends plugin {
         if (!e.isGroup) {
             return
         }
-        const usr_qq = e.user_id
-        const ifexistplay = await existplayer(usr_qq)
+        const UID = e.user_id
+        const ifexistplay = await existplayer(UID)
         if (!ifexistplay) {
             return
         }
         const thing_name = e.msg.replace('#忘掉', '')
-        const talent = await Read_talent(usr_qq)
+        const talent = await Read_talent(UID)
         const islearned = talent.AllSorcery.find(item => item.name == thing_name)
         if (!islearned) {
             e.reply(`没学过${thing_name}`)
             return
         }
         talent.AllSorcery = talent.AllSorcery.filter(item => item.name != thing_name)
-        await Write_talent(usr_qq, talent)
-        await player_efficiency(usr_qq)
-        let najie = await Read_najie(usr_qq)
+        await Write_talent(UID, talent)
+        await player_efficiency(UID)
+        let najie = await Read_najie(UID)
         najie = await Add_najie_thing(najie, islearned, 1)
-        await Write_najie(usr_qq, najie)
+        await Write_najie(UID, najie)
         e.reply(`忘了${thing_name}`)
         return
     }
@@ -136,13 +136,13 @@ export class home extends plugin {
         if (!e.isGroup) {
             return
         }
-        const usr_qq = e.user_id
-        const ifexistplay = await existplayer(usr_qq)
+        const UID = e.user_id
+        const ifexistplay = await existplayer(UID)
         if (!ifexistplay) {
             return
         }
         const thing_name = e.msg.replace('#消耗', '')
-        const najie_thing = await exist_najie_thing_name(usr_qq, thing_name)
+        const najie_thing = await exist_najie_thing_name(UID, thing_name)
         if (najie_thing == 1) {
             e.reply(`没有[${thing_name}]`)
             return
@@ -152,29 +152,29 @@ export class home extends plugin {
             return
         }
         if (id[2] == 1) {
-            const player = await Read_level(usr_qq)
+            const player = await Read_level(UID)
             if (player.level_id >= 10) {
                 e.reply('[天机门]石昊\n你灵根已定\n此生不可再洗髓')
                 return
             }
-            const talent = await Read_talent(usr_qq)
+            const talent = await Read_talent(UID)
             talent.talent = await get_talent()
-            await Write_talent(usr_qq, talent)
-            await player_efficiency(usr_qq)
+            await Write_talent(UID, talent)
+            await player_efficiency(UID)
             const img = await get_player_img(e)
             e.reply(img)
         } else if (id[2] == 2) {
-            const talent = await Read_talent(usr_qq)
+            const talent = await Read_talent(UID)
             talent.talentshow = 0
-            await Write_talent(usr_qq, talent)
+            await Write_talent(UID, talent)
             const img = await get_player_img(e)
             e.reply(img)
         } else {
             return
         }
-        let najie = await Read_najie(usr_qq)
+        let najie = await Read_najie(UID)
         najie = await Add_najie_thing(najie, najie_thing, -1)
-        await Write_najie(usr_qq, najie)
+        await Write_najie(UID, najie)
         return
     }
 }

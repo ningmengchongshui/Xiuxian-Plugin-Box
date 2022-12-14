@@ -1,5 +1,5 @@
 import base from './base.js'
-import xiuxianCfg from './Config.js'
+import xiuxianCfg from './config.js'
 export default class Help extends base {
   constructor(e) {
     super(e)

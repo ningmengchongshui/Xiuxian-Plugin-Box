@@ -1,9 +1,8 @@
-import { __PATH } from './yunzai.js.js'
-import nodefs from './nodefs.js'
+import { __PATH } from './yunzai/index.js'
+import nodefs from './db/nodefs.js'
 class XiuxianData {
     constructor() {
         this.__PATH = __PATH;
-        this.talent_list = JSON.parse(fs.readFileSync(`${__PATH['fixedtalent']}/talent_list.json`))
         nodefs.newlist(__PATH['Level'], 'Level_list', [])
         nodefs.newlist(__PATH['Level'], 'Level_list', [
             ...nodefs.getlist(__PATH['fixedLevel'], 'Level_list.json')

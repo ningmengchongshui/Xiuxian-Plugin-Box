@@ -1,7 +1,5 @@
 import plugin from '../../../../lib/plugins/plugin.js'
-import data from '../../moduels/XiuxianData.js'
-import fs from 'node:fs'
-import { Numbers, Read_wealth, Add_lingshi, point_map, exist_najie_thing_name, Add_najie_thing, existplayer, ForwardMsg, __PATH, Read_najie, Write_najie, Read_action } from '../../moduels/xiuxian/index.js'
+import { Numbers, Read_wealth, Add_lingshi, point_map, exist_najie_thing_name, Add_najie_thing, existplayer, ForwardMsg,  Read_najie, Write_najie, Read_action } from '../../moduels/xiuxian/index.js'
 export class transaction extends plugin {
     constructor() {
         super({
@@ -26,12 +24,12 @@ export class transaction extends plugin {
         })
     }
     ningmenghome = async (e) => {
-        const usr_qq = e.user_id
-        const ifexistplay = await existplayer(usr_qq)
+        const UID = e.user_id
+        const ifexistplay = await existplayer(UID)
         if (!ifexistplay) {
             return
         }
-        const action = await Read_action(usr_qq)
+        const action = await Read_action(UID)
         const address_name = '凡仙堂'
         const map = await point_map(action, address_name)
         if (!map) {
@@ -41,7 +39,7 @@ export class transaction extends plugin {
         const msg = [
             '___[凡仙堂]___\n#购买+物品名*数量\n不填数量,默认为1'
         ]
-        const commodities_list = JSON.parse(fs.readFileSync(`${data.__PATH.all}/commodities.json`))
+        const commodities_list = ''  //tudo
         commodities_list.forEach((item) => {
             const id = item.id.split('-')
             if (id[0] == 4) {
@@ -61,12 +59,12 @@ export class transaction extends plugin {
         if (!e.isGroup) {
             return
         }
-        const usr_qq = e.user_id
-        const ifexistplay = await existplayer(usr_qq)
+        const UID = e.user_id
+        const ifexistplay = await existplayer(UID)
         if (!ifexistplay) {
             return
         }
-        const action = await Read_action(usr_qq)
+        const action = await Read_action(UID)
         const address_name = '凡仙堂'
         const map = await point_map(action, address_name)
         if (!map) {
@@ -84,26 +82,26 @@ export class transaction extends plugin {
         if (the.quantity > 99) {
             the.quantity = 99
         }
-        const ifexist = JSON.parse(fs.readFileSync(`${data.__PATH.all}/commodities.json`)).find(item => item.name == thing_name)
+        const ifexist = '' //tudo
         if (!ifexist) {
             e.reply(`[凡仙堂]小二\n不卖:${thing_name}`)
             return
         }
-        const player = await Read_wealth(usr_qq)
+        const player = await Read_wealth(UID)
         const lingshi = player.lingshi
         const commodities_price = ifexist.price * the.quantity
         if (lingshi < commodities_price) {
             e.reply(`[凡仙堂]小二\n灵石不足`)
             return
         }
-        the.najie = await Read_najie(usr_qq)
+        the.najie = await Read_najie(UID)
         if (the.najie.thing.length > 21) {
             e.reply('储物袋已满')
             return
         }
         the.najie = await Add_najie_thing(the.najie, ifexist, the.quantity)
-        await Write_najie(usr_qq, the.najie)
-        await Add_lingshi(usr_qq, -commodities_price)
+        await Write_najie(UID, the.najie)
+        await Add_lingshi(UID, -commodities_price)
         e.reply(`[凡仙堂]薛仁贵\n你花[${commodities_price}]灵石购买了[${thing_name}]*${the.quantity},`)
         return
     }
@@ -111,12 +109,12 @@ export class transaction extends plugin {
         if (!e.isGroup) {
             return
         }
-        const usr_qq = e.user_id
-        const ifexistplay = await existplayer(usr_qq)
+        const UID = e.user_id
+        const ifexistplay = await existplayer(UID)
         if (!ifexistplay) {
             return
         }
-        const action = await Read_action(usr_qq)
+        const action = await Read_action(UID)
         const address_name = '凡仙堂'
         const map = await point_map(action, address_name)
         if (!map) {
@@ -134,7 +132,7 @@ export class transaction extends plugin {
         if (the.quantity > 99) {
             the.quantity = 99
         }
-        const najie_thing = await exist_najie_thing_name(usr_qq, thing_name)
+        const najie_thing = await exist_najie_thing_name(UID, thing_name)
         if (najie_thing == 1) {
             e.reply(`[凡仙堂]小二\n你没[${thing_name}]`)
             return
@@ -143,11 +141,11 @@ export class transaction extends plugin {
             e.reply('[凡仙堂]小二\n数量不足')
             return
         }
-        the.najie = await Read_najie(usr_qq)
+        the.najie = await Read_najie(UID)
         the.najie = await Add_najie_thing(the.najie, najie_thing, -the.quantity)
-        await Write_najie(usr_qq, the.najie)
+        await Write_najie(UID, the.najie)
         const commodities_price = najie_thing.price * the.quantity
-        await Add_lingshi(usr_qq, commodities_price)
+        await Add_lingshi(UID, commodities_price)
         e.reply(`[凡仙堂]欧阳峰\n出售得${commodities_price}灵石 `)
         return
     }

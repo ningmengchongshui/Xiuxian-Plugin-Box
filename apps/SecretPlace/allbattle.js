@@ -1,6 +1,7 @@
 import plugin from '../../../../lib/plugins/plugin.js'
-import config from '../../moduels/Config.js'
-import { Go, Read_action, point_map, existplayer, GenerateCD, __PATH, At, battle, Read_equipment, Anyarray, Write_equipment, Read_najie, Add_najie_thing, Write_najie, Read_level, Write_level, Read_wealth, Write_wealth } from '../../moduels/xiuxian/index.js'
+import config from '../../moduels/config.js'
+import { Read_action, point_map, existplayer, GenerateCD, battle, Read_equipment, Anyarray, Write_equipment, Read_najie, Add_najie_thing, Write_najie, Read_level, Write_level, Read_wealth, Write_wealth } from '../../moduels/xiuxian/index.js'
+import { At,Go } from '../../moduels/yunzai/index.js'
 import { yunzaiConfig } from '../../moduels/yunzai/index.js'
 export class allbattle extends plugin {
     constructor() {
@@ -84,27 +85,27 @@ export class allbattle extends plugin {
         if (!e.isGroup) {
             return
         }
-        const usr_qq = e.user_id
-        const ifexistplay = await existplayer(usr_qq)
+        const UID = e.user_id
+        const ifexistplay = await existplayer(UID)
         if (!ifexistplay) {
             return
         }
-        const action = await Read_action(usr_qq)
+        const action = await Read_action(UID)
         const address_name = '天机门'
         const map = await point_map(action, address_name)
         if (!map) {
             e.reply(`需[#城池名+${address_name}]`)
             return
         }
-        const Level = await Read_level(usr_qq)
+        const Level = await Read_level(UID)
         const money = 10000 * Level.level_id
         if (Level.prestige > 0) {
-            const wealt = await Read_wealth(usr_qq)
+            const wealt = await Read_wealth(UID)
             if (wealt.lingshi > money) {
                 Level.prestige -= 1
                 wealt.lingshi -= money
-                await Write_level(usr_qq, Level)
-                await Write_wealth(usr_qq, wealt)
+                await Write_level(UID, Level)
+                await Write_wealth(UID, wealt)
                 e.reply('[天机门]南宫问天\n为你清除1点魔力值')
                 return
             }

@@ -1,5 +1,5 @@
 import plugin from '../../../../lib/plugins/plugin.js'
-import { get_equipment_img, get_player_img } from '../../moduels/showData.js'
+import { get_equipment_img, get_player_img } from '../../moduels/yunzai/showData.js'
 import { yunzaiConfig } from '../../moduels/yunzai/index.js'
 import { existplayer } from '../../moduels/xiuxian/index.js'
 export class information extends plugin {
@@ -20,8 +20,8 @@ export class information extends plugin {
         ]))
     }
     Show_player = async (e) => {
-        const usr_qq = e.user_id
-        const ifexistplay = await existplayer(usr_qq)
+        const UID = e.user_id
+        const ifexistplay = await existplayer(UID)
         if (!ifexistplay) {
             return
         }
@@ -30,8 +30,8 @@ export class information extends plugin {
         return
     }
     show_equipment = async (e) => {
-        const usr_qq = e.user_id
-        const ifexistplay = await existplayer(usr_qq)
+        const UID = e.user_id
+        const ifexistplay = await existplayer(UID)
         if (!ifexistplay) {
             return
         }

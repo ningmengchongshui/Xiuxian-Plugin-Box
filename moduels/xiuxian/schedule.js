@@ -1,8 +1,8 @@
 import fs from 'node:fs'
 import path from 'path'
-import { __dirname } from '../nodefs'
-import { offaction, Read_Life, Write_Life, __PATH } from './index.js'
-import noderequire from '../noderequire'
+import { __dirname } from '../db/nodefs.js'
+import { offaction, Read_Life, Write_Life } from './index.js'
+import noderequire from '../db/noderequire.js'
 const schedule = noderequire.nodeSchedule()
 class Schedule {
     scheduleJobflie = (time) => {

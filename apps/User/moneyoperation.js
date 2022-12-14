@@ -1,10 +1,9 @@
 import plugin from '../../../../lib/plugins/plugin.js'
-import data from '../../moduels/XiuxianData.js'
-import config from '../../moduels/Config.js'
+import config from '../../moduels/config.js'
 import { yunzaiConfig } from '../../moduels/yunzai/index.js'
 import { segment } from 'oicq'
-import fs from 'node:fs'
-import {Read_action,point_map, Read_level,Read_najie,Go,Add_najie_thing,Write_najie,Numbers,Add_lingshi,At,GenerateCD, Read_wealth, Write_wealth, Write_action} from '../../moduels/xiuxian/index.js'
+import {Read_action,point_map, Read_level,Read_najie,Add_najie_thing,Write_najie,Numbers,Add_lingshi,GenerateCD, Read_wealth, Write_wealth, Write_action} from '../../moduels/xiuxian/index.js'
+import { At,Go } from '../../moduels/yunzai/index.js'
 export class moneyoperation extends plugin {
     constructor() {
         super(yunzaiConfig('',[
@@ -24,15 +23,15 @@ export class moneyoperation extends plugin {
         if (!good) {
             return
         }
-        const usr_qq = e.user_id
-        const action=await Read_action(usr_qq)
+        const UID = e.user_id
+        const action=await Read_action(UID)
         const address_name='联盟'
         const map=await point_map(action,address_name)
         if(!map){
             e.reply(`需[#城池名+${address_name}]`)
             return
         }
-        const level=await Read_level(usr_qq)
+        const level=await Read_level(UID)
         if(level.level_id!=1){
             return
         }
@@ -40,14 +39,14 @@ export class moneyoperation extends plugin {
             return
         }
         action.newnoe=0
-        await Write_action(usr_qq,action)
+        await Write_action(UID,action)
         const equipment_name='烂铁匕首'
         const money=Number(5)
-        const ifexist = JSON.parse(fs.readFileSync(`${data.__PATH.all}/all.json`)).find(item => item.name == equipment_name)
-        let najie = await Read_najie(usr_qq)
+        const ifexist = ''
+        let najie = await Read_najie(UID)
         najie = await Add_najie_thing(najie, ifexist, Number(1))
-        await Write_najie(usr_qq, najie)
-        await Add_lingshi(usr_qq,money)
+        await Write_najie(UID, najie)
+        await Add_lingshi(UID,money)
         e.reply(`[修仙联盟]方正\n看你骨骼惊奇\n就送你一把[${equipment_name}]吧\n还有这${money}灵石\n可在必要的时候用到`)
         e.reply(`你对此高兴万分\n把[${equipment_name}]放进了#储物袋`)
         return

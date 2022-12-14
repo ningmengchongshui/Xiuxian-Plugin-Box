@@ -1,5 +1,5 @@
 import plugin from '../../../../lib/plugins/plugin.js'
-import config from '../../moduels/Config.js'
+import config from '../../moduels/config.js'
 import { yunzaiConfig } from '../../moduels/yunzai/index.js'
 import { existplayer, exist_najie_thing_name, Read_najie, Read_equipment, Write_equipment, Write_najie, Add_najie_thing } from '../../moduels/xiuxian/index.js'
 export class quipment extends plugin {
@@ -20,26 +20,26 @@ export class quipment extends plugin {
         if (!e.isGroup) {
             return
         }
-        const usr_qq = e.user_id
-        const ifexistplay = await existplayer(usr_qq)
+        const UID = e.user_id
+        const ifexistplay = await existplayer(UID)
         if (!ifexistplay) {
             return
         }
         const thing_name = e.msg.replace('#装备', '')
-        const najie_thing = await exist_najie_thing_name(usr_qq, thing_name)
+        const najie_thing = await exist_najie_thing_name(UID, thing_name)
         if (najie_thing == 1) {
             e.reply(`没有${thing_name}`)
             return
         }
-        const equipment = await Read_equipment(usr_qq)
+        const equipment = await Read_equipment(UID)
         if (equipment.length >= this.xiuxianConfigData.myconfig.equipment) {
             return
         }
         equipment.push(najie_thing)
-        await Write_equipment(usr_qq, equipment)
-        let najie = await Read_najie(usr_qq)
+        await Write_equipment(UID, equipment)
+        let najie = await Read_najie(UID)
         najie = await Add_najie_thing(najie, najie_thing, -1)
-        await Write_najie(usr_qq, najie)
+        await Write_najie(UID, najie)
         e.reply(`装备${thing_name}`)
         return
     }
@@ -47,13 +47,13 @@ export class quipment extends plugin {
         if (!e.isGroup) {
             return
         }
-        const usr_qq = e.user_id
-        const ifexistplay = await existplayer(usr_qq)
+        const UID = e.user_id
+        const ifexistplay = await existplayer(UID)
         if (!ifexistplay) {
             return
         }
         const thing_name = e.msg.replace('#卸下', '')
-        let equipment = await Read_equipment(usr_qq)
+        let equipment = await Read_equipment(UID)
         const islearned = equipment.find(item => item.name == thing_name)
         if (!islearned) {
             return
@@ -67,10 +67,10 @@ export class quipment extends plugin {
                 arr.splice(index, 1)
             }
         })
-        await Write_equipment(usr_qq, equipment)
-        let najie = await Read_najie(usr_qq)
+        await Write_equipment(UID, equipment)
+        let najie = await Read_najie(UID)
         najie = await Add_najie_thing(najie, islearned, 1)
-        await Write_najie(usr_qq, najie)
+        await Write_najie(UID, najie)
         e.reply(`已卸下${thing_name}`)
         return
     }

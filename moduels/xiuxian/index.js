@@ -757,22 +757,7 @@ export const shijianc = async (time) => {
     dateobj.s = date.getSeconds()
     return dateobj
 }
-/**
- * 艾特并返回QQ
- */
-export const At = async (e) => {
-    const isat = e.message.some((item) => item.type === 'at')
-    if (!isat) {
-        return 0
-    }
-    const atItem = e.message.filter((item) => item.type === 'at')
-    const B = atItem[0].qq
-    const ifexistplay = await existplayer(B)
-    if (!ifexistplay) {
-        return 0
-    }
-    return B
-}
+
 /**
  * 判断对象是否不为undefined且不为null
  * @param obj 对象
@@ -835,60 +820,7 @@ export const offaction = async (qq) => {
     }
     return
 }
-/**
- * 状态封锁查询
- */
-export const Gomini = async (e) => {
-    if (!e.isGroup) {
-        return false
-    }
-    const UID = e.user_id
-    const ifexistplay = await existplayer(UID)
-    if (!ifexistplay) {
-        return false
-    }
-    let action = await redis.get(`xiuxian:player:${UID}:action`)
-    if (action != undefined) {
-        action = JSON.parse(action)
-        if (action.actionName == undefined) {
-            e.reply('存在旧版本残留,请联系主人使用[#修仙删除数据]')
-            return false
-        }
-        e.reply(action.actionName + '中...')
-        return false
-    }
-    return true
-}
 
-/**
- * 状态封锁查询
- */
-export const Go = async (e) => {
-    if (!e.isGroup) {
-        return false
-    }
-    const UID = e.user_id
-    const ifexistplay = await existplayer(UID)
-    if (!ifexistplay) {
-        return false
-    }
-    let action = await redis.get(`xiuxian:player:${UID}:action`)
-    if (action != undefined) {
-        action = JSON.parse(action)
-        if (action.actionName == undefined) {
-            e.reply('旧版数据残留,请联系主人使用[#修仙删除数据]')
-            return false
-        }
-        e.reply(`${action.actionName}中...`)
-        return false
-    }
-    const player = await Read_battle(UID)
-    if (player.nowblood <= 1) {
-        e.reply('血量不足...')
-        return false
-    }
-    return true
-}
 const CDname = {
     '0': '攻击',
     '1': '降妖',

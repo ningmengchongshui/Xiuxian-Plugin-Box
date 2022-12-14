@@ -1,7 +1,7 @@
 import plugin from '../../../../lib/plugins/plugin.js'
-import fs from 'fs'
-import { existplayer, __PATH, Read_action, point_map, sortBy, Read_level, Read_battle } from '../../moduels/xiuxian/index.js'
-import { get_toplist_img } from '../../moduels/showData.js'
+import nodefs from '../../moduels/db/nodefs.js'
+import { existplayer, Read_action, point_map, sortBy, Read_level, Read_battle } from '../../moduels/xiuxian/index.js'
+import { get_toplist_img } from '../../moduels/yunzai/showData.js'
 import { yunzaiConfig } from '../../moduels/yunzai/index.js'
 export class toplist extends plugin {
     constructor() {
@@ -21,28 +21,21 @@ export class toplist extends plugin {
         ]))
     }
     TOP_prestige = async (e) => {
-        const usr_qq = e.user_id
-        const ifexistplay = await existplayer(usr_qq)
+        const UID = e.user_id
+        const ifexistplay = await existplayer(UID)
         if (!ifexistplay) {
             return
         }
-        const action = await Read_action(usr_qq)
+        const action = await Read_action(UID)
         const address_name = '天机门'
         const map = await point_map(action, address_name)
         if (!map) {
             e.reply(`需[#城池名+${address_name}]`)
             return
         }
-        const playerList = []
+        const playerList = await nodefs.returnjson()
         const temp = []
         const list = []
-        const files = fs
-            .readdirSync(__PATH.player)
-            .filter((file) => file.endsWith('.json'))
-        files.forEach((item) => {
-            const file = item.replace('.json', '')
-            playerList.push(file)
-        })
         for (let item of playerList) {
             const newbattle = await Read_level(item)
             if (newbattle.prestige > 0) {
@@ -69,28 +62,21 @@ export class toplist extends plugin {
         return
     }
     TOP_Immortal = async (e) => {
-        const usr_qq = e.user_id
-        const ifexistplay = await existplayer(usr_qq)
+        const UID = e.user_id
+        const ifexistplay = await existplayer(UID)
         if (!ifexistplay) {
             return
         }
-        const action = await Read_action(usr_qq)
+        const action = await Read_action(UID)
         const address_name = '天机门'
         const map = await point_map(action, address_name)
         if (!map) {
             e.reply(`需[#城池名+${address_name}]`)
             return
         }
-        const playerList = []
+        const playerList = await nodefs.returnjson()
         const temp = []
         const list = []
-        const files = fs
-            .readdirSync(__PATH.player)
-            .filter((file) => file.endsWith('.json'))
-        files.forEach((item) => {
-            const file = item.replace('.json', '')
-            playerList.push(file)
-        })
         for (let item of playerList) {
             const level = await Read_level(item)
             if (level.level_id > 10) {
@@ -118,12 +104,12 @@ export class toplist extends plugin {
         return
     }
     TOP_genius = async (e) => {
-        const usr_qq = e.user_id
-        const ifexistplay = await existplayer(usr_qq)
+        const UID = e.user_id
+        const ifexistplay = await existplayer(UID)
         if (!ifexistplay) {
             return
         }
-        const action = await Read_action(usr_qq)
+        const action = await Read_action(UID)
         const address_name = '天机门'
         const map = await point_map(action, address_name)
         if (!map) {
@@ -132,14 +118,7 @@ export class toplist extends plugin {
         }
         const list = []
         const temp = []
-        const playerList = []
-        const files = fs
-            .readdirSync(__PATH.player)
-            .filter((file) => file.endsWith('.json'))
-        files.forEach((item) => {
-            const file = item.replace('.json', '')
-            playerList.push(file)
-        })
+        const playerList = await nodefs.returnjson()
         for (let item of playerList) {
             const level = await Read_level(item)
             if (level.level_id <= 10) {

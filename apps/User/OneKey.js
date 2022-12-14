@@ -1,5 +1,5 @@
 import plugin from '../../../../lib/plugins/plugin.js'
-import config from '../../moduels/Config.js'
+import config from '../../moduels/config.js'
 import { yunzaiConfig } from '../../moduels/yunzai/index.js'
 import { Add_lingshi, existplayer,point_map,Read_action, Read_najie, Write_najie } from '../../moduels/xiuxian/index.js'
 export class onekey extends plugin {
@@ -20,26 +20,26 @@ export class onekey extends plugin {
         if (!e.isGroup) {
             return
         }
-        const usr_qq = e.user_id
-        const ifexistplay = await existplayer(usr_qq)
+        const UID = e.user_id
+        const ifexistplay = await existplayer(UID)
         if (!ifexistplay) {
             return
         }
-        const action=await Read_action(usr_qq)
+        const action=await Read_action(UID)
         const address_name='万宝楼'
         const map=await point_map(action,address_name)
         if(!map){
             e.reply(`需[#城池名+${address_name}]`)
             return
         }
-        let najie = await Read_najie(usr_qq)
+        let najie = await Read_najie(UID)
         let money = 0
         for (let item of najie.thing) {
             money += item.acount * item.price
         }
-        await Add_lingshi(usr_qq, money)
+        await Add_lingshi(UID, money)
         najie.thing = []
-        await Write_najie(usr_qq, najie)
+        await Write_najie(UID, najie)
         e.reply(`[蜀山派]叶铭\n这是${money}灵石,道友慢走`)
         return
     }
@@ -47,8 +47,8 @@ export class onekey extends plugin {
         if (!e.isGroup) {
             return
         }
-        const usr_qq = e.user_id
-        const ifexistplay = await existplayer(usr_qq)
+        const UID = e.user_id
+        const ifexistplay = await existplayer(UID)
         if (!ifexistplay) {
             return
         }

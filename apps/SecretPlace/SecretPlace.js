@@ -3,7 +3,8 @@ import data from '../../moduels/XiuxianData.js'
 import fs from 'node:fs'
 import { segment } from 'oicq'
 import { yunzaiConfig } from '../../moduels/yunzai/index.js'
-import { Go, Read_action, Read_level, ForwardMsg, existplayer, Read_wealth, Write_action, Write_wealth, Read_battle } from '../../moduels/xiuxian/index.js'
+import { Read_action, Read_level, ForwardMsg, existplayer, Read_wealth, Write_action, Write_wealth, Read_battle } from '../../moduels/xiuxian/index.js'
+import { Go } from '../../moduels/yunzai/index.js'
 const forwardsetTime = []
 const deliverysetTime = []
 const useraction = []
@@ -36,12 +37,12 @@ export class secretplace extends plugin {
         if (!e.isGroup) {
             return
         }
-        const usr_qq = e.user_id
-        const ifexistplay = await existplayer(usr_qq)
+        const UID = e.user_id
+        const ifexistplay = await existplayer(UID)
         if (!ifexistplay) {
             return
         }
-        const action = await Read_action(usr_qq)
+        const action = await Read_action(UID)
         if (action.address != 1) {
             e.reply('你对这里并不了解...')
             return
@@ -66,9 +67,9 @@ export class secretplace extends plugin {
         if (!good) {
             return
         }
-        const usr_qq = e.user_id
-        forwardsetTime[usr_qq] = 0
-        clearTimeout(useraction[usr_qq])
+        const UID = e.user_id
+        forwardsetTime[UID] = 0
+        clearTimeout(useraction[UID])
         e.reply('你回到了原地')
         return
     }
@@ -76,12 +77,12 @@ export class secretplace extends plugin {
         if (!e.isGroup) {
             return
         }
-        const usr_qq = e.user_id
-        const ifexistplay = await existplayer(usr_qq)
+        const UID = e.user_id
+        const ifexistplay = await existplayer(UID)
         if (!ifexistplay) {
             return
         }
-        const action = await Read_action(usr_qq)
+        const action = await Read_action(UID)
         e.reply(`坐标(${action.x},${action.y},${action.z})`)
         return
     }
@@ -90,11 +91,11 @@ export class secretplace extends plugin {
         if (!good) {
             return
         }
-        const usr_qq = e.user_id
-        if (forwardsetTime[usr_qq] == 1) {
+        const UID = e.user_id
+        if (forwardsetTime[UID] == 1) {
             return
         }
-        const action = await Read_action(usr_qq)
+        const action = await Read_action(UID)
         const x = action.x
         const y = action.y
         const address = e.msg.replace('#前往', '')
@@ -105,26 +106,26 @@ export class secretplace extends plugin {
         const mx = point.x
         const my = point.y
         const PointId = point.id.split('-')
-        const level = await Read_level(usr_qq)
+        const level = await Read_level(UID)
         if (level.level_id < PointId[3]) {
             e.reply('[修仙联盟]守境者\n道友请留步')
             return
         }
         const a = x - mx >= 0 ? x - mx : mx - x
         const b = y - my >= 0 ? y - my : my - y
-        const battle = await Read_battle(usr_qq)
+        const battle = await Read_battle(UID)
         const the = Math.floor((a + b) - (a + b) * battle.speed * 0.01)
         const time = the >= 0 ? the : 1
-        useraction[usr_qq] = setTimeout(async () => {
-            forwardsetTime[usr_qq] = 0
+        useraction[UID] = setTimeout(async () => {
+            forwardsetTime[UID] = 0
             action.x = mx
             action.y = my
             action.region = PointId[1]
             action.address = PointId[2]
-            await Write_action(usr_qq, action)
-            e.reply([segment.at(usr_qq), `成功抵达${address}`])
+            await Write_action(UID, action)
+            e.reply([segment.at(UID), `成功抵达${address}`])
         }, 1000 * time)
-        forwardsetTime[usr_qq] = 1
+        forwardsetTime[UID] = 1
         e.reply(`正在前往${address}...\n需要${time}秒`)
         return
     }
@@ -133,11 +134,11 @@ export class secretplace extends plugin {
         if (!good) {
             return
         }
-        const usr_qq = e.user_id
-        if (deliverysetTime[usr_qq] == 1) {
+        const UID = e.user_id
+        if (deliverysetTime[UID] == 1) {
             return
         }
-        const action = await Read_action(usr_qq)
+        const action = await Read_action(UID)
         const x = action.x
         const y = action.y
         const address = e.msg.replace('#传送', '')
@@ -146,7 +147,7 @@ export class secretplace extends plugin {
             return
         }
         const positionID = position.id.split('-')
-        const level = await Read_level(usr_qq)
+        const level = await Read_level(UID)
         if (level.level_id < positionID[3]) {
             e.reply('[修仙联盟]守境者\n道友请留步')
             return
@@ -166,28 +167,28 @@ export class secretplace extends plugin {
         if (key == 0) {
             return
         }
-        const wealth = await Read_wealth(usr_qq)
+        const wealth = await Read_wealth(UID)
         const lingshi = 1000
         if (wealth.lingshi < lingshi) {
             e.reply(`[修仙联盟]守阵者\n需要花费${lingshi}灵石`)
             return
         }
         wealth.lingshi -= lingshi
-        await Write_wealth(usr_qq, wealth)
+        await Write_wealth(UID, wealth)
         const mx = Math.floor((Math.random() * (position.x2 - position.x1))) + Number(position.x1)
         const my = Math.floor((Math.random() * (position.y2 - position.y1))) + Number(position.y1)
         const the = Math.floor(((x - mx >= 0 ? x - mx : mx - x) + (y - my >= 0 ? y - my : my - y)) / 100)
         const time = the > 0 ? the : 1
         setTimeout(async () => {
-            deliverysetTime[usr_qq] = 0
+            deliverysetTime[UID] = 0
             action.x = mx
             action.y = my
             action.region = positionID[1]
             action.address = positionID[2]
-            await Write_action(usr_qq, action)
-            e.reply([segment.at(usr_qq), `成功传送至${address}`])
+            await Write_action(UID, action)
+            e.reply([segment.at(UID), `成功传送至${address}`])
         }, 1000 * time)
-        deliverysetTime[usr_qq] = 1
+        deliverysetTime[UID] = 1
         e.reply(`[修仙联盟]守阵者\n传送${address}\n需要${time}秒`)
         return
     }
