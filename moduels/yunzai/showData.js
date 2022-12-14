@@ -1,4 +1,5 @@
 import puppeteer from '../../../../lib/puppeteer/puppeteer.js'
+//yunzai
 import Show from './show.js'
 import config from '../xiuxian/config.js'
 import { talentname, Read_battle, Read_player, Read_wealth, Read_talent, Read_equipment, Read_level, Read_najie, Read_Life, existplayer } from '../xiuxian/index.js'

@@ -2,7 +2,7 @@ import fs from 'fs'
 import template from 'art-template'
 import path from 'path'
 import puppeteer from 'puppeteer'
-import { appname } from './index.js'
+import { appname } from '../yunzai/index.js'
 class common {
     constructor() {
         //浏览器配置
@@ -92,12 +92,6 @@ class common {
         await page.close().catch((err) => logger.error(err))//关闭页面
         await browser.close().catch((err) => logger.error(err))//关闭浏览器
         return img
-    }
-    //判断是否为null或者undefind
-    isNotNull = (obj) => {
-        if (obj == undefined || obj == null)
-            return false
-        return true
     }
     //判断对象是否为''、null或者undefind
     isNotBlank = (value) => {

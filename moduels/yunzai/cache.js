@@ -1,4 +1,5 @@
-import puppeteer from '../../../../lib/puppeteer/puppeteer.js'
+import puppeteer from '../../../../lib/puppeteer/puppeteer.js' 
+//yunzai
 import md5 from 'md5'
 const helpData = []
 class Cache {

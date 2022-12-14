@@ -1,4 +1,5 @@
 import base from './base.js'
+//yunzai
 import config from '../xiuxian/config.js'
 export default class Help extends base {
   constructor(e) {
