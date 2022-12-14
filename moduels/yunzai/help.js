@@ -5,7 +5,7 @@ export default class Help extends base {
     super(e)
     this.model0 = 'help'
     this.model = 'help'
-    this.versionData = config.getdefSet('version', 'version')
+    this.versionData = config.getdefset('version', 'version')
   }
   database = async (data1, data2) => {
     let helpData = config.getConfig(data1, data2)

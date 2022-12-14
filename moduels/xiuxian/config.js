@@ -6,16 +6,16 @@ const chokidar = noderequire.chokidar()
 const YAML = noderequire.yaml()
 class Config {
     constructor() {
-        this.defSetPath = `./plugins/${appname}/defSet/`
-        this.defSet = {}
+        this.defsetPath = `./plugins/${appname}/defset/`
+        this.defset = {}
         this.configPath = `./plugins/${appname}/config/`
         this.config = {}
         /** 监听文件 */
-        this.watcher = { config: {}, defSet: {} }
+        this.watcher = { config: {}, defset: {} }
     }
     //原始固定配置
-    getdefSet = (app, name) => {
-        return this.getYaml(app, name, 'defSet')
+    getdefset = (app, name) => {
+        return this.getYaml(app, name, 'defset')
     }
     //动态生成配置
     getConfig = (app, name) => {
@@ -30,13 +30,13 @@ class Config {
         return this[type][key]
     }
     getFilePath = (app, name, type) => {
-        if (type == 'defSet') {
-            return `${this.defSetPath}${app}/${name}.yaml`
+        if (type == 'defset') {
+            return `${this.defsetPath}${app}/${name}.yaml`
         } else {
             return `${this.configPath}${app}/${name}.yaml`
         }
     }
-    watch = (file, app, name, type = 'defSet') => {
+    watch = (file, app, name, type = 'defset') => {
         let key = `${app}.${name}`
         if (this.watcher[type][key]) return
         const watcher = chokidar.watch(file)

@@ -3,7 +3,7 @@ const FS = noderequire.fs()
 const path = noderequire.path()
 const other = `${path.resolve()}${path.sep}config${path.sep}config/other.yaml`
 const group = `${path.resolve()}${path.sep}config${path.sep}config/group.yaml`
-class defSet {
+class defset {
   constructor() {
     try {
       this.YAMLJS = noderequire.yamlJs()
@@ -90,4 +90,4 @@ class defSet {
     }
   }
 }
-export default new defSet()
+export default new defset()

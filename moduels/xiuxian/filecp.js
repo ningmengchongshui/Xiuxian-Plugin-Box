@@ -8,7 +8,7 @@ class filecp {
   }
   Pluginfile = (name, config) => {
     let cf = []
-    const filepath = `./plugins/${appname}/plugins/${name}/defSet/`
+    const filepath = `./plugins/${appname}/plugins/${name}/defset/`
     const readdirectory = (dir) => {
       let files = FS.readdirSync(dir)
       files.forEach(async item => {
@@ -42,7 +42,7 @@ class filecp {
   }
   upfile = () => {
     let cf = []
-    const filepath = `./plugins/${appname}/defSet/`
+    const filepath = `./plugins/${appname}/defset/`
     const config = ['xiuxian', 'help', 'admin']
     const readdirectory = (dir) => {
       let files = FS.readdirSync(dir)
@@ -72,7 +72,7 @@ class filecp {
   }
   file = (config) => {
     let cf = []
-    const filepath = `./plugins/${appname}/defSet/`
+    const filepath = `./plugins/${appname}/defset/`
     const readdirectory = (dir) => {
       let files = FS.readdirSync(dir)
       files.forEach(async item => {

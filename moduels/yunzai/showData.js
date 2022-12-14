@@ -21,7 +21,7 @@ export const get_updata_img = async (e) => {
     if (!ifexistplay) {
         return
     }
-    const updata = config.getdefSet('version', 'version')
+    const updata = config.getdefset('version', 'version')
     const myData = {
         version: updata
     }
@@ -51,7 +51,7 @@ export const get_bulletin_img = async (e) => {
     if (!ifexistplay) {
         return
     }
-    const bulletin = config.getdefSet('version', 'bulletin')
+    const bulletin = config.getdefset('version', 'bulletin')
     const myData = {
         version: bulletin
     }

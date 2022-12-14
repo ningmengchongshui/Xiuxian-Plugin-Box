@@ -1,5 +1,5 @@
 import plugin from '../../../../lib/plugins/plugin.js'
-import defSet from '../../moduels/xiuxian/defSet.js'
+import defset from '../../moduels/xiuxian/defset.js'
 import { yunzaiConfig } from '../../moduels/yunzai/index.js'
 export class adrobot extends plugin {
     constructor() {
@@ -34,42 +34,42 @@ export class adrobot extends plugin {
         if (!e.isMaster) {
             return
         }
-        e.reply(defSet.OffGroup())
+        e.reply(defset.OffGroup())
         return
     }
     OnGroup = async (e) => {
         if (!e.isMaster) {
             return
         }
-        e.reply(defSet.OnGroup())
+        e.reply(defset.OnGroup())
         return
     }
     AddMaster = async (e) => {
         if (!e.isMaster) {
             return
         }
-        e.reply(defSet.AddMaster(e.msg.replace('#修仙添加主人', '')))
+        e.reply(defset.AddMaster(e.msg.replace('#修仙添加主人', '')))
         return
     }
     DeleteMaster = async (e) => {
         if (!e.isMaster) {
             return
         }
-        e.reply(defSet.DeleteMaster(e.msg.replace('#修仙删除主人', '')))
+        e.reply(defset.DeleteMaster(e.msg.replace('#修仙删除主人', '')))
         return
     }
     CloseRobot = async (e) => {
         if (!e.isMaster) {
             return
         }
-        e.reply(defSet.ReadConfig())
+        e.reply(defset.ReadConfig())
         return
     }
     CloseRobothelp = async (e) => {
         if (!e.isMaster) {
             return
         }
-        e.reply(defSet.ReadConfighelp())
+        e.reply(defset.ReadConfighelp())
         return
     }
 }
