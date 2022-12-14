@@ -2,7 +2,7 @@ import { appname } from './index.js'
 const dirname=`plugins/${appname}/resources`
 export default class base {
   constructor(e = {}) {
-    this.e = e
+    this.e = e 
     this.userId = e?.user_id
     this.model = `${appname}`
     this._path = process.cwd().replace(/\\/g, '/')
