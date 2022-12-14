@@ -3,7 +3,7 @@ import config from '../../moduels/xiuxian/config.js'
 import { yunzaiConfig } from '../../moduels/yunzai/index.js'
 import { Write_player, point_map, Read_action, GenerateCD, Read_player, Read_wealth, Write_Life, Read_Life, Add_lingshi } from '../../moduels/xiuxian/index.js'
 import { Go } from '../../moduels/yunzai/index.js'
-import { get_player_img } from '../../moduels/yunzai/showData.js'
+import { get_player_img } from '../../moduels/yunzai/data.js'
 export class modify extends plugin {
     constructor() {
         super(yunzaiConfig('', [

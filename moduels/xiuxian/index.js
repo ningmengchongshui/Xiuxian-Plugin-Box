@@ -1,4 +1,4 @@
-import { __PATH } from '../yunzai/index.jx'
+import { __PATH } from '../yunzai/index.js'
 import noderequire from '../db/noderequire.js'
 const FS = noderequire.fs()
 const PATH = noderequire.path()

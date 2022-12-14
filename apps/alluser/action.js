@@ -1,6 +1,6 @@
 import plugin from '../../../../lib/plugins/plugin.js'
 import config from '../../moduels/xiuxian/config.js'
-import { get_najie_img } from '../../moduels/yunzai/showData.js'
+import { get_najie_img } from '../../moduels/yunzai/data.js'
 import { yunzaiConfig } from '../../moduels/yunzai/index.js'
 import { segment } from 'oicq'
 import { existplayer, Read_najie, point_map, Read_action, Add_lingshi, Write_najie, Numbers, Add_najie_lingshi, Read_wealth } from '../../moduels/xiuxian/index.js'
