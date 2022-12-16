@@ -1,7 +1,7 @@
 import plugin from '../../../../lib/plugins/plugin.js'
 import nodefs from '../../moduels/db/nodefs.js'
 import { existplayer, Read_action, point_map, sortBy, Read_level, Read_battle } from '../../moduels/xiuxian/index.js'
-import { get_toplist_img } from '../../moduels/yunzai/data.js'
+import { get_toplist_img } from '../../moduels/xiuxian/data.js'
 import { yunzaiConfig } from '../../moduels/yunzai/index.js'
 export class toplist extends plugin {
     constructor() {
@@ -57,8 +57,7 @@ export class toplist extends plugin {
                 list.push(item)
             }
         })
-        const img = await get_toplist_img(e, list)
-        e.reply(img)
+        e.reply(await get_toplist_img(UID, list))
         return
     }
     TOP_Immortal = async (e) => {
@@ -99,7 +98,7 @@ export class toplist extends plugin {
                 list.push(item)
             }
         })
-        const img = await get_toplist_img(e, list)
+        const img = await get_toplist_img(UID, list)
         e.reply(img)
         return
     }
@@ -140,8 +139,7 @@ export class toplist extends plugin {
                 list.push(item)
             }
         })
-        const img = await get_toplist_img(e, list)
-        e.reply(img)
+        e.reply(await get_toplist_img(UID, list))
         return
     }
 }

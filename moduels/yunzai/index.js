@@ -2,11 +2,16 @@ import nodefs from '../db/nodefs.js'
 import noderequire from "../db/noderequire.js"
 import { __dirname } from '../db/nodefs.js'
 import { existplayer } from '../xiuxian/index.js'
-const PATH=noderequire.path()
-//插件名字
+const PATH = noderequire.path()
+//插件名字：
 export const appname = 'Xiuxian-Plugin-Box'
-//插件优先级
-export const NEW__dirname = `${__dirname}/plugins/${appname}` 
+//插件配置
+export const yunzaiConfig = (name, rule) => {
+    return { name: name, dsc: name, event: 'message', priority: 400, rule: rule }
+}
+//修仙地址
+export const NEW__dirname = `${__dirname}/plugins/${appname}`
+//修仙数据
 export const __PATH = {
     //基础
     'fixepoint': PATH.join(NEW__dirname, '/resources/data/fixed/point'),
@@ -32,9 +37,6 @@ export const __PATH = {
     'Forum': PATH.join(NEW__dirname, '/resources/data/birth/forum'),
     //寿命
     'life': PATH.join(NEW__dirname, '/resources/data/birth/xiuxian/life')
-}
-export const yunzaiConfig = (name, rule) => {
-    return { name: name, dsc: name, event: 'message', priority: 400, rule: rule }
 }
 /**
  * 指令检测
@@ -80,8 +82,7 @@ export const At = async (e) => {
     }
     return B
 }
-//
-
+//生成动态数据
 nodefs.newlist(__PATH['Level'], 'levellist0', [])
 nodefs.newlist(__PATH['Level'], 'levellist0', [
     ...nodefs.getlist(__PATH['fixedLevel'], 'levellist0.json')

@@ -3,7 +3,7 @@ import config from '../../moduels/xiuxian/config.js'
 import { yunzaiConfig } from '../../moduels/yunzai/index.js'
 import { Write_player, point_map, Read_action, GenerateCD, Read_player, Read_wealth, Write_Life, Read_Life, Add_lingshi } from '../../moduels/xiuxian/index.js'
 import { Go } from '../../moduels/yunzai/index.js'
-import { get_player_img } from '../../moduels/yunzai/data.js'
+import { get_player_img } from '../../moduels/xiuxian/data.js'
 export class modify extends plugin {
     constructor() {
         super(yunzaiConfig('', [
@@ -62,7 +62,7 @@ export class modify extends plugin {
             }
         })
         await Write_Life(life)
-        const img = await get_player_img(e)
+        const img = await get_player_img(e.user_id)
         e.reply(img)
         return
     }
@@ -90,7 +90,7 @@ export class modify extends plugin {
         }
         player.autograph = new_msg
         await Write_player(UID, player)
-        const img = await get_player_img(e)
+        const img = await get_player_img(e.user_id)
         e.reply(img)
         return
     }

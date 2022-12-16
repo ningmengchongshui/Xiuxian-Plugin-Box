@@ -16,19 +16,17 @@ export class showhelp extends plugin {
         ]))
     }
     Xiuxianhelp = async (e) => {
-        const data = await Help.gethelp(e, 'Help')
+        const data = await Help.gethelp('Help', 'Help')
         if (!data) {
             return
         }
-        const img = await Cache.helpcache(data, 1)
-        await e.reply(img)
+        e.reply(await Cache.helpcache(data, 1))
     }
     adminsuper = async (e) => {
-        const data = await Help.gethelp(e, 'Admin')
+        const data = await Help.gethelp('Help', 'Admin')
         if (!data) {
             return
         }
-        const img = await Cache.helpcache(data, 0)
-        await e.reply(img)
+        e.reply(await Cache.helpcache(data, 0))
     }
 }

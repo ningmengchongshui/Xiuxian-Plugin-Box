@@ -1,23 +1,37 @@
-import base from './base.js'
+import { appname } from './index.js'
 import config from '../xiuxian/config.js'
-export default class Help extends base {
-  constructor(e) {
-    super(e)
-    this.model0 = 'help'
-    this.model = 'help'
-    this.versionData = config.getdefset('version', 'version')
+const dirname = `plugins/${appname}/resources`
+class Help {
+  constructor() {
+    super()
+    this.userId = 'help'  //文件标记
+    this.model = ''
+    this._path = process.cwd().replace(/\\/g, '/')
   }
-  database = async (data1, data2) => {
+  get prefix() {
+    return `Yz:${appname}:${this.model}:`
+  }
+  //这里才是要反馈的
+  get screenData() {
+    return {
+      //html保存id
+      saveId: this.userId,
+      //模板html路径                    //
+      tplFile: `./${dirname}/html/${this.model0}/${this.model}.html`,
+      /** 绝对路径 */
+      //插件资源路径
+      pluResPath: `${this._path}/${dirname}/`,
+    }
+  }
+
+  static gethelp = async (data1, data2) => {
     let helpData = config.getConfig(data1, data2)
-    const version = this.versionData[0].version
-    return { 
-      saveId: 'help',
-      version: version,
+    let versionData = config.getdefset('version', 'version')
+    return {
+      saveId: this.userId,//这里其实是文件名
+      version: versionData[0].version,
       helpData,
     }
   }
-  static gethelp = async (e, helpaddress) => {
-    let html = new Help(e)
-    return await html.database('help', helpaddress)
-  }
 }
+export default new Help()

@@ -2,7 +2,7 @@ import plugin from '../../../../lib/plugins/plugin.js'
 import config from '../../moduels/xiuxian/config.js'
 import { yunzaiConfig } from '../../moduels/yunzai/index.js'
 import { userstart, GenerateCD, deletelife, offaction, exist } from '../../moduels/xiuxian/index.js'
-import { get_player_img } from '../../moduels/yunzai/data.js'
+import { get_player_img } from '../../moduels/xiuxian/data.js'
 export class start extends plugin {
     constructor() {
         super(yunzaiConfig('', [
@@ -29,7 +29,7 @@ export class start extends plugin {
         }
         const ifexistplay = await exist(e.user_id)
         if (!ifexistplay) {
-            const img = await get_player_img(e)
+            const img = await get_player_img(e.user_id)
             if (img == undefined) {
                 e.reply('已死亡，需要#再入仙途')
             } else {

@@ -1,22 +1,20 @@
-import puppeteer from '../../../../lib/puppeteer/puppeteer.js'
-import Show from './show.js'
-import config from '../xiuxian/config.js'
-import { talentname, Read_battle, Read_player, Read_wealth, Read_talent, Read_equipment, Read_level, Read_najie, Read_Life, existplayer } from '../xiuxian/index.js'
-export const get_map_img = async (e) => {
-    const UID = e.user_id
-    const ifexistplay = await existplayer(UID) 
+import picture from '../yunzai/picture.js'
+import Show from '../yunzai/show.js'
+import config from './config.js'
+import { talentname, Read_battle, Read_player, Read_wealth, Read_talent, Read_equipment, Read_level, Read_najie, Read_Life, existplayer } from './index.js'
+export const get_map_img = async (UID) => {
+    const ifexistplay = await existplayer(UID)
     if (!ifexistplay) {
         return
     }
     const myData = {}
-    const data1 = await new Show(e).get_Data('map', 'map', myData)
-    const img = await puppeteer.screenshot('map', {
+    const data1 = await new Show().get_Data('map', 'map', myData, UID)
+    const img = await picture.puppeteer().screenshot('map', {
         ...data1,
     })
     return img
 }
-export const get_updata_img = async (e) => {
-    const UID = e.user_id
+export const get_updata_img = async (UID) => {
     const ifexistplay = await existplayer(UID)
     if (!ifexistplay) {
         return
@@ -25,8 +23,8 @@ export const get_updata_img = async (e) => {
     const myData = {
         version: updata
     }
-    const data1 = await new Show(e).get_Data('updata', 'updata', myData)
-    const img = await puppeteer.screenshot('updata', {
+    const data1 = await new Show().get_Data('updata', 'updata', myData)
+    const img = await picture.puppeteer().screenshot('updata', {
         ...data1,
     })
     return img
@@ -39,14 +37,13 @@ export const get_config_img = async (e) => {
     const myData = {
         xiuxain: xiuxain
     }
-    const data1 = await new Show(e).get_Data('config', 'config', myData)
-    const img = await puppeteer.screenshot('config', {
+    const data1 = await new Show().get_Data('config', 'config', myData, UID)
+    const img = await picture.puppeteer().screenshot('config', {
         ...data1,
     })
     return img
 }
-export const get_bulletin_img = async (e) => {
-    const UID = e.user_id
+export const get_bulletin_img = async (UID) => {
     const ifexistplay = await existplayer(UID)
     if (!ifexistplay) {
         return
@@ -55,14 +52,13 @@ export const get_bulletin_img = async (e) => {
     const myData = {
         version: bulletin
     }
-    const data1 = await new Show(e).get_Data('updata', 'updata', myData)
-    const img = await puppeteer.screenshot('updata', {
+    const data1 = await new Show().get_Data('updata', 'updata', myData, UID)
+    const img = await picture.puppeteer().screenshot('updata', {
         ...data1,
     })
     return img
 }
-export const get_player_img = async (e) => {
-    const UID = e.user_id
+export const get_player_img = async (UID) => {
     const ifexistplay = await existplayer(UID)
     if (!ifexistplay) {
         return
@@ -100,14 +96,13 @@ export const get_player_img = async (e) => {
         talent: talent,
         talentsize: size
     }
-    const data1 = await new Show(e).get_Data('user/player', 'player', myData)
-    const img = await puppeteer.screenshot('player', {
+    const data1 = await new Show().get_Data('user/player', 'player', myData, UID)
+    const img = await picture.puppeteer().screenshot('player', {
         ...data1,
     })
     return img
 }
-export const get_equipment_img = async (e) => {
-    const UID = e.user_id
+export const get_equipment_img = async (UID) => {
     const ifexistplay = await existplayer(UID)
     if (!ifexistplay) {
         return
@@ -122,14 +117,13 @@ export const get_equipment_img = async (e) => {
         life: life,
         equipment: equipment
     }
-    const data1 = await new Show(e).get_Data('user/equipment', 'equipment', myData)
-    const img = await puppeteer.screenshot('equipment', {
+    const data1 = await new Show().get_Data('user/equipment', 'equipment', myData, UID)
+    const img = await picture.puppeteer().screenshot('equipment', {
         ...data1,
     })
     return img
 }
-export const get_najie_img = async (e) => {
-    const UID = e.user_id
+export const get_najie_img = async (UID) => {
     const ifexistplay = await existplayer(UID)
     if (!ifexistplay) {
         return
@@ -163,14 +157,13 @@ export const get_najie_img = async (e) => {
         daoju_list: daoju_list,
         danyao_list: danyao_list
     }
-    const data1 = await new Show(e).get_Data('user/najie', 'najie', myData)
-    const img = await puppeteer.screenshot('najie', {
+    const data1 = await new Show().get_Data('user/najie', 'najie', myData, UID)
+    const img = await picture.puppeteer().screenshot('najie', {
         ...data1,
     })
     return img
 }
-export const get_toplist_img = async (e, list) => {
-    const UID = e.user_id
+export const get_toplist_img = async (UID, list) => {
     const ifexistplay = await existplayer(UID)
     if (!ifexistplay) {
         return
@@ -178,8 +171,8 @@ export const get_toplist_img = async (e, list) => {
     const myData = {
         list: list,
     }
-    const data1 = await new Show(e).get_Data('toplist', 'toplist', myData)
-    const img = await puppeteer.screenshot('toplist', {
+    const data1 = await new Show().get_Data('toplist', 'toplist', myData, UID)
+    const img = await picture.puppeteer().screenshot('toplist', {
         ...data1,
     })
     return img

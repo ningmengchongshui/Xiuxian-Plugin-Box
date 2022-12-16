@@ -1,7 +1,7 @@
 import plugin from '../../../../lib/plugins/plugin.js'
 import config from '../../moduels/xiuxian/config.js'
 import { yunzaiConfig } from '../../moduels/yunzai/index.js'
-import { get_player_img } from '../../moduels/yunzai/data.js'
+import { get_player_img } from '../../moduels/xiuxian/data.js'
 import { existplayer, exist_najie_thing_name, Read_najie, Add_experiencemax, Write_najie, Numbers, Add_najie_thing, Add_blood, Add_experience, get_talent, Write_talent, player_efficiency, Read_talent, Read_level } from '../../moduels/xiuxian/index.js'
 export class home extends plugin {
     constructor() {
@@ -161,13 +161,13 @@ export class home extends plugin {
             talent.talent = await get_talent()
             await Write_talent(UID, talent)
             await player_efficiency(UID)
-            const img = await get_player_img(e)
+            const img = await get_player_img(UID)
             e.reply(img)
         } else if (id[2] == 2) {
             const talent = await Read_talent(UID)
             talent.talentshow = 0
             await Write_talent(UID, talent)
-            const img = await get_player_img(e)
+            const img = await get_player_img(UID)
             e.reply(img)
         } else {
             return

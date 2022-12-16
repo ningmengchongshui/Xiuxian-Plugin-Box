@@ -1,5 +1,5 @@
 import plugin from '../../../../lib/plugins/plugin.js'
-import { get_map_img, get_updata_img, get_bulletin_img, get_config_img } from '../../moduels/yunzai/data.js'
+import { get_map_img, get_updata_img, get_bulletin_img, get_config_img } from '../../moduels/xiuxian/data.js'
 import { yunzaiConfig } from '../../moduels/yunzai/index.js'
 export class showall extends plugin {
     constructor() {
@@ -23,23 +23,19 @@ export class showall extends plugin {
         ]))
     }
     show_map = async (e) => {
-        const img = await get_map_img(e)
-        e.reply(img)
+        e.reply(await get_map_img(e.user_id))
         return
     }
     show_updata = async (e) => {
-        const img = await get_updata_img(e)
-        e.reply(img)
+        e.reply(await get_updata_img(e.user_id))
         return
     }
     show_config = async (e) => {
-        const img = await get_config_img(e)
-        e.reply(img)
+        e.reply(await get_config_img(e.user_id))
         return
     }
     show_bulletin = async (e) => {
-        const img = await get_bulletin_img(e)
-        e.reply(img)
+        e.reply(await get_bulletin_img(e.user_id))
         return
     }
 }

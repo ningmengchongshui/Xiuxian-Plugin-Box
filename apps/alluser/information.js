@@ -1,5 +1,5 @@
 import plugin from '../../../../lib/plugins/plugin.js'
-import { get_equipment_img, get_player_img } from '../../moduels/yunzai/data.js'
+import { get_equipment_img, get_player_img } from '../../moduels/xiuxian/data.js'
 import { yunzaiConfig } from '../../moduels/yunzai/index.js'
 import { existplayer } from '../../moduels/xiuxian/index.js'
 export class information extends plugin {
@@ -25,7 +25,7 @@ export class information extends plugin {
         if (!ifexistplay) {
             return
         }
-        const img = await get_player_img(e)
+        const img = await get_player_img(UID)
         e.reply(img)
         return
     }
@@ -35,7 +35,7 @@ export class information extends plugin {
         if (!ifexistplay) {
             return
         }
-        const img = await get_equipment_img(e)
+        const img = await get_equipment_img(UID)
         e.reply(img)
         return
     }
