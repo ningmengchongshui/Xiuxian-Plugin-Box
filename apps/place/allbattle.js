@@ -3,6 +3,12 @@ import config from '../../moduels/xiuxian/config.js'
 import { yunzaiConfig } from '../../moduels/yunzai/index.js'
 import { At, Go } from '../../moduels/yunzai/xiuxian/index.js'
 import { Read_action, point_map, existplayer, GenerateCD, Read_level, deletePrestige, randomNuber, addPrestige, addKnapsack, randomEquipment } from '../../moduels/xiuxian/index.js'
+const MAP = {
+    'refuse': '[修仙联盟]普通卫兵:城内不可出手',
+    'notfind': '未找到',
+    'name_tianjiment': '天机门',
+    'name_return': '需[#城池名+天机门]'
+}
 export class allbattle extends plugin {
     constructor() {
         super(yunzaiConfig('allbattle', [
@@ -36,15 +42,15 @@ export class allbattle extends plugin {
         const actionA = await Read_action(user.A)
         const actionB = await Read_action(user.B)
         if (actionA.region != actionB.region) {
-            e.reply('没找到此人')
+            e.reply(map['notfind'])
             return
         }
         if (actionA.address == 1) {
-            e.reply('[修仙联盟]普通卫兵:城内不可出手!')
+            e.reply(map['refuse'])
             return
         }
         if (actionB.address == 1) {
-            e.reply('[修仙联盟]普通卫兵:城内不可出手!')
+            e.reply(map['refuse'])
             return
         }
         const CD = await GenerateCD(user.A, '0', this.xiuxianConfigData.CD.Attack)
@@ -78,9 +84,9 @@ export class allbattle extends plugin {
         if (!ifexistplay) {
             return
         }
-        const map = await point_map(e.user_id, '天机门')
+        const map = await point_map(e.user_id, MAP['name_tianjiment'])
         if (!map) {
-            e.reply(`需[#城池名+天机门]`)
+            e.reply(MAP['name_return'])
             return
         }
         e.reply(await deletePrestige(e.user_id))
