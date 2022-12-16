@@ -60,7 +60,11 @@ export const userstart = async (UID) => {
         'days': 0//签到
     }
     const new_battle = {
-        'nowblood': ''
+        //tudo
+        'nowblood': '',
+        'extra_attack':'',
+        'extra_blood':'',
+        'extra_defense':'',
     }
     const new_level = {
         'prestige': 0,//魔力
@@ -71,9 +75,6 @@ export const userstart = async (UID) => {
         'levelnamemax': '莽夫',//练体名
         'experiencemax': 1,//练体经验
         'rank_id': 0,//数组位置
-        'rank_name': [
-            '初期', '中期', '后期', '巅峰', '圆满'
-        ],
         'rankmax_id': 0//数组位置
     }
     const new_wealth = {
@@ -135,7 +136,7 @@ export const userstart = async (UID) => {
     await Write_equipment(UID, [])
     await Write_najie(UID, new_najie)
     await Write_Life(life)
-    return '创建成功'
+    return '降临成功'
 }
 
 export const deletegame = async () => {
@@ -196,8 +197,6 @@ export const exist = async (UID) => {
     if (find == undefined) {
         return true
     } else {
-        //不管死没死，有存档就不能降临
-        //必须再入仙途
         return false
     }
 }

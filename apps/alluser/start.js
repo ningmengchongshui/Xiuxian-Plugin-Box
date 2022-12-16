@@ -27,8 +27,7 @@ export class start extends plugin {
         if (!e.isGroup || e.user_id == 80000000) {
             return
         }
-        const UID = e.user_id
-        const ifexistplay = await exist(UID)
+        const ifexistplay = await exist(e.user_id)
         if (!ifexistplay) {
             const img = await get_player_img(e)
             if (img == undefined) {
@@ -38,7 +37,7 @@ export class start extends plugin {
             }
             return
         }
-        e.reply(await userstart(UID))
+        e.reply(`${await userstart(e.user_id)}\n`)
         return
     }
 
@@ -49,7 +48,6 @@ export class start extends plugin {
             return
         }
         await offaction(e.user_id)
-        //tudo
         await deletelife(e.user_id)
         e.reply(await userstart(e.user_id))
         return

@@ -74,6 +74,7 @@ export class adction extends plugin {
         return true
     }
     init = async () => {
+        //这里加一个存档信息检索  tido
         let restart = await redis.get(this.key)
         if (restart) {
             restart = JSON.parse(restart)

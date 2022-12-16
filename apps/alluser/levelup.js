@@ -39,11 +39,14 @@ export class levelup extends plugin {
         }
         await redis.set(`xiuxian:player:${UID}:${CDid}`, now_time)
         await redis.expire(`xiuxian:player:${UID}:${CDid}`, CDTime * 60)
+        const rank_name=[
+            '初期', '中期', '后期', '巅峰', '圆满'
+        ]
         if (player.levelmax_id > 1 && player.rankmax_id < 4) {
             player.rankmax_id = player.rankmax_id + 1
             player.experiencemax -= LevelMax.exp
             await Write_level(UID, player)
-            e.reply(`突破成功至${player.levelnamemax}${player.rank_name[player.rankmax_id]}`)
+            e.reply(`突破成功至${player.levelnamemax}${rank_name[player.rankmax_id]}`)
             return
         }
         if (Math.random() >= 1 - player.levelmax_id / 30) {
@@ -101,12 +104,15 @@ export class levelup extends plugin {
             e.reply(`渡劫期修士需[#渡劫]后,方能[#羽化登仙]`)
             return
         }
+        const rank_name=[
+            '初期', '中期', '后期', '巅峰', '圆满'
+        ]
         if (player.level_id > 1 && player.rank_id < 4) {
             player.rank_id = player.rank_id + 1
             player.experience -= Level.exp
             await Write_level(UID, player)
             await updata_equipment(UID)
-            e.reply(`突破成功至${player.levelname}${player.rank_name[player.rank_id]}`)
+            e.reply(`突破成功至${player.levelname}${rank_name[player.rank_id]}`)
             return
         }
         if (Math.random() > 1 - player.level_id / 25) {
