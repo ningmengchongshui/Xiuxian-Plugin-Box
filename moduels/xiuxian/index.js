@@ -7,6 +7,7 @@ const map={
     'start':'降临成功',
     'delete':'删除成功',
     'ctrate':'创建成功',
+    'undefined':'存在旧版残留,请联系主人使用#修仙删除数据'
 }
 const talentnamemap={
     '1':'金',
@@ -494,6 +495,26 @@ export const monsterbattle = async (e, battleA, battleB) => {
     battle_msg.msg.push(`血量剩余:${battleA.nowblood}`)
     await Write_battle(e.user_id, battleA)
     return battle_msg
+}
+/**
+ * 拦截非法用户
+ * @param {*} UID 
+ * @returns 
+ */
+export const newGo = async (UID) => {
+    const ifexistplay = await existplayer(UID)
+    if (!ifexistplay) {
+        return '无信息'
+    }
+    let action = await redis.get(`xiuxian:player:${UID}:action`)
+    if (action != undefined) {
+        action = JSON.parse(action)
+        if (action.actionName == undefined) {
+            return map['undefined']
+        }
+        return `${action.actionName}中...`
+    }
+    return true
 }
 
 //暴击率

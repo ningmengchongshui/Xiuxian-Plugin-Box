@@ -1,7 +1,7 @@
 import plugin from '../../../../lib/plugins/plugin.js'
 import Cachemonster from '../../moduels/xiuxian/cachemonster.js'
 import config from '../../moduels/xiuxian/config.js'
-import { Go } from '../../moduels/yunzai/index.js'
+import { Go } from '../../moduels/yunzai/xiuxian/index.js'
 import { yunzaiConfig } from '../../moduels/yunzai/index.js'
 import { Read_action, ForwardMsg, Read_battle, monsterbattle, Add_experiencemax, Add_experience, Add_lingshi, GenerateCD, Add_najie_thing, Read_najie, Write_najie, Read_talent } from '../../moduels/xiuxian/index.js'
 export class battlesite extends plugin {

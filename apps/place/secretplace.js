@@ -2,7 +2,7 @@ import plugin from '../../../../lib/plugins/plugin.js'
 import { segment } from 'oicq'
 import { yunzaiConfig } from '../../moduels/yunzai/index.js'
 import { Read_action, Read_level, ForwardMsg, existplayer, Read_wealth, Write_action, Write_wealth, Read_battle } from '../../moduels/xiuxian/index.js'
-import { Go } from '../../moduels/yunzai/index.js'
+import { Go } from '../../moduels/yunzai/xiuxian/index.js'
 const forwardsetTime = []
 const deliverysetTime = []
 const useraction = []

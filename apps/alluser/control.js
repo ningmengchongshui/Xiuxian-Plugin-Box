@@ -4,7 +4,7 @@ import config from '../../moduels/xiuxian/config.js'
 import { yunzaiConfig } from '../../moduels/yunzai/index.js'
 import { segment } from 'oicq'
 import { offaction, Add_experience, Add_blood, existplayer,  Read_talent, Add_experiencemax } from '../../moduels/xiuxian/index.js'
-import { Go } from '../../moduels/yunzai/index.js'
+import { Go } from '../../moduels/yunzai/xiuxian/index.js'
 export class control extends plugin {
     constructor() {
         super(yunzaiConfig('control', [

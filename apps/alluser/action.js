@@ -4,7 +4,7 @@ import { get_najie_img } from '../../moduels/xiuxian/data.js'
 import { yunzaiConfig } from '../../moduels/yunzai/index.js'
 import { segment } from 'oicq'
 import { existplayer, Read_najie, point_map, Read_action, Add_lingshi, Write_najie, Numbers, Add_najie_lingshi, Read_wealth } from '../../moduels/xiuxian/index.js'
-import { Go } from '../../moduels/yunzai/index.js'
+import { Go } from '../../moduels/yunzai/xiuxian/index.js'
 export class action extends plugin {
     constructor() {
         super(yunzaiConfig('action', [

@@ -1,5 +1,5 @@
-import { appname } from './index.js'
-import config from '../xiuxian/config.js'
+import { appname } from '../index.js'
+import config from '../../xiuxian/config.js'
 const dirname = `plugins/${appname}/resources`
 class Help {
   constructor() {
@@ -11,7 +11,6 @@ class Help {
     return `Yz:${appname}:${this.name}:`
   }
   /**
-   * 
    * @param {地址} path 
    * @param {文件名} name 
    * @param {数据地址} data1 

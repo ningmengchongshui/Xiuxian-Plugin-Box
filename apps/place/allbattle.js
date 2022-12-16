@@ -1,7 +1,7 @@
 import plugin from '../../../../lib/plugins/plugin.js'
 import config from '../../moduels/xiuxian/config.js'
 import { yunzaiConfig } from '../../moduels/yunzai/index.js'
-import { At, Go } from '../../moduels/yunzai/index.js'
+import { At, Go } from '../../moduels/yunzai/xiuxian/index.js'
 import { Read_action, point_map, existplayer, GenerateCD, Read_level, deletePrestige, randomNuber, addPrestige, addKnapsack, randomEquipment } from '../../moduels/xiuxian/index.js'
 export class allbattle extends plugin {
     constructor() {

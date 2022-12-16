@@ -1,4 +1,4 @@
-import { appname } from './index.js'
+import { appname } from '../index.js'
 const dirname = `plugins/${appname}/resources`
 class Show {
   constructor() {
