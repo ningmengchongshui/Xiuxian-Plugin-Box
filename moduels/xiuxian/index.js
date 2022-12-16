@@ -1,5 +1,6 @@
 import { __PATH } from '../yunzai/index.js'
 import noderequire from '../db/noderequire.js'
+import nodefs from '../db/nodefs.js'
 const FS = noderequire.fs()
 const PATH = noderequire.path()
 /**
@@ -8,9 +9,9 @@ const PATH = noderequire.path()
  * @returns 
  */
 export const randomReward = async (P) => {
+
     return
 }
-
 /**
  * @param {ID} UID 
  * @returns 随机丢出一件装备 
@@ -61,10 +62,10 @@ export const userstart = async (UID) => {
     }
     const new_battle = {
         //tudo
-        'nowblood': '',
-        'extra_attack':'',
-        'extra_blood':'',
-        'extra_defense':'',
+        'nowblood': await nodefs.readFindId(__PATH.level, 'levellist0',1),
+        'extra_attack': '',
+        'extra_blood': '',
+        'extra_defense': '',
     }
     const new_level = {
         'prestige': 0,//魔力
@@ -81,7 +82,8 @@ export const userstart = async (UID) => {
         'lingshi': 0,
         'xianshi': 0
     }
-    const position = ''
+    const position = await nodefs.readFindName(__PATH.position, 'position','极西')
+    console.log(position)
     const positionID = position.id.split('-')
     const the = {
         mx: Math.floor((Math.random() * (position.x2 - position.x1))) + Number(position.x1),
@@ -164,23 +166,6 @@ export const deletelife = async (UID) => {
     await Write_Life(life)
     return
 }
-/**
- * 读取数据
- */
-const Read = async (UID, path) => {
-    const dir = PATH.join(`${path}/${UID}.json`)
-    const the = {
-        player: ''
-    }
-    the.player = FS.readFileSync(dir, 'utf8', (err, data) => {
-        if (err) {
-            return 'error'
-        }
-        return data
-    })
-    the.player = JSON.parse(the.player)
-    return the.player
-}
 //写入数据
 const Write = async (UID, player, path) => {
     const dir = PATH.join(path, `${UID}.json`)
@@ -228,74 +213,74 @@ export const existplayerplugins = async (UID) => {
 }
 //读取存档
 export const Read_player = async (UID) => {
-    return await Read(UID, __PATH.player)
+    return await nodefs.Read(UID, __PATH.userplayer)
 }
 //写入存档
 export const Write_player = async (UID, player) => {
-    await Write(UID, player, __PATH.player)
+    await nodefs.Write(UID, player, __PATH.userplayer)
     return
 }
 //读取灵根
 export const Read_talent = async (UID) => {
-    return await Read(UID, __PATH.talent)
+    return await nodefs.Read(UID, __PATH.usertalent)
 }
 //写入新灵根
 export const Write_talent = async (UID, player) => {
-    await Write(UID, player, __PATH.talent)
+    await nodefs.Write(UID, player, __PATH.usertalent)
     return
 }
 //读取战斗
 export const Read_battle = async (UID) => {
-    return await Read(UID, __PATH.battle)
+    return await nodefs.Read(UID, __PATH.userbattle)
 }
 //写入新战斗
 export const Write_battle = async (UID, data) => {
-    await Write(UID, data, __PATH.battle)
+    await nodefs.Write(UID, data, __PATH.userbattle)
     return
 }
 //读取境界
 export const Read_level = async (UID) => {
-    return await Read(UID, __PATH.level)
+    return await nodefs.Read(UID, __PATH.userlevel)
 }
 //写入新境界
 export const Write_level = async (UID, data) => {
-    await Write(UID, data, __PATH.level)
+    await nodefs.Write(UID, data, __PATH.userlevel)
     return
 }
 //读取财富
 export const Read_wealth = async (UID) => {
-    return await Read(UID, __PATH.wealth)
+    return await nodefs.Read(UID, __PATH.userwealth)
 }
 //写入新财富
 export const Write_wealth = async (UID, data) => {
-    await Write(UID, data, __PATH.wealth)
+    await nodefs.Write(UID, data, __PATH.userwealth)
     return
 }
 //读取状态
 export const Read_action = async (UID) => {
-    return await Read(UID, __PATH.action)
+    return await nodefs.Read(UID, __PATH.useraction)
 }
 //写入新状态
 export const Write_action = async (UID, data) => {
-    await Write(UID, data, __PATH.action)
+    await nodefs.Write(UID, data, __PATH.useraction)
     return
 }
 //读取储物袋
 export const Write_najie = async (UID, najie) => {
-    await Write(UID, najie, __PATH.najie)
+    await nodefs.Write(UID, najie, __PATH.usernajie)
     return
 }
-//写入新储物袋
+
 export const Read_najie = async (UID) => {
-    return await Read(UID, __PATH.najie)
+    return await nodefs.Read(UID, __PATH.usernajie)
 }
 //读取装备
 export const Read_equipment = async (UID) => {
-    return await Read(UID, __PATH.equipment)
+    return await nodefs.Read(UID, __PATH.userequipment)
 }
 //写入新装备
 export const Write_equipment = async (UID, equipment) => {
-    await Write(UID, equipment, __PATH.equipment)
+    await nodefs.Write(UID, equipment, __PATH.userequipment)
     await updata_equipment(UID)
     return
 }
@@ -889,7 +874,7 @@ export const Search_Exchange = async (thing_qq) => {
 }
 //写入寿命表
 export const Write_Life = async (wupin) => {
-    await Write(`life`, wupin, __PATH.life)
+    await nodefs.Write(`life`, wupin, __PATH.life)
     return
 }
 //读寿命表

@@ -3,7 +3,6 @@ import config from '../xiuxian/config.js'
 const dirname = `plugins/${appname}/resources`
 class Help {
   constructor() {
-    super()
     this.userId = 'help'  //文件标记
     this.model = ''
     this._path = process.cwd().replace(/\\/g, '/')
@@ -23,7 +22,6 @@ class Help {
       pluResPath: `${this._path}/${dirname}/`,
     }
   }
-
   static gethelp = async (data1, data2) => {
     let helpData = config.getConfig(data1, data2)
     let versionData = config.getdefset('version', 'version')

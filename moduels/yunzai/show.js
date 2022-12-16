@@ -2,7 +2,6 @@ import { appname } from './index.js'
 const dirname = `plugins/${appname}/resources`
 class Show {
   constructor() {
-    super()
     this.userId = ''  //文件标记
     this.name = ''    //地址标记
     this._path = process.cwd().replace(/\\/g, '/')  //插件位置 
@@ -17,7 +16,7 @@ class Show {
    * @param {UID} UID
    * @returns 
    */
-  get_Data = async (path, name, myData, UID) => {
+  static get_Data = async (path, name, myData, UID) => {
     this.userId = UID  //文件名
     this.path = path//地址,给base的
     this.name = name//文件名

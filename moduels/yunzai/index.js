@@ -14,29 +14,31 @@ export const NEW__dirname = `${__dirname}/plugins/${appname}`
 //修仙数据
 export const __PATH = {
     //基础
-    'fixepoint': PATH.join(NEW__dirname, '/resources/data/fixed/point'),
-    'fixedposition': PATH.join(NEW__dirname, '/resources/data/fixed/position'),
-    'fixedequipment': PATH.join(NEW__dirname, '/resources/data/fixed/equipment'),
-    'fixedgoods': PATH.join(NEW__dirname, '/resources/data/fixed/goods'),
-    'fixedLevel': PATH.join(NEW__dirname, '/resources/data/fixed/Level'),
-    'fixedoccupation': PATH.join(NEW__dirname, '/resources/data/fixed/occupation'),
-    'fixedtalent': PATH.join(NEW__dirname, '/resources/data/fixed/talent'),
+    'fixed_point': PATH.join(NEW__dirname, '/resources/data/fixed/point'),
+    'fixed_position': PATH.join(NEW__dirname, '/resources/data/fixed/position'),
+    'fixed_equipment': PATH.join(NEW__dirname, '/resources/data/fixed/equipment'),
+    'fixed_goods': PATH.join(NEW__dirname, '/resources/data/fixed/goods'),
+    'fixed_level': PATH.join(NEW__dirname, '/resources/data/fixed/level'),
+    'fixed_occupation': PATH.join(NEW__dirname, '/resources/data/fixed/occupation'),
+    'fixed_talent': PATH.join(NEW__dirname, '/resources/data/fixed/talent'),
     //生成
     'all': PATH.join(NEW__dirname, '/resources/data/birth/all'),
     'position': PATH.join(NEW__dirname, '/resources/data/birth/position'),
-    'Level': PATH.join(NEW__dirname, '/resources/data/birth/Level'),
+    'level': PATH.join(NEW__dirname, '/resources/data/birth/level'),
     //玩家
-    'player': PATH.join(NEW__dirname, '/resources/data/birth/xiuxian/player'),
-    'action': PATH.join(NEW__dirname, '/resources/data/birth/xiuxian/action'),
-    'battle': PATH.join(NEW__dirname, '/resources/data/birth/xiuxian/battle'),
-    'equipment': PATH.join(NEW__dirname, '/resources/data/birth/xiuxian/equipment'),
-    'talent': PATH.join(NEW__dirname, '/resources/data/birth/xiuxian/talent'),
-    'wealth': PATH.join(NEW__dirname, '/resources/data/birth/xiuxian/wealth'),
-    'najie': PATH.join(NEW__dirname, '/resources/data/birth/xiuxian/najie'),
+    'user_player': PATH.join(NEW__dirname, '/resources/data/birth/xiuxian/player'),
+    'user_action': PATH.join(NEW__dirname, '/resources/data/birth/xiuxian/action'),
+    'user_battle': PATH.join(NEW__dirname, '/resources/data/birth/xiuxian/battle'),
+    'user_equipment': PATH.join(NEW__dirname, '/resources/data/birth/xiuxian/equipment'),
+    'user_talent': PATH.join(NEW__dirname, '/resources/data/birth/xiuxian/talent'),
+    'user_wealth': PATH.join(NEW__dirname, '/resources/data/birth/xiuxian/wealth'),
+    'user_najie': PATH.join(NEW__dirname, '/resources/data/birth/xiuxian/najie'),
+    'user_najie': PATH.join(NEW__dirname, '/resources/data/birth/xiuxian/najie'),
+    //寿命
+    'user_life': PATH.join(NEW__dirname, '/resources/data/birth/xiuxian/life'),
+    //
     'Exchange': PATH.join(NEW__dirname, '/resources/data/birth/exchange'),
     'Forum': PATH.join(NEW__dirname, '/resources/data/birth/forum'),
-    //寿命
-    'life': PATH.join(NEW__dirname, '/resources/data/birth/xiuxian/life')
 }
 /**
  * 指令检测
@@ -83,33 +85,33 @@ export const At = async (e) => {
     return B
 }
 //生成动态数据
-nodefs.newlist(__PATH['Level'], 'levellist0', [])
-nodefs.newlist(__PATH['Level'], 'levellist0', [
-    ...nodefs.getlist(__PATH['fixedLevel'], 'levellist0.json')
+nodefs.newlist(__PATH['level'], 'levellist0', [])
+nodefs.newlist(__PATH['level'], 'levellist0', [
+    ...nodefs.getlist(__PATH['fixed_level'], 'levellist0.json')
 ])
-nodefs.newlist(__PATH['Level'], 'levellist1', [])
-nodefs.newlist(__PATH['Level'], 'levellist1', [
-    ...nodefs.getlist(__PATH['fixedLevel'], 'levellist1.json')
+nodefs.newlist(__PATH['level'], 'levellist1', [])
+nodefs.newlist(__PATH['level'], 'levellist1', [
+    ...nodefs.getlist(__PATH['fixed_level'], 'levellist1.json')
 ])
 nodefs.newlist(__PATH['all'], 'all', [])
 nodefs.newlist(__PATH['all'], 'all', [
-    ...nodefs.getlist(__PATH['fixedequipment'], 'json'),
-    ...nodefs.getlist(__PATH['fixedgoods'], 'json')
+    ...nodefs.getlist(__PATH['fixed_equipment'], 'json'),
+    ...nodefs.getlist(__PATH['fixed_goods'], 'json')
 ])
 nodefs.newlist(__PATH['all'], 'commodities', [])
 nodefs.newlist(__PATH['all'], 'commodities', [
-    ...nodefs.getlist(__PATH['fixedgoods'], '0.json')
+    ...nodefs.getlist(__PATH['fixed_goods'], '0.json')
 ])
 nodefs.newlist(__PATH['all'], 'dropsItem', [])
 nodefs.newlist(__PATH['all'], 'dropsItem', [
-    ...nodefs.getlist(__PATH['fixedequipment'], 'json'),
-    ...nodefs.getlist(__PATH['fixedgoods'], 'json')
+    ...nodefs.getlist(__PATH['fixed_equipment'], 'json'),
+    ...nodefs.getlist(__PATH['fixed_goods'], 'json')
 ])
 nodefs.newlist(__PATH['position'], 'position', [])
 nodefs.newlist(__PATH['position'], 'position', [
-    ...nodefs.getlist(__PATH['fixedposition'], 'json')
+    ...nodefs.getlist(__PATH['fixed_position'], 'json')
 ])
 nodefs.newlist(__PATH['position'], 'point', [])
 nodefs.newlist(__PATH['position'], 'point', [
-    ...nodefs.getlist(__PATH['fixepoint'], 'json')
+    ...nodefs.getlist(__PATH['fixed_point'], 'json')
 ])

@@ -17,7 +17,6 @@ class Cache {
         if (helpData[i].md5 == tmp) {
             return helpData[i].img
         }
-        //图片生成直接用yunzai的还是不够好，隔离
         helpData[i].img = await picture.puppeteer().screenshot('help', data)
         helpData[i].md5 = tmp
         return helpData[i].img
