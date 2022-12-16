@@ -19,8 +19,8 @@ export const __PATH = {
     'fixed_equipment': PATH.join(NEW__dirname, '/resources/data/fixed/equipment'),
     'fixed_goods': PATH.join(NEW__dirname, '/resources/data/fixed/goods'),
     'fixed_level': PATH.join(NEW__dirname, '/resources/data/fixed/level'),
-    'fixed_occupation': PATH.join(NEW__dirname, '/resources/data/fixed/occupation'),
     'fixed_talent': PATH.join(NEW__dirname, '/resources/data/fixed/talent'),
+    'fixed_monster': PATH.join(NEW__dirname, '/resources/data/fixed/monster'),
     //生成
     'all': PATH.join(NEW__dirname, '/resources/data/birth/all'),
     'position': PATH.join(NEW__dirname, '/resources/data/birth/position'),

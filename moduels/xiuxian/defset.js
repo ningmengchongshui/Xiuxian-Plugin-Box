@@ -3,6 +3,14 @@ const FS = noderequire.fs()
 const path = noderequire.path()
 const other = `${path.resolve()}${path.sep}config${path.sep}config/other.yaml`
 const group = `${path.resolve()}${path.sep}config${path.sep}config/group.yaml`
+const map = {
+  'return': '请先执行\npnpm i yamljs -w\npnpm i  js-yaml -w',
+  'off': '关闭成功',
+  'on': '开启成功',
+  'setUp': '设置成功',
+  'delete': '删除成功',
+  'add': '添加成功'
+}
 class defset {
   constructor() {
     try {
@@ -15,38 +23,35 @@ class defset {
   ReadConfig = () => {
     try {
       const data = this.YAMLJS.load(group)
-      const sum = ['十连', '角色查询', '体力查询', '用户绑定', '抽卡记录', '添加表情', '欢迎新人', '退群通知', '云崽帮助', '角色素材', '今日素材', '养成计算', '米游社公告']
-      data.default.disable.push(...sum)
+      data.default.disable = ['十连', '角色查询', '体力查询', '用户绑定', '抽卡记录', '添加表情', '欢迎新人', '退群通知', '云崽帮助', '角色素材', '今日素材', '养成计算', '米游社公告']
       const yamlStr = this.JSYAML.dump(data)
       FS.writeFileSync(group, yamlStr, 'utf8')
-      return '关闭成功'
+      return map['off']
     } catch {
-      return '请先执行\npnpm i yamljs -w\npnpm i  js-yaml -w'
+      return map['return']
     }
   }
   ReadConfighelp = () => {
     try {
       const data = this.YAMLJS.load(group)
-      const sum = ['云崽帮助']
-      data.default.disable.push(...sum)
+      data.default.disable.push(...['云崽帮助'])
       const yamlStr = this.JSYAML.dump(data)
       FS.writeFileSync(group, yamlStr, 'utf8')
-      return '设置成功'
+      return map['setUp']
     } catch {
-      return '请先执行\npnpm i yamljs -w\npnpm i  js-yaml -w'
+      return map['return']
     }
   }
   AddMaster = (mastername) => {
     try {
       const QQ = Number(mastername)
       const data = this.YAMLJS.load(other)
-      const sum = [QQ]
-      data.masterQQ.push(...sum)
+      data.masterQQ.push(QQ)
       const yamlStr = this.JSYAML.dump(data)
       FS.writeFileSync(other, yamlStr, 'utf8')
-      return '添加成功'
+      return map['add']
     } catch {
-      return '请先执行\npnpm i yamljs -w\npnpm i  js-yaml -w'
+      return map['return']
     }
   }
   DeleteMaster = (mastername) => {
@@ -62,9 +67,9 @@ class defset {
       data.masterQQ = sum
       const yamlStr = this.JSYAML.dump(data)
       FS.writeFileSync(other, yamlStr, 'utf8')
-      return '删除成功'
+      return map['delete']
     } catch {
-      return '请先执行\npnpm i yamljs -w\npnpm i  js-yaml -w'
+      return map['return']
     }
   }
   OffGroup = () => {
@@ -73,9 +78,9 @@ class defset {
       data.disablePrivate = true
       const yamlStr = this.JSYAML.dump(data)
       FS.writeFileSync(other, yamlStr, 'utf8')
-      return '关闭成功'
+      return map['off']
     } catch {
-      return '请先执行\npnpm i yamljs -w\npnpm i  js-yaml -w'
+      return map['return']
     }
   }
   OnGroup = () => {
@@ -84,9 +89,9 @@ class defset {
       data.disablePrivate = false
       const yamlStr = this.JSYAML.dump(data)
       FS.writeFileSync(other, yamlStr, 'utf8')
-      return '开启成功'
+      return map['on']
     } catch {
-      return '请先执行\npnpm i yamljs -w\npnpm i  js-yaml -w'
+      return map['return']
     }
   }
 }

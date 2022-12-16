@@ -20,7 +20,7 @@ export const Go = async (e) => {
             e.reply(map['undefined'])
             return false
         }
-        e.reply(`${action.actionName}中...`)
+        e.reply(`${action.actionName}...`)
         return false
     }
     return true

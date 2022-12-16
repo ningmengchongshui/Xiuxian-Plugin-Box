@@ -3,7 +3,6 @@ import noderequire from '../db/noderequire.js'
 const FS = noderequire.fs()
 const path = noderequire.path()
 const __dirname = `${path.resolve()}${path.sep}plugins`
-
 class dataup {
   constructor() { }
   pluginupdata = (pluginname) => {

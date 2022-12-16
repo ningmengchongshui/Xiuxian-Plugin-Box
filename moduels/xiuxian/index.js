@@ -3,23 +3,25 @@ import noderequire from '../db/noderequire.js'
 import nodefs from '../db/nodefs.js'
 const FS = noderequire.fs()
 const PATH = noderequire.path()
-const map={
-    'start':'降临成功',
-    'delete':'删除成功',
-    'ctrate':'创建成功',
-    'undefined':'存在旧版残留,请联系主人使用#修仙删除数据'
+const map = {
+    'start': '降临成功',
+    'delete': '删除成功',
+    'ctrate': '创建成功',
+    'undefined': '存在旧版残留,请联系主人使用#修仙删除数据',
+    'free': '空闲',
+    'nodata': '无信息'
 }
-const talentnamemap={
-    '1':'金',
-    '2':'木',
-    '3':'水',
-    '4':'火',
-    '5':'土',
-    '6':'雷',
-    '7':'光',
-    '8':'暗',
-    '9':'冰',
-    '10':'风',
+const talentnamemap = {
+    '1': '金',
+    '2': '木',
+    '3': '水',
+    '4': '火',
+    '5': '土',
+    '6': '雷',
+    '7': '光',
+    '8': '暗',
+    '9': '冰',
+    '10': '风',
 }
 const CDname = {
     '0': '攻击',
@@ -91,19 +93,22 @@ export const userstart = async (UID) => {
         'autograph': '无',//道宣
         'days': 0//签到
     }
+    const id = 1
+    const level = await nodefs.readFindId(__PATH['level'], 'levellist0', id)
+    const level1 = await nodefs.readFindId(__PATH['level'], 'levellist1', id)
     const new_battle = {
-        'nowblood': await nodefs.readFindId(__PATH['level'], 'levellist0',1).blood,
+        'nowblood': level.blood,
         'extra_attack': '',
         'extra_blood': '',
         'extra_defense': '',
     }
     const new_level = {
         'prestige': 0,//魔力
-        'level_id': 1,//练气境界
-        'levelname': '凡人',//练气名
+        'level_id': id,//练气境界
+        'levelname': level.name,//练气名
         'experience': 1,//练气经验
-        'levelmax_id': 1,//练体境界
-        'levelnamemax': '莽夫',//练体名
+        'levelmax_id': id,//练体境界
+        'levelnamemax': level1.name,//练体名
         'experiencemax': 1,//练体经验
         'rank_id': 0,//数组位置
         'rankmax_id': 0//数组位置
@@ -112,7 +117,7 @@ export const userstart = async (UID) => {
         'lingshi': 0,
         'xianshi': 0
     }
-    const position = await nodefs.readFindName(__PATH['position'], 'position','极西')
+    const position = await nodefs.readFindName(__PATH['position'], 'position', '极西')
     const positionID = position.id.split('-')
     const the = {
         mx: Math.floor((Math.random() * (position.x2 - position.x1))) + Number(position.x1),
@@ -186,7 +191,7 @@ export const deleteredis = async () => {
         })
         return map['delete']
     } else {
-        return '无一花草'
+        return map['nodata']
     }
 }
 
@@ -330,8 +335,8 @@ export const updata_equipment = async (UID) => {
     const equipment = await Read_equipment(UID)
     const level = await Read_level(UID)
     //tudo
-    const levelmini = await nodefs.readFindId(__PATH['level'],'levellist0',level.level_id)
-    const levelmax = await nodefs.readFindId(__PATH['level'],'levellist1',level.level_id)
+    const levelmini = await nodefs.readFindId(__PATH['level'], 'levellist0', level.level_id)
+    const levelmax = await nodefs.readFindId(__PATH['level'], 'levellist1', level.level_id)
     const the = {
         attack: 0,
         defense: 0,
@@ -382,7 +387,7 @@ export const Add_experience = async (UID, experience) => {
     const player = await Read_level(UID)
     const exp0 = await Numbers(player.experience)
     const exp1 = await Numbers(experience)
-    player.experience = await exp0 + exp1
+    player.experience = exp0 + exp1
     await Write_level(UID, player)
     return
 }
@@ -504,7 +509,7 @@ export const monsterbattle = async (e, battleA, battleB) => {
 export const newGo = async (UID) => {
     const ifexistplay = await existplayer(UID)
     if (!ifexistplay) {
-        return '无信息'
+        return map['nodata']
     }
     let action = await redis.get(`xiuxian:player:${UID}:action`)
     if (action != undefined) {
@@ -512,7 +517,7 @@ export const newGo = async (UID) => {
         if (action.actionName == undefined) {
             return map['undefined']
         }
-        return `${action.actionName}中...`
+        return `${action.actionName}...`
     }
     return true
 }
@@ -566,7 +571,7 @@ export const talentname = async (player) => {
     let name = ''
     const talent = player.talent
     for (let i = 0; i < talent.length; i++) {
-        name =  talentnamemap[talent[i]]
+        name = talentnamemap[talent[i]]
         talentname.push(name)
     }
     return talentname
@@ -616,7 +621,7 @@ export const player_efficiency = async (UID) => {
  * 根据名字返回物品
  */
 export const search_thing_name = async (thing) => {
-    const ifexist0 = await nodefs.readFindName(__PATH['all'],'all',thing)
+    const ifexist0 = await nodefs.readFindName(__PATH['all'], 'all', thing)
     if (!ifexist0) {
         return 1
     }
@@ -626,7 +631,7 @@ export const search_thing_name = async (thing) => {
  * 根据id返回物品
  */
 export const search_thing_id = async (thing_id) => {
-    const ifexist0 = await nodefs.readFindId(__PATH['all'],'all',thing_id)
+    const ifexist0 = await nodefs.readFindId(__PATH['all'], 'all', thing_id)
     if (!ifexist0) {
         return 1
     } else {
@@ -763,7 +768,7 @@ export const getPlayerAction = async (UID) => {
             return arr
         }
     }
-    arr.action = '空闲'
+    arr.action = map['free']
     return arr
 }
 /**

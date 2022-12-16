@@ -9,10 +9,6 @@ export class showall extends plugin {
                 fnc: 'show_map',
             },
             {
-                reg: '^#修仙公告$',
-                fnc: 'show_bulletin',
-            },
-            {
                 reg: '^#修仙版本$',
                 fnc: 'show_updata',
             },
@@ -32,10 +28,6 @@ export class showall extends plugin {
     }
     show_config = async (e) => {
         e.reply(await get_config_img(e.user_id))
-        return
-    }
-    show_bulletin = async (e) => {
-        e.reply(await get_bulletin_img(e.user_id))
         return
     }
 }

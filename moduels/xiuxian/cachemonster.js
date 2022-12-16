@@ -1,32 +1,13 @@
-const addall = []
-const MonsterName = ['蜥', '狮', '鹏', '雕', '雀', '豹', '虎', '龟', '猫', '龙', '鲲', '鸡', '蛇', '狼', '鼠', '鹿', '貂', '猴', '狗', '熊', '羊', '牛', '象', '兔', '猪']
-const MonsterLevel = ['兵', '将', '兽', '魔', '妖', '大妖', '王', '皇', '帝', '神']
+import nodefs from "../db/nodefs"
+import { __PATH } from "../yunzai"
+let DATAACOUNT = {}
 let DATA = {}
 class Cachemonster {
     monsterscache = async (i) => {
         const time = new Date()
-        const map = {
-            '1': '1.1',
-            '2': '1.1',
-            '3': '1.1',
-            '4': '1.1',
-            '5': '1.1', 
-            '6': '2.6',
-            '7': '2.6',
-            '8': '2.6',
-            '9': '2.6',
-            '10': '8.10',
-            '11': '8.10',
-            '12': '1.3',
-            '13': '1.3',
-            '14': '1.3',
-            '15': '1.3',
-            '16': '1.3',
-            '17': '5.8',
-            '18': '5.8',
-            '19': '5.8',
-            '20': '5.8',
-        }
+        const map = await nodefs.Read('map', __PATH['fixed_monster'])
+        const MonsterName = await nodefs.Read('name', __PATH['fixed_monster'])
+        const MonsterLevel = await nodefs.Read('level', __PATH['fixed_monster'])
         const [mini, max] = map[i].split('.')
         if (DATA.hasOwnProperty(i)) {
             if (DATA[i]['time'] == time.getHours()) {
@@ -43,21 +24,16 @@ class Cachemonster {
                 level: y
             })
         }
+        return DATA[i]['data']
     }
     add = async (i, num) => {
-        while (true) {
-            if (addall.length <= i) {
-                addall.push({
-                    acount: 0,
-                })
-            } else {
-                break
-            }
+        if (!DATAACOUNT.hasOwnProperty(i)) {
+            DATAACOUNT[i] = 0
         }
-        addall[i].acount += num
-        const p = Math.floor((Math.random() * (50 - 30))) + Number(30)
-        if (addall[i].acount > p) {
-            addall[i].acount = 0
+        DATAACOUNT[i] = Number(DATAACOUNT[i]) + Number(num)
+        const p = Math.floor((Math.random() * (50 - 30)) + Number(30))
+        if (DATAACOUNT[i] > p) {
+            DATAACOUNT[i] = 0
             return 1
         }
         return 0
