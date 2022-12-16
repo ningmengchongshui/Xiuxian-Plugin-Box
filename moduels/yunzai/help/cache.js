@@ -1,25 +1,17 @@
 import picture from './picture.js'
 import md5 from 'md5'
-const helpData = []
+let DATA = {}
 class Cache {
     helpcache = async (data, i) => {
-        let tmp = md5(JSON.stringify(data))
-        while (true) {
-            if (helpData.length <= i) {
-                helpData.push({
-                    md5: '',
-                    img: '',
-                })
-            } else {
-                break
+        const tmp = md5(JSON.stringify(data))
+        if (DATA.hasOwnProperty(i)) {
+            if (DATA[i]['md5'] == tmp) {
+                return DATA[i]['img']
             }
         }
-        if (helpData[i].md5 == tmp) {
-            return helpData[i].img
-        }
-        helpData[i].img = await picture.puppeteer('help', data)
-        helpData[i].md5 = tmp
-        return helpData[i].img
+        DATA[i]['img'] = await picture.puppeteer('help', data)
+        DATA[i]['md5'] = tmp
+        return DATA[i]['img']
     }
 }
 export default new Cache()

@@ -19,8 +19,8 @@ class Help {
    */
   gethelp = async (path, name, data1, data2) => {
     this.name = name
-    let helpData = config.getConfig(data1, data2)
-    let versionData = config.getdefset('version', 'version')
+    const helpData = config.getConfig(data1, data2)
+    const versionData = config.getdefset('version', 'version')
     return {
       saveId: this.userId,//这里其实是文件名
       //模板html路径  

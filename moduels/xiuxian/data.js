@@ -1,6 +1,5 @@
-import picture from '../yunzai/picture.js'
-import show from '../yunzai/show.js'
-import Show from '../yunzai/show.js'
+import picture from '../yunzai/help/picture.js'
+import Show from '../yunzai/help/show.js'
 import config from './config.js'
 import { talentname, Read_battle, Read_player, Read_wealth, Read_talent, Read_equipment, Read_level, Read_najie, Read_Life, existplayer } from './index.js'
 export const get_map_img = async (UID) => {
