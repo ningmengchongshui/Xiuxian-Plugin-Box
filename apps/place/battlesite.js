@@ -2,8 +2,9 @@ import plugin from '../../../../lib/plugins/plugin.js'
 import Cachemonster from '../../moduels/xiuxian/cachemonster.js'
 import config from '../../moduels/xiuxian/config.js'
 import { Go } from '../../moduels/yunzai/xiuxian/index.js'
-import { yunzaiConfig } from '../../moduels/yunzai/index.js'
+import { yunzaiConfig, __PATH } from '../../moduels/yunzai/index.js'
 import { Read_action, ForwardMsg, Read_battle, monsterbattle, Add_experiencemax, Add_experience, Add_lingshi, GenerateCD, Add_najie_thing, Read_najie, Write_najie, Read_talent } from '../../moduels/xiuxian/index.js'
+import nodefs from '../../moduels/db/nodefs.js'
 export class battlesite extends plugin {
     constructor() {
         super(yunzaiConfig('battlesite', [
@@ -46,15 +47,15 @@ export class battlesite extends plugin {
             buff.msg = Math.floor((Math.random() * (20 - 5))) + Number(5)
             msg.push('怪物突然变异了!')
         }
-        const LevelMax = ''  //tudo
+        const MonsterLevel = nodefs.readFindId(__PATH['level'],'levellist0',)
         const monsters = {
-            'nowblood': LevelMax.blood * buff.msg,
-            'attack': LevelMax.attack * buff.msg,
-            'defense': LevelMax.defense * buff.msg,
-            'blood': LevelMax.blood * buff.msg,
-            'burst': LevelMax.burst + LevelMax.id * 5 * buff.msg,
-            'burstmax': LevelMax.burstmax + LevelMax.id * 10 * buff.msg,
-            'speed': LevelMax.speed + 5 + buff.msg
+            'nowblood': MonsterLevel.blood * buff.msg,
+            'attack': MonsterLevel.attack * buff.msg,
+            'defense': MonsterLevel.defense * buff.msg,
+            'blood': MonsterLevel.blood * buff.msg,
+            'burst': MonsterLevel.burst + MonsterLevel.id * 5 * buff.msg,
+            'burstmax': MonsterLevel.burstmax + MonsterLevel.id * 10 * buff.msg,
+            'speed': MonsterLevel.speed + 5 + buff.msg
         }
         const battle = await Read_battle(UID)
         const talent = await Read_talent(UID)
@@ -66,7 +67,7 @@ export class battlesite extends plugin {
         if (battle_msg.QQ != 0) {
             const m = Math.floor((Math.random() * (100 - 1))) + Number(1)
             if (m < mon.level * 5) {
-                const dropsItemList = ''  //tudo
+                const dropsItemList = nodefs.Read('dropsItem',__PATH['all'],mon.level)
                 const random = Math.floor(Math.random() * dropsItemList.length)
                 let najie = await Read_najie(UID)
                 if (najie.thing.length <= 21) {

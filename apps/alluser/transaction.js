@@ -1,5 +1,7 @@
 import plugin from '../../../../lib/plugins/plugin.js'
+import nodefs from '../../moduels/db/nodefs.js'
 import { Numbers, Read_wealth, Add_lingshi, point_map, exist_najie_thing_name, Add_najie_thing, existplayer, ForwardMsg, Read_najie, Write_najie, Read_action } from '../../moduels/xiuxian/index.js'
+import { __PATH } from '../../moduels/yunzai/index.js'
 export class transaction extends plugin {
     constructor() {
         super({
@@ -39,7 +41,7 @@ export class transaction extends plugin {
         const msg = [
             '___[凡仙堂]___\n#购买+物品名*数量\n不填数量,默认为1'
         ]
-        const commodities_list = ''  //tudo
+        const commodities_list = nodefs.Read('commodities',__PATH['all'])
         commodities_list.forEach((item) => {
             const id = item.id.split('-')
             if (id[0] == 4) {
@@ -82,7 +84,7 @@ export class transaction extends plugin {
         if (the.quantity > 99) {
             the.quantity = 99
         }
-        const ifexist = '' //tudo
+        const ifexist = await nodefs.readFindName(__PATH['all'],'commodities',thing_name)
         if (!ifexist) {
             e.reply(`[凡仙堂]小二\n不卖:${thing_name}`)
             return

@@ -93,8 +93,8 @@ class nodefs {
      * @param {表名} listname 
      * @param {查询条件} result 
      */
-    readFindName(path, listname, result){
-        return  JSON.parse(FS.readFileSync(`${path}/${listname}.json`)).find(item => item.name == result)
+    readFindName(path, listname, result) {
+        return JSON.parse(FS.readFileSync(`${path}/${listname}.json`)).find(item => item.name == result)
     }
 
     /**
@@ -120,25 +120,21 @@ class nodefs {
         return
     }
 
-
     /**
-     * @param {UId} UID 
+     * @param {name} UID 
      * @param {地址} path 
      * @returns 
      */
-    Read = async (UID, path) => {
-        const dir = PATH.join(`${path}/${UID}.json`)
-        const the = {
-            player: ''
-        }
-        the.player = FS.readFileSync(dir, 'utf8', (err, data) => {
+    Read = async (name, path) => {
+        const dir = PATH.join(`${path}/${name}.json`)
+        const data = JSON.parse(FS.readFileSync(dir, 'utf8', (err, data) => {
             if (err) {
-                return 'error'
+                console.log(err)
+                return 'err'
             }
             return data
-        })
-        the.player = JSON.parse(the.player)
-        return the.player
+        }))
+        return data
     }
 }
 export default new nodefs()

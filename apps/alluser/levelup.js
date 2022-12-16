@@ -1,8 +1,9 @@
 import plugin from '../../../../lib/plugins/plugin.js'
 import config from '../../moduels/xiuxian/config.js'
-import { yunzaiConfig } from '../../moduels/yunzai/index.js'
+import { yunzaiConfig,__PATH } from '../../moduels/yunzai/index.js'
 import { GenerateCD, Read_level, Write_level, updata_equipment, Read_Life, Write_Life } from '../../moduels/xiuxian/index.js'
 import { Go } from '../../moduels/yunzai/xiuxian/index.js'
+import nodefs from '../../moduels/db/nodefs.js'
 export class levelup extends plugin {
     constructor() {
         super(yunzaiConfig('', [
@@ -32,7 +33,7 @@ export class levelup extends plugin {
             return
         }
         const player = await Read_level(UID)
-        const LevelMax = ''//todo
+        const LevelMax = await nodefs.readFindId(__PATH['level'],'levellist1',player.levelmax_id)
         if (player.experiencemax < LevelMax.exp) {
             e.reply(`气血不足,再积累${LevelMax.exp - player.experiencemax}气血后方可突破`)
             return
@@ -72,7 +73,7 @@ export class levelup extends plugin {
             return
         }
         player.levelmax_id = player.levelmax_id + 1
-        player.levelnamemax = ' ' //tudo
+        player.levelnamemax = await nodefs.readFindId(__PATH['level'],'levellist1',player.levelmax_id).name
         player.experiencemax -= LevelMax.exp
         player.rankmax_id = 0
         await Write_level(UID, player)
@@ -95,7 +96,7 @@ export class levelup extends plugin {
             return
         }
         const player = await Read_level(UID)
-        const Level = ' ' //tudo
+        const Level = await nodefs.readFindId(__PATH['level'],'levellist0',player.level_id)
         if (player.experience < Level.exp) {
             e.reply(`修为不足,再积累${Level.exp - player.experience}修为后方可突破`)
             return
@@ -135,7 +136,7 @@ export class levelup extends plugin {
             return
         }
         player.level_id = player.level_id + 1
-        player.levelname = ' ' //tudo
+        player.levelname = await nodefs.readFindId(__PATH['level'],'levellist0',player.level_id).name
         player.experience -= Level.exp
         player.rank_id = 0
         await Write_level(UID, player)
