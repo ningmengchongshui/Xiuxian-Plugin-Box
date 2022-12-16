@@ -1,5 +1,5 @@
 import Config from './moduels/xiuxian/config.js'
-import Index from './moduels/index.js'
+import Index from './moduels/yunzai/index.js'
 import Schedule from './moduels/xiuxian/schedule.js'
 const version = Config.getdefset('version', 'version')
 const task = Config.getdefset('task', 'task')
