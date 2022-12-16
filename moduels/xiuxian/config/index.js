@@ -1,4 +1,4 @@
-import config from "../config"
+import config from '../config.js'
 class Config{
     configHelp=()=>{
         return config.getConfig('help', 'help')

@@ -16,7 +16,7 @@ class Show {
    * @param {UID} UID
    * @returns 
    */
-  static get_Data = async (path, name, myData, UID) => {
+   get_Data = async (path, name, myData, UID) => {
     this.userId = UID  //文件名
     this.path = path//地址,给base的
     this.name = name//文件名

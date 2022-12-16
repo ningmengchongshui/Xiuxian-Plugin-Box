@@ -4,9 +4,9 @@ class Picture {
     gamePicture = async () => {
         return
     }
-    puppeteer = async () => {
+    puppeteer = async (name, data) => {
         //这里报错，就将返回的方法改成自己的
-        return puppeteer
+        return await puppeteer.screenshot(name, { ...data, })
     }
 }
 export default new Picture()

@@ -22,7 +22,7 @@ class Help {
       pluResPath: `${this._path}/${dirname}/`,
     }
   }
-  static gethelp = async (data1, data2) => {
+   gethelp = async (data1, data2) => {
     let helpData = config.getConfig(data1, data2)
     let versionData = config.getdefset('version', 'version')
     return {

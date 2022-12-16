@@ -33,7 +33,7 @@ export const __PATH = {
     'user_talent': PATH.join(NEW__dirname, '/resources/data/birth/xiuxian/talent'),
     'user_wealth': PATH.join(NEW__dirname, '/resources/data/birth/xiuxian/wealth'),
     'user_najie': PATH.join(NEW__dirname, '/resources/data/birth/xiuxian/najie'),
-    'user_najie': PATH.join(NEW__dirname, '/resources/data/birth/xiuxian/najie'),
+    'user_level': PATH.join(NEW__dirname, '/resources/data/birth/xiuxian/level'),
     //寿命
     'user_life': PATH.join(NEW__dirname, '/resources/data/birth/xiuxian/life'),
     //

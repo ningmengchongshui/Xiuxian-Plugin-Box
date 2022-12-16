@@ -8,6 +8,18 @@ const map={
     'delete':'删除成功',
     'ctrate':'创建成功',
 }
+const talentnamemap={
+    '1':'金',
+    '2':'木',
+    '3':'水',
+    '4':'火',
+    '5':'土',
+    '6':'雷',
+    '7':'光',
+    '8':'暗',
+    '9':'冰',
+    '10':'风',
+}
 const CDname = {
     '0': '攻击',
     '1': '降妖',
@@ -524,6 +536,7 @@ export const get_talent = async () => {
     }
     return newtalent
 }
+
 /**
  * 得到灵根名字
  */
@@ -532,7 +545,7 @@ export const talentname = async (player) => {
     let name = ''
     const talent = player.talent
     for (let i = 0; i < talent.length; i++) {
-        name = data.talent_list.find(item => item.id == talent[i]).name
+        name =  talentnamemap[talent[i]]
         talentname.push(name)
     }
     return talentname
