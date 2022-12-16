@@ -1,5 +1,5 @@
 import plugin from '../../../../lib/plugins/plugin.js'
-import config from '../../moduels/xiuxian/config.js'
+import config from '../../moduels/xiuxian/config/index.js'
 import { yunzaiConfig } from '../../moduels/yunzai/index.js'
 import { userstart, GenerateCD, deletelife, offaction, exist } from '../../moduels/xiuxian/index.js'
 import { get_player_img } from '../../moduels/xiuxian/data.js'
@@ -15,10 +15,9 @@ export class start extends plugin {
                 fnc: 'reCreate_player'
             }
         ]))
-        this.xiuxianConfigData = config.getConfig('xiuxian', 'xiuxian')
     }
     Create_player = async (e) => {
-        const group = this.xiuxianConfigData.group.white
+        const group =  config.configXiuxian().group.white;
         if (group != 0) {
             if (e.group_id != group) {
                 return
@@ -42,7 +41,7 @@ export class start extends plugin {
     }
 
     reCreate_player = async (e) => {
-        const CD = await GenerateCD(e.user_id, '8', this.xiuxianConfigData.CD.Reborn)
+        const CD = await GenerateCD(e.user_id, '8', config.configXiuxian().CD.Reborn)
         if (CD != 0) {
             e.reply(CD)
             return

@@ -3,6 +3,24 @@ import noderequire from '../db/noderequire.js'
 import nodefs from '../db/nodefs.js'
 const FS = noderequire.fs()
 const PATH = noderequire.path()
+const map={
+    'start':'降临成功',
+    'delete':'删除成功',
+    'ctrate':'创建成功',
+}
+const CDname = {
+    '0': '攻击',
+    '1': '降妖',
+    '2': '闭关',
+    '3': '改名',
+    '4': '道宣',
+    '5': '赠送',
+    '6': '突破',
+    '7': '破体',
+    '8': '转世',
+    '9': '行为',
+    '10': '击杀'
+}
 /**
  * 随机获得奖励
  * @param {概率} P 
@@ -61,8 +79,7 @@ export const userstart = async (UID) => {
         'days': 0//签到
     }
     const new_battle = {
-        //tudo
-        'nowblood': await nodefs.readFindId(__PATH['level'], 'levellist0',1),
+        'nowblood': await nodefs.readFindId(__PATH['level'], 'levellist0',1).blood,
         'extra_attack': '',
         'extra_blood': '',
         'extra_defense': '',
@@ -83,7 +100,6 @@ export const userstart = async (UID) => {
         'xianshi': 0
     }
     const position = await nodefs.readFindName(__PATH['position'], 'position','极西')
-    console.log(position)
     const positionID = position.id.split('-')
     const the = {
         mx: Math.floor((Math.random() * (position.x2 - position.x1))) + Number(position.x1),
@@ -138,7 +154,7 @@ export const userstart = async (UID) => {
     await Write_equipment(UID, [])
     await Write_najie(UID, new_najie)
     await Write_Life(life)
-    return '降临成功'
+    return map['start']
 }
 
 export const deletegame = async () => {
@@ -146,7 +162,7 @@ export const deletegame = async () => {
     await Write_Forum([])
     await Write_Life([])
     await this.deleteredis()
-    return '删除成功'
+    return map['delete']
 }
 
 export const deleteredis = async () => {
@@ -155,27 +171,23 @@ export const deleteredis = async () => {
         allkey.forEach(async (item) => {
             await redis.del(item)
         })
-        return '删除完成'
+        return map['delete']
     } else {
         return '无一花草'
     }
 }
+
 export const deletelife = async (UID) => {
     let life = await Read_Life()
     life = await life.filter(item => item.qq != UID)
     await Write_Life(life)
     return
 }
-//写入数据
-const Write = async (UID, player, path) => {
-    const dir = PATH.join(path, `${UID}.json`)
-    const new_ARR = JSON.stringify(player, '', '\t')
-    FS.writeFileSync(dir, new_ARR, 'utf8', (err) => {
-    })
-    return
-}
 
-//初次使用
+/**
+ * @param {UID} UID 
+ * @returns 
+ */
 export const exist = async (UID) => {
     const life = await Read_Life()
     const find = life.find(item => item.qq == UID)
@@ -185,8 +197,11 @@ export const exist = async (UID) => {
         return false
     }
 }
-
-//基础存档
+/**
+ * 
+ * @param {UID} UID 
+ * @returns 
+ */
 export const existplayer = async (UID) => {
     const life = await Read_Life()
     const find = life.find(item => item.qq == UID)
@@ -201,7 +216,11 @@ export const existplayer = async (UID) => {
         return false
     }
 }
-//插件存档检测
+/**
+ * 
+ * @param {UId} UID 
+ * @returns 
+ */
 export const existplayerplugins = async (UID) => {
     const life = await Read_Life()
     const find = life.find(item => item.qq == UID)
@@ -211,13 +230,22 @@ export const existplayerplugins = async (UID) => {
         return find
     }
 }
-//读取存档
+/**
+ * 
+ * @param {UID} UID 
+ * @returns 
+ */
 export const Read_player = async (UID) => {
     return await nodefs.Read(UID, __PATH['user_player'])
 }
-//写入存档
-export const Write_player = async (UID, player) => {
-    await nodefs.Write(UID, player, __PATH['user_player'])
+/**
+ * 
+ * @param {UID} UID 
+ * @param {地址} data 
+ * @returns 
+ */
+export const Write_player = async (UID, data) => {
+    await nodefs.Write(UID, data, __PATH['user_player'])
     return
 }
 //读取灵根
@@ -225,8 +253,8 @@ export const Read_talent = async (UID) => {
     return await nodefs.Read(UID, __PATH['user_talent'])
 }
 //写入新灵根
-export const Write_talent = async (UID, player) => {
-    await nodefs.Write(UID, player, __PATH['user_talent'])
+export const Write_talent = async (UID, data) => {
+    await nodefs.Write(UID, data, __PATH['user_talent'])
     return
 }
 //读取战斗
@@ -270,7 +298,6 @@ export const Write_najie = async (UID, najie) => {
     await nodefs.Write(UID, najie, __PATH['user_najie'])
     return
 }
-
 export const Read_najie = async (UID) => {
     return await nodefs.Read(UID, __PATH['user_najie'])
 }
@@ -289,8 +316,9 @@ export const updata_equipment = async (UID) => {
     const battle = await Read_battle(UID)
     const equipment = await Read_equipment(UID)
     const level = await Read_level(UID)
-    const levelmini = ''
-    const levelmax = ''
+    //tudo
+    const levelmini = await nodefs.readFindId(__PATH['level'],'levellist0',level.level_id)
+    const levelmax = await nodefs.readFindId(__PATH['level'],'levellist1',level.level_id)
     const the = {
         attack: 0,
         defense: 0,
@@ -554,7 +582,7 @@ export const player_efficiency = async (UID) => {
  * 根据名字返回物品
  */
 export const search_thing_name = async (thing) => {
-    const ifexist0 = ''
+    const ifexist0 = await nodefs.readFindName(__PATH['all'],'all',thing)
     if (!ifexist0) {
         return 1
     }
@@ -564,7 +592,7 @@ export const search_thing_name = async (thing) => {
  * 根据id返回物品
  */
 export const search_thing_id = async (thing_id) => {
-    const ifexist0 = ''
+    const ifexist0 = await nodefs.readFindId(__PATH['all'],'all',thing_id)
     if (!ifexist0) {
         return 1
     } else {
@@ -607,7 +635,6 @@ export const Add_najie_thing = async (najie, najie_thing, thing_acount) => {
     }
 }
 /**
- * 
  * @param {ID} UID 
  * @param {物品} searchsthing 
  * @param {数量} quantity 
@@ -619,7 +646,6 @@ export const addKnapsack = async (UID, searchsthing, quantity) => {
     await Write_najie(UID, najie)
     return
 }
-
 //发送转发消息
 export const ForwardMsg = async (e, data) => {
     const msgList = []
@@ -671,48 +697,6 @@ export const sleep = async (time) => {
         setTimeout(resolve, time)
     })
 }
-// 时间转换
-export const timestampToTime = (timestamp) => {
-    //时间戳为10位需*1000,时间戳为13位的话不需乘1000
-    const date = new Date(timestamp)
-    const Y = date.getFullYear() + '-'
-    const M = (date.getMonth() + 1 < 10 ? '0' + (date.getMonth() + 1) : date.getMonth() + 1) + '-'
-    const D = date.getDate() + ' '
-    const h = date.getHours() + ':'
-    const m = date.getMinutes() + ':'
-    const s = date.getSeconds()
-    return Y + M + D + h + m + s
-}
-//根据时间戳获取年月日时分秒
-export const shijianc = async (time) => {
-    const dateobj = {}
-    const date = new Date(time)
-    dateobj.Y = date.getFullYear()
-    dateobj.M = date.getMonth() + 1
-    dateobj.D = date.getDate()
-    dateobj.h = date.getHours()
-    dateobj.m = date.getMinutes()
-    dateobj.s = date.getSeconds()
-    return dateobj
-}
-
-/**
- * 判断对象是否不为undefined且不为null
- * @param obj 对象
- * @returns obj==null/undefined,return false,other return true
- */
-export const isNotNull = (obj) => {
-    if (obj == undefined || obj == null)
-        return false
-    return true
-}
-export const isNotBlank = (value) => {
-    if (value ?? '' !== '') {
-        return true
-    } else {
-        return false
-    }
-}
 /**
  * 强制修正至少为1
  */
@@ -757,20 +741,6 @@ export const offaction = async (qq) => {
         await redis.del(`xiuxian:player:${qq}:action`)
     }
     return
-}
-
-const CDname = {
-    '0': '攻击',
-    '1': '降妖',
-    '2': '闭关',
-    '3': '改名',
-    '4': '道宣',
-    '5': '赠送',
-    '6': '突破',
-    '7': '破体',
-    '8': '转世',
-    '9': '行为',
-    '10': '击杀'
 }
 /**
  * 冷却检测
@@ -821,56 +791,6 @@ export const GenerateCDplugin = async (UID, CDid, CDname) => {
     await redis.set(`xiuxian:player:${UID}:${CDid}`, now_time)
     await redis.expire(`xiuxian:player:${UID}:${CDid}`, CDTime * 60)
     return 0
-}
-//写入
-export const Write_Forum = async (wupin) => {
-    await Write(`Forum`, wupin, __PATH['Forum'])
-    return
-}
-//读取
-export const Read_Forum = async () => {
-    const dir = PATH.join(`${__PATH['Forum']}/Forum.json`)
-    let Forum = await newRead(dir)
-    if (Forum == 1) {
-        await Write_Forum([])
-        Forum = await newRead(dir)
-    }
-    Forum = JSON.parse(Forum)
-    return Forum
-}
-//写入交易表
-export const Write_Exchange = async (wupin) => {
-    await Write(`Exchange`, wupin, __PATH['Exchange'])
-    return
-}
-//读交易表
-export const Read_Exchange = async () => {
-    const dir = PATH.join(`${__PATH['Exchange']}/Exchange.json`)
-    let Exchange = await newRead(dir)
-    if (Exchange == 1) {
-        await Write_Exchange([])
-        Exchange = await newRead(dir)
-    }
-    Exchange = await JSON.parse(Exchange)
-    return Exchange
-}
-//搜索物品
-export const Search_Exchange = async (thing_qq) => {
-    const the = {
-        qq: thing_qq,
-        x: -1
-    }
-    const Exchange = await Read_Exchange()
-    if (the.thingqq == '') {
-        return the.x
-    }
-    for (let i = 0; i < Exchange.length; i++) {
-        if (Exchange[i].qq == the.thingqq) {
-            the.x = i
-            break
-        }
-    }
-    return the.x
 }
 //写入寿命表
 export const Write_Life = async (wupin) => {
@@ -929,8 +849,6 @@ export const map_distance = async (A, B) => {
     const h = Math.pow(Math.pow((A.x - B.x1), 2) + Math.pow((A.y - B.y1), 2), 1 / 2)
     return h
 }
-
-
 //输入：模糊搜索名字并判断是否在此地
 export const point_map = async (UID, addressName) => {
     const action = await Read_action(UID)
