@@ -4,31 +4,32 @@ const dirname = `plugins/${appname}/resources`
 class Help {
   constructor() {
     this.userId = 'help'  //文件标记
-    this.model = ''
-    this._path = process.cwd().replace(/\\/g, '/')
+    this.name = ''    //地址标记
+    this._path = process.cwd().replace(/\\/g, '/')  //插件位置 
   }
   get prefix() {
-    return `Yz:${appname}:${this.model}:`
+    return `Yz:${appname}:${this.name}:`
   }
-  //这里才是要反馈的
-  get screenData() {
-    return {
-      //html保存id
-      saveId: this.userId,
-      //模板html路径                    //
-      tplFile: `./${dirname}/html/${this.model0}/${this.model}.html`,
-      /** 绝对路径 */
-      //插件资源路径
-      pluResPath: `${this._path}/${dirname}/`,
-    }
-  }
-   gethelp = async (data1, data2) => {
+  /**
+   * 
+   * @param {地址} path 
+   * @param {文件名} name 
+   * @param {数据地址} data1 
+   * @param {数据文件名} data2 
+   * @returns 
+   */
+  gethelp = async (path, name, data1, data2) => {
+    this.name = name
     let helpData = config.getConfig(data1, data2)
     let versionData = config.getdefset('version', 'version')
     return {
       saveId: this.userId,//这里其实是文件名
+      //模板html路径  
+      tplFile: `./${dirname}/html/${path}/${this.name}.html`,
+      /** 绝对路径 */
+      pluResPath: `${this._path}/${dirname}/`,
       version: versionData[0].version,
-      helpData,
+      helpData
     }
   }
 }

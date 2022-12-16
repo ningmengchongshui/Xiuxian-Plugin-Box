@@ -4,6 +4,7 @@ import { yunzaiConfig } from '../../moduels/yunzai/index.js'
 import { Write_player, point_map, Read_action, GenerateCD, Read_player, Read_wealth, Write_Life, Read_Life, Add_lingshi } from '../../moduels/xiuxian/index.js'
 import { Go } from '../../moduels/yunzai/index.js'
 import { get_player_img } from '../../moduels/xiuxian/data.js'
+const Filterwords = ['尼玛', '妈的', '他妈', '卧槽', '操', '操蛋', '麻痹', '傻逼', '妈逼']
 export class modify extends plugin {
     constructor() {
         super(yunzaiConfig('', [
@@ -36,8 +37,7 @@ export class modify extends plugin {
         if (new_name.length == 0) {
             return
         }
-        const name = ['尼玛', '妈的', '他妈', '卧槽', '操', '操蛋', '麻痹', '傻逼', '妈逼']
-        name.forEach((item) => {
+        Filterwords.forEach((item) => {
             new_name = new_name.replace(item, '')
         })
         if (new_name.length > 8) {
@@ -75,8 +75,7 @@ export class modify extends plugin {
         const player = await Read_player(UID)
         let new_msg = e.msg.replace('#设置道宣', '')
         new_msg = new_msg.replace(' ', '')
-        const name = ['尼玛', '妈的', '他妈', '卧槽', '操', '操蛋', '麻痹', '傻逼', '妈逼']
-        name.forEach((item) => {
+        Filterwords.forEach((item) => {
             new_msg = new_msg.replace(item, '')
         })
         if (new_msg.length == 0 || new_msg.length > 50) {

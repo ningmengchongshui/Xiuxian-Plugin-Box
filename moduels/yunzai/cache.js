@@ -17,7 +17,7 @@ class Cache {
         if (helpData[i].md5 == tmp) {
             return helpData[i].img
         }
-        helpData[i].img = await picture.puppeteer().screenshot('help', data)
+        helpData[i].img = await picture.puppeteer('help', data)
         helpData[i].md5 = tmp
         return helpData[i].img
     }
