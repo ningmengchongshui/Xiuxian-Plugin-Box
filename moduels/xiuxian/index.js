@@ -62,7 +62,7 @@ export const userstart = async (UID) => {
     }
     const new_battle = {
         //tudo
-        'nowblood': await nodefs.readFindId(__PATH.level, 'levellist0',1),
+        'nowblood': await nodefs.readFindId(__PATH['level'], 'levellist0',1),
         'extra_attack': '',
         'extra_blood': '',
         'extra_defense': '',
@@ -82,7 +82,7 @@ export const userstart = async (UID) => {
         'lingshi': 0,
         'xianshi': 0
     }
-    const position = await nodefs.readFindName(__PATH.position, 'position','极西')
+    const position = await nodefs.readFindName(__PATH['position'], 'position','极西')
     console.log(position)
     const positionID = position.id.split('-')
     const the = {
@@ -213,74 +213,74 @@ export const existplayerplugins = async (UID) => {
 }
 //读取存档
 export const Read_player = async (UID) => {
-    return await nodefs.Read(UID, __PATH.userplayer)
+    return await nodefs.Read(UID, __PATH['user_player'])
 }
 //写入存档
 export const Write_player = async (UID, player) => {
-    await nodefs.Write(UID, player, __PATH.userplayer)
+    await nodefs.Write(UID, player, __PATH['user_player'])
     return
 }
 //读取灵根
 export const Read_talent = async (UID) => {
-    return await nodefs.Read(UID, __PATH.usertalent)
+    return await nodefs.Read(UID, __PATH['user_talent'])
 }
 //写入新灵根
 export const Write_talent = async (UID, player) => {
-    await nodefs.Write(UID, player, __PATH.usertalent)
+    await nodefs.Write(UID, player, __PATH['user_talent'])
     return
 }
 //读取战斗
 export const Read_battle = async (UID) => {
-    return await nodefs.Read(UID, __PATH.userbattle)
+    return await nodefs.Read(UID, __PATH['user_battle'])
 }
 //写入新战斗
 export const Write_battle = async (UID, data) => {
-    await nodefs.Write(UID, data, __PATH.userbattle)
+    await nodefs.Write(UID, data, __PATH['user_battle'])
     return
 }
 //读取境界
 export const Read_level = async (UID) => {
-    return await nodefs.Read(UID, __PATH.userlevel)
+    return await nodefs.Read(UID, __PATH['user_level'])
 }
 //写入新境界
 export const Write_level = async (UID, data) => {
-    await nodefs.Write(UID, data, __PATH.userlevel)
+    await nodefs.Write(UID, data, __PATH['user_level'])
     return
 }
 //读取财富
 export const Read_wealth = async (UID) => {
-    return await nodefs.Read(UID, __PATH.userwealth)
+    return await nodefs.Read(UID, __PATH['user_wealth'])
 }
 //写入新财富
 export const Write_wealth = async (UID, data) => {
-    await nodefs.Write(UID, data, __PATH.userwealth)
+    await nodefs.Write(UID, data, __PATH['user_wealth'])
     return
 }
 //读取状态
 export const Read_action = async (UID) => {
-    return await nodefs.Read(UID, __PATH.useraction)
+    return await nodefs.Read(UID, __PATH['user_action'])
 }
 //写入新状态
 export const Write_action = async (UID, data) => {
-    await nodefs.Write(UID, data, __PATH.useraction)
+    await nodefs.Write(UID, data, __PATH['user_action'])
     return
 }
 //读取储物袋
 export const Write_najie = async (UID, najie) => {
-    await nodefs.Write(UID, najie, __PATH.usernajie)
+    await nodefs.Write(UID, najie, __PATH['user_najie'])
     return
 }
 
 export const Read_najie = async (UID) => {
-    return await nodefs.Read(UID, __PATH.usernajie)
+    return await nodefs.Read(UID, __PATH['user_najie'])
 }
 //读取装备
 export const Read_equipment = async (UID) => {
-    return await nodefs.Read(UID, __PATH.userequipment)
+    return await nodefs.Read(UID, __PATH['user_equipment'])
 }
 //写入新装备
 export const Write_equipment = async (UID, equipment) => {
-    await nodefs.Write(UID, equipment, __PATH.userequipment)
+    await nodefs.Write(UID, equipment, __PATH['user_equipment'])
     await updata_equipment(UID)
     return
 }
@@ -824,12 +824,12 @@ export const GenerateCDplugin = async (UID, CDid, CDname) => {
 }
 //写入
 export const Write_Forum = async (wupin) => {
-    await Write(`Forum`, wupin, __PATH.Forum)
+    await Write(`Forum`, wupin, __PATH['Forum'])
     return
 }
 //读取
 export const Read_Forum = async () => {
-    const dir = PATH.join(`${__PATH.Forum}/Forum.json`)
+    const dir = PATH.join(`${__PATH['Forum']}/Forum.json`)
     let Forum = await newRead(dir)
     if (Forum == 1) {
         await Write_Forum([])
@@ -840,12 +840,12 @@ export const Read_Forum = async () => {
 }
 //写入交易表
 export const Write_Exchange = async (wupin) => {
-    await Write(`Exchange`, wupin, __PATH.Exchange)
+    await Write(`Exchange`, wupin, __PATH['Exchange'])
     return
 }
 //读交易表
 export const Read_Exchange = async () => {
-    const dir = PATH.join(`${__PATH.Exchange}/Exchange.json`)
+    const dir = PATH.join(`${__PATH['Exchange']}/Exchange.json`)
     let Exchange = await newRead(dir)
     if (Exchange == 1) {
         await Write_Exchange([])
@@ -874,12 +874,12 @@ export const Search_Exchange = async (thing_qq) => {
 }
 //写入寿命表
 export const Write_Life = async (wupin) => {
-    await nodefs.Write(`life`, wupin, __PATH.life)
+    await nodefs.Write(`life`, wupin, __PATH['user_life'])
     return
 }
 //读寿命表
 export const Read_Life = async () => {
-    const dir = PATH.join(`${__PATH.life}/life.json`)
+    const dir = PATH.join(`${__PATH['user_life']}/life.json`)
     let Life = await newRead(dir)
     if (Life == 1) {
         await Write_Life([])
