@@ -111,8 +111,7 @@ export class battlesite extends plugin {
         if (!good) {
             return
         }
-        const UID = e.user_id
-        const action = await Read_action(UID)
+        const action = await Read_action(e.user_id)
         const msg = []
         const monster = await Cachemonster.monsterscache(action.region)
         monster.forEach((item) => {

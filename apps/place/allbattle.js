@@ -58,9 +58,11 @@ export class allbattle extends plugin {
             e.reply(CD)
             return
         }
-        user.QQ = user.A //tudo 战斗模型删除
-        const prestigesize=1
-        const prestigebase=50
+        user.QQ = user.A
+        return
+        //tudo 战斗模型删除
+        const prestigesize = 1
+        const prestigebase = 50
         await addPrestige(user.A, prestigesize)
         const LevelB = await Read_level(user.B)
         const MP = LevelB.prestige * 10 + prestigebase
