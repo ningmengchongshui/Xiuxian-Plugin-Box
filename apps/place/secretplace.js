@@ -1,8 +1,18 @@
 import plugin from '../../../../lib/plugins/plugin.js'
 import { segment } from 'oicq'
-import { yunzaiConfig } from '../../moduels/yunzai/index.js'
+import { yunzaiConfig, __PATH } from '../../moduels/yunzai/index.js'
 import { Read_action, Read_level, ForwardMsg, existplayer, Read_wealth, Write_action, Write_wealth, Read_battle } from '../../moduels/xiuxian/index.js'
 import { Go } from '../../moduels/yunzai/xiuxian/index.js'
+import nodefs from '../../moduels/db/nodefs.js'
+const MAP = {
+    'no_search': '无法探查',
+    'return_point': '回到原地',
+    'refuse_to_go': '[修仙联盟]守境者\n道友请留步',
+    'successfully_arrived': '成功抵达',
+    'going': '正在前往',
+    'need_money': '[修仙联盟]守阵者\n需要花费',
+    'need_time': '[修仙联盟]守阵者\n传送需要'
+}
 const forwardsetTime = []
 const deliverysetTime = []
 const useraction = []
@@ -42,7 +52,7 @@ export class secretplace extends plugin {
         }
         const action = await Read_action(UID)
         if (action.address != 1) {
-            e.reply('你对这里并不了解...')
+            e.reply(MAP['no_search'])
             return
         }
         const addressId = `${action.z}-${action.region}-${action.address}`
@@ -55,7 +65,7 @@ export class secretplace extends plugin {
             }
         })
         address.forEach((item) => {
-            msg.push(`地点名:${item.name}\n坐标(${item.x},${item.y})`)
+            msg.push(`${item.name}\n(${item.x},${item.y})`)
         })
         await ForwardMsg(e, msg)
         return
@@ -68,7 +78,7 @@ export class secretplace extends plugin {
         const UID = e.user_id
         forwardsetTime[UID] = 0
         clearTimeout(useraction[UID])
-        e.reply('你回到了原地')
+        e.reply(MAP['return_point'])
         return
     }
     xyzaddress = async (e) => {
@@ -81,7 +91,7 @@ export class secretplace extends plugin {
             return
         }
         const action = await Read_action(UID)
-        e.reply(`坐标(${action.x},${action.y},${action.z})`)
+        e.reply(`(${action.x},${action.y},${action.z})`)
         return
     }
     forward = async (e) => {
@@ -106,7 +116,7 @@ export class secretplace extends plugin {
         const PointId = point.id.split('-')
         const level = await Read_level(UID)
         if (level.level_id < PointId[3]) {
-            e.reply('[修仙联盟]守境者\n道友请留步')
+            e.reply(MAP['refuse_to_go'])
             return
         }
         const a = x - mx >= 0 ? x - mx : mx - x
@@ -121,10 +131,10 @@ export class secretplace extends plugin {
             action.region = PointId[1]
             action.address = PointId[2]
             await Write_action(UID, action)
-            e.reply([segment.at(UID), `成功抵达${address}`])
+            e.reply([segment.at(UID), `${MAP['successfully_arrived']}${address}`])
         }, 1000 * time)
         forwardsetTime[UID] = 1
-        e.reply(`正在前往${address}...\n需要${time}秒`)
+        e.reply(`${MAP['going']}${address}:${time}s`)
         return
     }
     delivery = async (e) => {
@@ -140,17 +150,18 @@ export class secretplace extends plugin {
         const x = action.x
         const y = action.y
         const address = e.msg.replace('#传送', '')
-        const position = ''
+        const position = await nodefs.readFindName(__PATH['position'], 'position', address)
         if (!position) {
             return
         }
         const positionID = position.id.split('-')
         const level = await Read_level(UID)
         if (level.level_id < positionID[3]) {
-            e.reply('[修仙联盟]守境者\n道友请留步')
+            e.reply(MAP['refuse_to_go'])
             return
         }
-        const point = ''
+        //
+        const point = await nodefs.readFindName(__PATH['position'], 'point', address)
         let key = 0
         point.forEach((item) => {
             const pointID = item.id.split('-')
@@ -168,7 +179,7 @@ export class secretplace extends plugin {
         const wealth = await Read_wealth(UID)
         const lingshi = 1000
         if (wealth.lingshi < lingshi) {
-            e.reply(`[修仙联盟]守阵者\n需要花费${lingshi}灵石`)
+            e.reply(`${MAP['need_money']}${lingshi}`)
             return
         }
         wealth.lingshi -= lingshi
@@ -184,10 +195,10 @@ export class secretplace extends plugin {
             action.region = positionID[1]
             action.address = positionID[2]
             await Write_action(UID, action)
-            e.reply([segment.at(UID), `成功传送至${address}`])
+            e.reply([segment.at(UID), `${MAP['successfully_arrived']}${address}`])
         }, 1000 * time)
         deliverysetTime[UID] = 1
-        e.reply(`[修仙联盟]守阵者\n传送${address}\n需要${time}秒`)
+        e.reply(`${MAP['need_time']}${time}s`)
         return
     }
 }

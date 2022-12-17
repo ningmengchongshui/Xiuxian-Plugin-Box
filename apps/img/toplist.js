@@ -3,6 +3,12 @@ import nodefs from '../../moduels/db/nodefs.js'
 import { existplayer, Read_action, point_map, sortBy, Read_level, Read_battle } from '../../moduels/xiuxian/index.js'
 import { get_toplist_img } from '../../moduels/xiuxian/data.js'
 import { yunzaiConfig } from '../../moduels/yunzai/index.js'
+const MAP = {
+    'no_one': '此界皆是良民',
+    'not_one': '无一人成仙',
+    'tianjimen': '天机门',
+    'return_tianjimen': '需[#城池名+天机门'
+}
 export class toplist extends plugin {
     constructor() {
         super(yunzaiConfig('secretplace', [
@@ -27,10 +33,10 @@ export class toplist extends plugin {
             return
         }
         const action = await Read_action(UID)
-        const address_name = '天机门'
+        const address_name = MAP['tianjimen']
         const map = await point_map(action, address_name)
         if (!map) {
-            e.reply(`需[#城池名+${address_name}]`)
+            e.reply(MAP['return_tianjimen'])
             return
         }
         const playerList = await nodefs.returnjson()
@@ -48,7 +54,7 @@ export class toplist extends plugin {
             }
         }
         if (temp.length == 0) {
-            e.reply('此界皆是良民')
+            e.reply(MAP['no_one'])
             return
         }
         temp.sort(sortBy('power'))
@@ -67,10 +73,10 @@ export class toplist extends plugin {
             return
         }
         const action = await Read_action(UID)
-        const address_name = '天机门'
+        const address_name = MAP['tianjimen']
         const map = await point_map(action, address_name)
         if (!map) {
-            e.reply(`需[#城池名+${address_name}]`)
+            e.reply(MAP['return_tianjimen'])
             return
         }
         const playerList = await nodefs.returnjson()
@@ -89,7 +95,7 @@ export class toplist extends plugin {
             }
         }
         if (temp.length == 0) {
-            e.reply('无一人成仙')
+            e.reply(MAP['not_one'])
             return
         }
         temp.sort(sortBy('power'))
@@ -109,10 +115,10 @@ export class toplist extends plugin {
             return
         }
         const action = await Read_action(UID)
-        const address_name = '天机门'
+        const address_name = MAP['tianjimen']
         const map = await point_map(action, address_name)
         if (!map) {
-            e.reply(`需[#城池名+${address_name}]`)
+            e.reply(MAP['return_tianjimen'])
             return
         }
         const list = []

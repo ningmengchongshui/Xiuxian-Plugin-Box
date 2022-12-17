@@ -2,7 +2,7 @@ import plugin from '../../../../lib/plugins/plugin.js'
 import config from '../../moduels/xiuxian/config.js'
 import { yunzaiConfig } from '../../moduels/yunzai/index.js'
 import { At, Go } from '../../moduels/yunzai/xiuxian/index.js'
-import { Read_action, point_map, existplayer, GenerateCD, Read_level, deletePrestige, randomNuber, addPrestige, addKnapsack, randomEquipment } from '../../moduels/xiuxian/index.js'
+import { Read_action, point_MAP, existplayer, GenerateCD, Read_level, deletePrestige, randomNuber, addPrestige, addKnapsack, randomEquipment } from '../../moduels/xiuxian/index.js'
 const MAP = {
     'refuse': '[修仙联盟]普通卫兵:城内不可出手',
     'notfind': '未找到',
@@ -42,15 +42,15 @@ export class allbattle extends plugin {
         const actionA = await Read_action(user.A)
         const actionB = await Read_action(user.B)
         if (actionA.region != actionB.region) {
-            e.reply(map['notfind'])
+            e.reply(MAP['notfind'])
             return
         }
         if (actionA.address == 1) {
-            e.reply(map['refuse'])
+            e.reply(MAP['refuse'])
             return
         }
         if (actionB.address == 1) {
-            e.reply(map['refuse'])
+            e.reply(MAP['refuse'])
             return
         }
         const CD = await GenerateCD(user.A, '0', this.xiuxianConfigData.CD.Attack)
@@ -59,9 +59,11 @@ export class allbattle extends plugin {
             return
         }
         user.QQ = user.A //tudo 战斗模型删除
-        await addPrestige(user.A, Number(1))
+        const prestigesize=1
+        const prestigebase=50
+        await addPrestige(user.A, prestigesize)
         const LevelB = await Read_level(user.B)
-        const MP = LevelB.prestige * 10 + Number(50)
+        const MP = LevelB.prestige * 10 + prestigebase
         if (user.p <= MP) {
             if (user.QQ != user.A) {
                 user.C = user.A
@@ -84,7 +86,7 @@ export class allbattle extends plugin {
         if (!ifexistplay) {
             return
         }
-        const map = await point_map(e.user_id, MAP['name_tianjiment'])
+        const map = await point_MAP(e.user_id, MAP['name_tianjiment'])
         if (!map) {
             e.reply(MAP['name_return'])
             return

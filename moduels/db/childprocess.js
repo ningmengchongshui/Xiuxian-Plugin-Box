@@ -1,7 +1,7 @@
 import noderequire from "./noderequire.js"
 const { exec } = noderequire.childProcess()
 const PATH = noderequire.path()
-const map = {
+const MAP = {
     'updatasuccess': '更新成功',
     'updatafail': '更新失败',
     'resrartsuccess': '重启成功',
@@ -15,11 +15,11 @@ class Childprocess {
         exec(cmd, { cwd: `${PATH.resolve()}${PATH.sep}plugins${PATH.sep}${name}` },
             (error, stdout) => {
                 if (/(Already up[ -]to[ -]date|已经是最新的)/.test(stdout)) {
-                    return `${name}${map['newest']}`
+                    return `${name}${MAP['newest']}`
                 } else if (error) {
-                    return `${map[updatafail]}\nError code: ${error.code}\n${error.stack}\n`
+                    return `${MAP[updatafail]}\nError code: ${error.code}\n${error.stack}\n`
                 } else {
-                    return `${name}${map['updatasuccess']}`
+                    return `${name}${MAP['updatasuccess']}`
                 }
             }
         )
@@ -29,10 +29,10 @@ class Childprocess {
             (error, stdout) => {
                 if (error) {
                     redis.del(key)
-                    logger.error(`${map['resrartfail']}\n${error.stack}`)
-                    return `${map['resrartfail']}\nError code: ${error.code}\n${error.stack}\n`
+                    logger.error(`${MAP['resrartfail']}\n${error.stack}`)
+                    return `${MAP['resrartfail']}\nError code: ${error.code}\n${error.stack}\n`
                 } else if (stdout) {
-                    return map['resrartsuccess']
+                    return MAP['resrartsuccess']
                 }
             }
         )
@@ -41,9 +41,9 @@ class Childprocess {
         exec(cmd, { cwd: `${PATH.resolve()}` },
             (error) => {
                 if (error) {
-                    return `${map['stallfail']}\nError code: ${error.code}\n${error.stack}\n`
+                    return `${MAP['stallfail']}\nError code: ${error.code}\n${error.stack}\n`
                 } else {
-                    return `${name}${map['stallsuccess']}`
+                    return `${name}${MAP['stallsuccess']}`
                 }
             }
         )
