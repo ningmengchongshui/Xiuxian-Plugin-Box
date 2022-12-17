@@ -5,6 +5,13 @@ import { Go } from '../../moduels/yunzai/xiuxian/index.js'
 import { yunzaiConfig, __PATH } from '../../moduels/yunzai/index.js'
 import { Read_action, ForwardMsg, Read_battle, monsterbattle, Add_experiencemax, Add_experience, Add_lingshi, GenerateCD, Add_najie_thing, Read_najie, Write_najie, Read_talent } from '../../moduels/xiuxian/index.js'
 import nodefs from '../../moduels/db/nodefs.js'
+const MAP = {
+    'bag_full': '背包满了',
+    'no_serch': '这里并没有,到别处看看吧',
+    'lingshi': '灵石',
+    'qixue': '气血',
+    'xiuwei': '修为'
+}
 export class battlesite extends plugin {
     constructor() {
         super(yunzaiConfig('battlesite', [
@@ -30,7 +37,7 @@ export class battlesite extends plugin {
         const monstersdata = await Cachemonster.monsterscache(action.region)
         const mon = monstersdata.find(item => item.name == name)
         if (!mon) {
-            e.reply(`这里没有${name},去别处看看吧`)
+            e.reply(MAP['no_serch'])
             return
         }
         const CD = await GenerateCD(e.user_id, '10', this.xiuxianConfigData.CD.Kill)
@@ -39,15 +46,14 @@ export class battlesite extends plugin {
             return
         }
         const acount = await Cachemonster.add(action.region, Number(1))
-        const msg = [`${UID}的[击杀结果]\n注:怪物每1小时刷新\n物品掉落率=怪物等级*5%`]
+        const msg = [`${UID}[击杀]`]
         const buff = {
             "msg": 1
         }
         if (acount == 1) {
             buff.msg = Math.floor((Math.random() * (20 - 5))) + Number(5)
-            msg.push('怪物突然变异了!')
         }
-        const MonsterLevel = nodefs.readFindId(__PATH['level'],'levellist0',)
+        const MonsterLevel = nodefs.readFindId(__PATH['level'], 'levellist0',)
         const monsters = {
             'nowblood': MonsterLevel.blood * buff.msg,
             'attack': MonsterLevel.attack * buff.msg,
@@ -68,31 +74,31 @@ export class battlesite extends plugin {
         if (battle_msg.QQ != 0) {
             const m = Math.floor((Math.random() * (100 - 1))) + Number(1)
             if (m < mon.level * 5) {
-                const dropsItemList = nodefs.Read('dropsItem',__PATH['all'],mon.level)
+                const dropsItemList = nodefs.Read('dropsItem', __PATH['all'], mon.level)
                 const random = Math.floor(Math.random() * dropsItemList.length)
                 let najie = await Read_najie(UID)
                 if (najie.thing.length <= 21) {
                     najie = await Add_najie_thing(najie, dropsItemList[random], 1)
-                    msg.push(`得到[${dropsItemList[random].name}]`)
+                    msg.push(`[${dropsItemList[random].name}]`)
                     await Write_najie(UID, najie)
                 } else {
-                    e.reply('储物袋已满')
+                    e.reply(MAP['bag_full'])
                 }
             }
             if (m < mon.level * 6) {
-                msg.push(`得到${mon.level * 25 * mybuff}气血`)
+                msg.push(`${mon.level * 25 * mybuff}${MAP['qixue']}`)
                 await Add_experiencemax(UID, mon.level * 25 * mybuff)
             }
             if (m < mon.level * 7) {
-                msg.push(`得到${mon.level * 35 * mybuff}灵石`)
+                msg.push(`${mon.level * 35 * mybuff}${MAP['lingshi']}`)
                 await Add_lingshi(UID, mon.level * 35 * mybuff)
             }
             if (m < mon.level * 8) {
-                msg.push(`得到${mon.level * 50 * mybuff}修为`)
+                msg.push(`${mon.level * 50 * mybuff}${MAP['xiuwei']}`)
                 await Add_experience(UID, mon.level * 50 * mybuff)
             }
             if (m >= mon.level * 8) {
-                msg.push(`得到${mon.level * 25}灵石`)
+                msg.push(`${mon.level * 25}${MAP['lingshi']}`)
                 await Add_lingshi(UID, mon.level * 25)
             }
         }
@@ -111,8 +117,8 @@ export class battlesite extends plugin {
         const monster = await Cachemonster.monsterscache(action.region)
         monster.forEach((item) => {
             msg.push(
-                '怪名:' + item.name + '\n' +
-                '等级:' + item.level + '\n'
+                'name:' + item.name + '\n' +
+                'grade:' + item.level + '\n'
             )
         })
         await ForwardMsg(e, msg)

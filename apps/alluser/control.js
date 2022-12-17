@@ -3,8 +3,18 @@ import common from '../../../../lib/common/common.js'
 import config from '../../moduels/xiuxian/config.js'
 import { yunzaiConfig } from '../../moduels/yunzai/index.js'
 import { segment } from 'oicq'
-import { offaction, Add_experience, Add_blood, existplayer,  Read_talent, Add_experiencemax } from '../../moduels/xiuxian/index.js'
+import { offaction, Add_experience, Add_blood, existplayer, Read_talent, Add_experiencemax } from '../../moduels/xiuxian/index.js'
 import { Go } from '../../moduels/yunzai/xiuxian/index.js'
+const MAP = {
+    'action_biguan': '闭关',
+    'action_work': '降妖',
+    'biguan_go_out': '开始两耳不闻窗外事',
+    'work_go_out': '开始外出',
+    'time': '只是呆了一会儿',
+    'lingshi': '灵石',
+    'qixue': '气血',
+    'xiuwei': '修为'
+}
 export class control extends plugin {
     constructor() {
         super(yunzaiConfig('control', [
@@ -35,11 +45,11 @@ export class control extends plugin {
         const UID = e.user_id
         const now_time = new Date().getTime()
         const actionObject = {
-            'actionName': '闭关',
+            'actionName': MAP['action_biguan'],
             'startTime': now_time
         }
         await redis.set(`xiuxian:player:${UID}:action`, JSON.stringify(actionObject))
-        e.reply('开始两耳不闻窗外事...')
+        e.reply(MAP['biguan_go_out'])
         return true
     }
     Dagong = async (e) => {
@@ -50,11 +60,11 @@ export class control extends plugin {
         const UID = e.user_id
         const now_time = new Date().getTime()
         const actionObject = {
-            'actionName': '降妖',
+            'actionName': MAP['action_work'],
             'startTime': now_time
         }
         await redis.set(`xiuxian:player:${UID}:action`, JSON.stringify(actionObject))
-        e.reply('开始外出...')
+        e.reply(MAP['work_go_out'])
         return true
     }
     chuGuan = async (e) => {
@@ -71,14 +81,14 @@ export class control extends plugin {
             return
         }
         action = JSON.parse(action)
-        if (action.actionName != '闭关') {
+        if (action.actionName != MAP['action_biguan']) {
             return
         }
         const startTime = action.startTime
         const timeUnit = this.xiuxianConfigData.biguan.time
         const time = Math.floor((new Date().getTime() - startTime) / 60000)
         if (time < timeUnit) {
-            e.reply('只是呆了一会儿...')
+            e.reply(MAP['time'])
             await offaction(UID)
             return
         }
@@ -104,15 +114,14 @@ export class control extends plugin {
             return
         }
         action = JSON.parse(action)
-        if (action.actionName != '降妖') {
+        if (action.actionName != MAP['action_work']) {
             return
         }
         const startTime = action.startTime
         const timeUnit = this.xiuxianConfigData.work.time
-        //分钟
         const time = Math.floor((new Date().getTime() - startTime) / 60000)
         if (time < timeUnit) {
-            e.reply('只是呆了一会儿...')
+            e.reply(MAP['time'])
             await offaction(UID)
             return
         }
@@ -131,18 +140,17 @@ export class control extends plugin {
         const rand = Math.floor((Math.random() * (100 - 80) + 80))
         const msg = [segment.at(UID)]
         let other = 0
-        if (name == '闭关') {
+        if (name == MAP['action_biguan']) {
             other = Math.floor(this.xiuxianConfigData.biguan.size * time * mybuff)
-            msg.push(`\n闭关结束,得到了${other}修为`)
+            msg.push(`\n+${other}${MAP['xiuwei']}`)
             await Add_experience(UID, other)
         } else {
             other = Math.floor(this.xiuxianConfigData.work.size * time * mybuff)
-            msg.push(`\n降妖回来,得到了${other}气血`)
+            msg.push(`\n+${other}${MAP['qixue']}`)
             await Add_experiencemax(UID, other)
         }
         await Add_blood(UID, rand)
         msg.push(`\n血量恢复至${rand}%`)
-        msg.push('\n' + name + '结束')
         if (group_id) {
             await this.pushInfo(group_id, true, msg)
             return
