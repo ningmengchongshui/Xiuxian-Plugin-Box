@@ -26,9 +26,6 @@ export const get_updata_img = async (UID) => {
     return img
 }
 export const get_config_img = async (e) => {
-    if (!e.isMaster) {
-        return
-    }
     const xiuxain = config.getConfig('xiuxian', 'xiuxian')
     const myData = {
         xiuxain: xiuxain

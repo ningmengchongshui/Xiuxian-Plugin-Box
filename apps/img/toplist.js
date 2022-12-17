@@ -1,7 +1,7 @@
 import plugin from '../../../../lib/plugins/plugin.js'
 import nodefs from '../../moduels/db/nodefs.js'
 import { existplayer, Read_action, point_map, sortBy, Read_level, Read_battle } from '../../moduels/xiuxian/index.js'
-import { get_toplist_img } from '../../moduels/xiuxian/data.js'
+import { get_toplist_img } from '../../moduels/xiuxian/showimg.js'
 import { yunzaiConfig } from '../../moduels/yunzai/index.js'
 const MAP = {
     'no_one': '此界皆是良民',

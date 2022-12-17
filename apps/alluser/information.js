@@ -1,5 +1,5 @@
 import plugin from '../../../../lib/plugins/plugin.js'
-import { get_equipment_img, get_player_img } from '../../moduels/xiuxian/data.js'
+import { get_equipment_img, get_player_img } from '../../moduels/xiuxian/showimg.js'
 import { yunzaiConfig } from '../../moduels/yunzai/index.js'
 import { existplayer } from '../../moduels/xiuxian/index.js'
 export class information extends plugin {

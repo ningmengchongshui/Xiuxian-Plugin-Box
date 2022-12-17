@@ -1,6 +1,8 @@
 import { __PATH } from '../yunzai/index.js'
 import noderequire from '../db/noderequire.js'
+import userdata from './userdata.js'
 import nodefs from '../db/nodefs.js'
+import useraction from './useraction.js'
 const FS = noderequire.fs()
 const PATH = noderequire.path()
 const map = {
@@ -89,89 +91,7 @@ export const deletePrestige = async (UID) => {
     }
 }
 export const userstart = async (UID) => {
-    const new_player = {
-        'autograph': '无',//道宣
-        'days': 0//签到
-    }
-    const id = 1
-    const level = await nodefs.readFindId(__PATH['level'], 'levellist0', id)
-    const level1 = await nodefs.readFindId(__PATH['level'], 'levellist1', id)
-    const new_battle = {
-        'nowblood': level.blood,
-        'extra_attack': '',
-        'extra_blood': '',
-        'extra_defense': '',
-    }
-    const new_level = {
-        'prestige': 0,//魔力
-        'level_id': id,//练气境界
-        'levelname': level.name,//练气名
-        'experience': 1,//练气经验
-        'levelmax_id': id,//练体境界
-        'levelnamemax': level1.name,//练体名
-        'experiencemax': 1,//练体经验
-        'rank_id': 0,//数组位置
-        'rankmax_id': 0//数组位置
-    }
-    const new_wealth = {
-        'lingshi': 0,
-        'xianshi': 0
-    }
-    const position = await nodefs.readFindName(__PATH['position'], 'position', '极西')
-    const positionID = position.id.split('-')
-    const the = {
-        mx: Math.floor((Math.random() * (position.x2 - position.x1))) + Number(position.x1),
-        my: Math.floor((Math.random() * (position.y2 - position.y1))) + Number(position.y1)
-    }
-    const new_action = {
-        'game': 1,//游戏状态
-        'Couple': 1, //双修
-        'newnoe': 1, //新人
-        'x': the.mx,
-        'y': the.my,
-        'z': positionID[0],//位面 
-        'region': positionID[1],//区域
-        'address': positionID[2],//属性
-        'Exchange': 0
-    }
-    const new_najie = {
-        'grade': 1,
-        'lingshimax': 50000,
-        'lingshi': 0,
-        'thing': []
-    }
-    const newtalent = await get_talent()
-    const new_talent = {
-        'talent': newtalent,//灵根
-        'talentshow': 1,//显示0,隐藏1
-        'talentsize': 0,//天赋
-        'AllSorcery': []//功法
-    }
-    const thename = {
-        name1: ['甲', '乙', '丙', '丁', '戊', '己', '庚', '辛', '壬', '癸'],
-        name2: ['子', '丑', '寅', '卯', '辰', '巳', '午', '未', '申', '酉', '戌', '亥']
-    }
-    const name = await Anyarray(thename.name1) + await Anyarray(thename.name2)
-    const life = await Read_Life()
-    const time = new Date()
-    life.push({
-        'qq': UID,
-        'name': `${name}`,
-        'Age': 1,//年龄
-        'life': Math.floor((Math.random() * (100 - 50) + 50)), //寿命
-        'createTime': time.getTime(),
-        'status': 1
-    })
-    await Write_player(UID, new_player)
-    await Write_talent(UID, new_talent)
-    await player_efficiency(UID)
-    await Write_battle(UID, new_battle)
-    await Write_level(UID, new_level)
-    await Write_wealth(UID, new_wealth)
-    await Write_action(UID, new_action)
-    await Write_equipment(UID, [])
-    await Write_najie(UID, new_najie)
-    await Write_Life(life)
+    await useraction.createUser(UID)
     return map['start']
 }
 
@@ -248,31 +168,21 @@ export const existplayerplugins = async (UID) => {
         return find
     }
 }
-/**
- * 
- * @param {UID} UID 
- * @returns 
- */
+
 export const Read_player = async (UID) => {
-    return await nodefs.Read(UID, __PATH['user_player'])
+    return await userdata.readMsg(UID)
 }
-/**
- * 
- * @param {UID} UID 
- * @param {地址} data 
- * @returns 
- */
 export const Write_player = async (UID, data) => {
-    await nodefs.Write(UID, data, __PATH['user_player'])
+    userdata.writeMsg(UID, data)
     return
 }
 //读取灵根
 export const Read_talent = async (UID) => {
-    return await nodefs.Read(UID, __PATH['user_talent'])
+    return await userdata.readTalent(UID)
 }
 //写入新灵根
 export const Write_talent = async (UID, data) => {
-    await nodefs.Write(UID, data, __PATH['user_talent'])
+    await userdata.writeTalent(UID, data)
     return
 }
 //读取战斗
@@ -326,9 +236,12 @@ export const Read_equipment = async (UID) => {
 //写入新装备
 export const Write_equipment = async (UID, equipment) => {
     await nodefs.Write(UID, equipment, __PATH['user_equipment'])
-    await updata_equipment(UID)
     return
 }
+/**
+    await updata_equipment(UID)
+ */
+
 //计算面板
 export const updata_equipment = async (UID) => {
     const battle = await Read_battle(UID)

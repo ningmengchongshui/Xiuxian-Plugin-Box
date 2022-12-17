@@ -66,7 +66,7 @@ export class battlesite extends plugin {
         const battle = await Read_battle(UID)
         const talent = await Read_talent(UID)
         const mybuff = Math.floor(talent.talentsize / 100) + Number(1)
-        //怪物战斗模型
+        //怪物战斗模型 tudo
         const battle_msg = await monsterbattle(e, battle, monsters)
         battle_msg.msg.forEach((item) => {
             msg.push(item)
