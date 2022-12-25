@@ -1,5 +1,5 @@
-import Noderequire from "../db/Noderequire.js"
-import { __dirname } from '../db/nodefs.js'
+import Noderequire from '../game/moduels/db/Noderequire.js'
+import { __dirname } from '../game/moduels/db/nodefs.js'
 const FS = Noderequire.fs()
 const PATH = Noderequire.path()
 //插件名字
@@ -8,7 +8,7 @@ export const appname = 'Xiuxian-Plugin-Box'
 export const yunzaiConfig = (name, rule) => {
   return { name: name, dsc: name, event: 'message', priority: 400, rule: rule }
 }
-//导入所有js文件
+//导入所有js文件到index.js
 class index {
   toindex = async (input) => {
     let filepath = `./plugins/${appname}}/` + input;

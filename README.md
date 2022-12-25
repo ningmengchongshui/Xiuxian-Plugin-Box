@@ -4,7 +4,6 @@
 - 2022年09月 xiuxian-emulator-plugin V1.2
 - 2022年08月 xiuxian-emulator-plugin V1.1
 - 2022年07月 xiuxian-emulator-plugin V1.0
-
 ## 安装教程      
 
 >Yunzai-Bot/目录下执行      
@@ -12,26 +11,6 @@
 git clone  https://gitee.com/ningmengchongshui/Xiuxian-Plugin-Box.git ./plugins/Xiuxian-Plugin-Box/   
 ```
 >查看具体功能  #修仙帮助     
->查看扩展功能  #修仙扩展     
->查看版本说明  #修仙版本   
-```
-npm i js-yaml -w
-npm i yamljs -w
-```  
->部分出现缺少module依赖      
->请自行根据云崽安装情况       
->把npm更改为pnpm或cnpm等    
-
-## 扩展插件
-
-扩展名  | 作者  | 介绍
-------------- | -------------  | -------------
-| [宗门 (xiuxian-association-plugin)](https://gitee.com/mg1105194437/xiuxian-association-pluging) | [@汐颜](https://gitee.com/mg1105194437)  | 天上地下，唯我独尊 |
-| [家园 (xiuxian-home-plugin)](https://gitee.com/mmmmmddddd/xiuxian-home-plugin) | [@秋雨](https://gitee.com/mmmmmddddd) | 道友，来偷菜吗 |
-| [黑市 (xiuxian-dark-plugin)](https://gitee.com/waterfeet/xiuxian-yihongyuan-plugin) | [@水脚脚](https://gitee.com/waterfeet) | 万花丛中过 |  
-
->快速安装指令  #修仙安装+扩展名       
->稳定更新指令  #修仙全部更新  
 
 ## 企鹅聚集     
 
