@@ -1,5 +1,5 @@
 ![我裂开了](https://s1.ax1x.com/2022/11/02/xH9Kcd.jpg)       
-# Xiuxian-Plugin-Box:2022-12-01
+# Xiuxian-Plugin-Box:2023-06-01
 - 2022年12月 Xiuxian-Plugin-Box V2.0
 - 2022年09月 xiuxian-emulator-plugin V1.2
 - 2022年08月 xiuxian-emulator-plugin V1.1
@@ -8,7 +8,7 @@
 
 >Yunzai-Bot/目录下执行      
 ```
-git clone  https://gitee.com/ningmengchongshui/Xiuxian-Plugin-Box.git ./plugins/Xiuxian-Plugin-Box/   
+git clone  https://github.com/ningmengchongshui/Xiuxian-Plugin-Box.git ./plugins/Xiuxian-Plugin-Box/   
 ```
 >查看具体功能  #修仙帮助     
 
