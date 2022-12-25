@@ -1,0 +1,21 @@
+[
+    {
+        "id": "4-3-1",
+        "name": "逆天丹",
+        "explain": "属性丹",
+        "attack": 0,
+        "defense": 0,
+        "blood": 0,
+        "probability": 0,
+        "burst": 0,
+        "size": 0,
+        "experience": 100,
+        "experiencemax": 0,
+        "element": 0,
+        "talent": 1,
+        "master": 0,
+        "speed": 0,
+        "acount": 1,
+        "price": 100
+    }
+]

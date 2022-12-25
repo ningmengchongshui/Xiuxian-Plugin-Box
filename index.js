@@ -1,14 +1,6 @@
-import Config from './moduels/xiuxian/config.js'
-import Index from './moduels/yunzai/index.js'
-import Schedule from './moduels/xiuxian/schedule.js'
-const version = Config.getdefset('version', 'version')
-const task = Config.getdefset('task', 'task')
+import Index from './moduels/index.js'
 const xiuxain = await Index.toindex('apps')
-const plugin = await Index.toindex('plugins')
-const apps = { ...xiuxain, ...plugin }
-Schedule.scheduleJobflie(task.DataTask)
-Schedule.allLife(task.LifeTask)
-logger.info(`Yunzai-Bot[V3]`)
-logger.info(`Game-Box[V1]`)
-logger.info(`Xiuxian-plugin[V${version[0].version}]`)
+const apps = { ...xiuxain }
+logger.info(`game-box[V1]`)
+logger.info(`xiuxian-plugin[V2]`)
 export { apps } 
