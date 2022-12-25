@@ -1,28 +1,8 @@
-import plugin from '../../../../lib/plugins/plugin.js'
-import config from '../../moduels/xiuxian/config.js'
 import { get_najie_img } from '../../moduels/xiuxian/data.js'
-import { yunzaiConfig } from '../../moduels/yunzai/index.js'
 import { segment } from 'oicq'
-import { existplayer, Read_najie, point_map, Read_action, Add_lingshi, Write_najie, Numbers, Add_najie_lingshi, Read_wealth } from '../../moduels/xiuxian/index.js'
+import { existplayer, Read_najie, point_map, Read_action, Add_lingshi, Write_najie, Numbers, Add_najie_lingshi, Read_wealth } from '../xiuxian/index.js'
 import { Go } from '../../moduels/yunzai/xiuxian/index.js'
-export class action extends plugin {
-    constructor() {
-        super(yunzaiConfig('action', [
-            {
-                reg: '^#储物袋$',
-                fnc: 'Show_najie'
-            },
-            {
-                reg: '^#升级储物袋$',
-                fnc: 'Lv_up_najie'
-            },
-            {
-                reg: '^#(存|取)灵石(.*)$',
-                fnc: 'Take_lingshi'
-            }
-        ]))
-        this.xiuxianConfigData = config.getConfig('xiuxian', 'xiuxian')
-    }
+export class action {
     Show_najie = async (e) => {
         const UID = e.user_id
         const ifexistplay = await existplayer(UID)

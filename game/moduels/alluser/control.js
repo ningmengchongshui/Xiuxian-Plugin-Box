@@ -1,7 +1,3 @@
-import plugin from '../../../../lib/plugins/plugin.js'
-import common from '../../../../lib/common/common.js'
-import config from '../../moduels/xiuxian/config.js'
-import { yunzaiConfig } from '../../moduels/yunzai/index.js'
 import { segment } from 'oicq'
 import { offaction, Add_experience, Add_blood, existplayer, Read_talent, Add_experiencemax } from '../../moduels/xiuxian/index.js'
 import { Go } from '../../moduels/yunzai/xiuxian/index.js'
@@ -15,28 +11,7 @@ const MAP = {
     'qixue': '气血',
     'xiuwei': '修为'
 }
-export class control extends plugin {
-    constructor() {
-        super(yunzaiConfig('control', [
-            {
-                reg: '#降妖$',
-                fnc: 'Dagong'
-            },
-            {
-                reg: '#闭关$',
-                fnc: 'Biguan'
-            },
-            {
-                reg: '^#出关$',
-                fnc: 'chuGuan'
-            },
-            {
-                reg: '^#归来$',
-                fnc: 'endWork'
-            }
-        ]))
-        this.xiuxianConfigData = config.getConfig('xiuxian', 'xiuxian')
-    }
+export class control {
     Biguan = async (e) => {
         const good = await Go(e)
         if (!good) {
@@ -156,18 +131,6 @@ export class control extends plugin {
             return
         }
         await this.pushInfo(UID, false, msg)
-        return
-    }
-    pushInfo = async (id, is_group, msg) => {
-        if (is_group) {
-            await Bot.pickGroup(id)
-                .sendMsg(msg)
-                .catch((err) => {
-                    Bot.logger.mark(err)
-                })
-            return
-        }
-        await common.relpyPrivate(id, msg)
         return
     }
 }

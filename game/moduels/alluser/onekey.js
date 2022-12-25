@@ -1,21 +1,5 @@
-import plugin from '../../../../lib/plugins/plugin.js'
-import config from '../../moduels/xiuxian/config.js'
-import { yunzaiConfig } from '../../moduels/yunzai/index.js'
 import { Add_lingshi, existplayer,point_map,Read_action, Read_najie, Write_najie } from '../../moduels/xiuxian/index.js'
-export class onekey extends plugin {
-    constructor() {
-        super(yunzaiConfig('',[
-            {
-                reg: '^#一键出售所有$',
-                fnc: 'OneKey_all'
-            },
-            {
-                reg: '^#一键出售.*$',
-                fnc: 'OneKey_key'
-            }
-        ]))
-        this.xiuxianConfigData = config.getConfig('xiuxian', 'xiuxian')
-    }
+export class onekey  {
     OneKey_all = async (e) => {
         if (!e.isGroup) {
             return

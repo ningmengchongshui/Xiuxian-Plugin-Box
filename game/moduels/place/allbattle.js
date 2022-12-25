@@ -1,6 +1,3 @@
-import plugin from '../../../../lib/plugins/plugin.js'
-import config from '../../moduels/xiuxian/config.js'
-import { yunzaiConfig } from '../../moduels/yunzai/index.js'
 import { At, Go } from '../../moduels/yunzai/xiuxian/index.js'
 import { Read_action, point_MAP, existplayer, GenerateCD, Read_level, deletePrestige, randomNuber, addPrestige, addKnapsack, randomEquipment } from '../../moduels/xiuxian/index.js'
 const MAP = {
@@ -9,20 +6,7 @@ const MAP = {
     'name_tianjiment': '天机门',
     'name_return': '需[#城池名+天机门]'
 }
-export class allbattle extends plugin {
-    constructor() {
-        super(yunzaiConfig('allbattle', [
-            {
-                reg: '^#攻击.*$',
-                fnc: 'Attack'
-            },
-            {
-                reg: '^#洗手$',
-                fnc: 'HandWashing'
-            }
-        ]))
-        this.xiuxianConfigData = config.getConfig('xiuxian', 'xiuxian')
-    }
+export class allbattle  {
     Attack = async (e) => {
         const good = await Go(e)
         if (!good) {

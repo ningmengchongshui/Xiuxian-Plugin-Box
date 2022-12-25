@@ -1,6 +1,5 @@
-import plugin from '../../../../../lib/plugins/plugin.js'
 import { segment } from 'oicq'
-import { yunzaiConfig, __PATH } from '../../moduels/yunzai/index.js.js.js'
+import { __PATH } from '../../moduels/yunzai/index.js.js.js'
 import { Read_action, Read_level, ForwardMsg, existplayer, Read_wealth, Write_action, Write_wealth, Read_battle } from '../../moduels/xiuxian/index.js.js.js'
 import { Go } from '../../moduels/yunzai/xiuxian/index.js.js.js'
 import nodefs from '../../moduels/db/nodefs.js.js.js'
@@ -16,31 +15,7 @@ const MAP = {
 const forwardsetTime = []
 const deliverysetTime = []
 const useraction = []
-export class secretplace extends plugin {
-    constructor() {
-        super(yunzaiConfig('secretplace', [
-            {
-                reg: '^#坐标信息$',
-                fnc: 'xyzaddress'
-            },
-            {
-                reg: '^#前往.*$',
-                fnc: 'forward'
-            },
-            {
-                reg: '^#回到原地$',
-                fnc: 'returnpiont'
-            },
-            {
-                reg: '^#传送.*$',
-                fnc: 'delivery'
-            },
-            {
-                reg: '^#位置信息$',
-                fnc: 'show_city'
-            }
-        ]))
-    }
+export class secretplace {
     show_city = async (e) => {
         if (!e.isGroup) {
             return

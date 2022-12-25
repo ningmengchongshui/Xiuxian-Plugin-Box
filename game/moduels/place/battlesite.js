@@ -1,8 +1,6 @@
-import plugin from '../../../../lib/plugins/plugin.js'
 import Cachemonster from '../../moduels/xiuxian/cachemonster.js'
-import config from '../../moduels/xiuxian/config.js'
 import { Go } from '../../moduels/yunzai/xiuxian/index.js'
-import { yunzaiConfig, __PATH } from '../../moduels/yunzai/index.js'
+import { __PATH } from '../../moduels/yunzai/index.js'
 import { Read_action, ForwardMsg, Read_battle, monsterbattle, Add_experiencemax, Add_experience, Add_lingshi, GenerateCD, Add_najie_thing, Read_najie, Write_najie, Read_talent } from '../../moduels/xiuxian/index.js'
 import nodefs from '../../moduels/db/nodefs.js'
 const MAP = {
@@ -12,20 +10,7 @@ const MAP = {
     'qixue': '气血',
     'xiuwei': '修为'
 }
-export class battlesite extends plugin {
-    constructor() {
-        super(yunzaiConfig('battlesite', [
-            {
-                reg: '^#击杀.*$',
-                fnc: 'Kill'
-            },
-            {
-                reg: '^#探索怪物$',
-                fnc: 'Exploremonsters'
-            }
-        ]))
-        this.xiuxianConfigData = config.getConfig('xiuxian', 'xiuxian')
-    }
+export class battlesite {
     Kill = async (e) => {
         const good = await Go(e)
         if (!good) {

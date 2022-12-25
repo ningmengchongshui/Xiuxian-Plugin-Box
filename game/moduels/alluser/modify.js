@@ -1,24 +1,9 @@
 import plugin from '../../../../lib/plugins/plugin.js'
-import config from '../../moduels/xiuxian/config.js'
-import { yunzaiConfig } from '../../moduels/yunzai/index.js'
 import { Write_player, point_map, Read_action, GenerateCD, Read_player, Read_wealth, Write_Life, Read_Life, Add_lingshi } from '../../moduels/xiuxian/index.js'
 import { Go } from '../../moduels/yunzai/xiuxian/index.js'
 import { get_player_img } from '../../moduels/xiuxian/showimg.js'
 const Filterwords = ['尼玛', '妈的', '他妈', '卧槽', '操', '操蛋', '麻痹', '傻逼', '妈逼']
 export class modify extends plugin {
-    constructor() {
-        super(yunzaiConfig('', [
-            {
-                reg: '^#改名.*$',
-                fnc: 'Change_name'
-            },
-            {
-                reg: '^#设置道宣.*$',
-                fnc: 'Change_autograph'
-            }
-        ]))
-        this.xiuxianConfigData = config.getConfig('xiuxian', 'xiuxian')
-    }
     Change_name = async (e) => {
         const good = await Go(e)
         if (!good) {

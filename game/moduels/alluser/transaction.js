@@ -1,30 +1,7 @@
-import plugin from '../../../../../lib/plugins/plugin.js'
 import nodefs from '../../moduels/db/nodefs.js'
 import { Numbers, Read_wealth, Add_lingshi, point_map, exist_najie_thing_name, Add_najie_thing, existplayer, ForwardMsg, Read_najie, Write_najie, Read_action } from '../../moduels/xiuxian/index.js'
 import { __PATH } from '../../moduels/yunzai/index.js'
-export class transaction extends plugin {
-    constructor() {
-        super({
-            name: 'transaction',
-            dsc: 'transaction',
-            event: 'message',
-            priority: 600,
-            rule: [
-                {
-                    reg: '^#购买.*$',
-                    fnc: 'Buy_comodities'
-                },
-                {
-                    reg: '^#出售.*$',
-                    fnc: 'Sell_comodities'
-                },
-                {
-                    reg: '^#凡仙堂$',
-                    fnc: 'ningmenghome',
-                },
-            ]
-        })
-    }
+export class transaction {
     ningmenghome = async (e) => {
         const UID = e.user_id
         const ifexistplay = await existplayer(UID)

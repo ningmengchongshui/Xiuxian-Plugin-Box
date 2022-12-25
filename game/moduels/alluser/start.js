@@ -1,28 +1,7 @@
-import plugin from '../../../../lib/plugins/plugin.js'
-import config from '../../moduels/xiuxian/config/index.js'
-import { yunzaiConfig } from '../../moduels/yunzai/index.js'
 import { userstart, GenerateCD, deletelife, offaction, exist } from '../../moduels/xiuxian/index.js'
 import { get_player_img } from '../../moduels/xiuxian/showimg.js'
-export class start extends plugin {
-    constructor() {
-        super(yunzaiConfig('', [
-            {
-                reg: '^#降临世界$',
-                fnc: 'Create_player'
-            },
-            {
-                reg: '^#再入仙途$',
-                fnc: 'reCreate_player'
-            }
-        ]))
-    }
+export class start{
     Create_player = async (e) => {
-        const group =  config.configXiuxian().group.white;
-        if (group != 0) {
-            if (e.group_id != group) {
-                return
-            }
-        }
         if (!e.isGroup || e.user_id == 80000000) {
             return
         }
@@ -41,7 +20,7 @@ export class start extends plugin {
     }
 
     reCreate_player = async (e) => {
-        const CD = await GenerateCD(e.user_id, '8', config.configXiuxian().CD.Reborn)
+        const CD = await GenerateCD(e.user_id, '8', '')
         if (CD != 0) {
             e.reply(CD)
             return

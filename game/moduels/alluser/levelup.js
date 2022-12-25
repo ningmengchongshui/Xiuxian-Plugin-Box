@@ -1,23 +1,7 @@
-import plugin from '../../../../lib/plugins/plugin.js'
-import config from '../../moduels/xiuxian/config.js'
-import { yunzaiConfig,__PATH } from '../../moduels/yunzai/index.js'
 import { GenerateCD, Read_level, Write_level, updata_equipment, Read_Life, Write_Life } from '../../moduels/xiuxian/index.js'
 import { Go } from '../../moduels/yunzai/xiuxian/index.js'
 import nodefs from '../../moduels/db/nodefs.js'
-export class levelup extends plugin {
-    constructor() {
-        super(yunzaiConfig('', [
-            {
-                reg: '^#突破$',
-                fnc: 'Level_up'
-            },
-            {
-                reg: '^#破体$',
-                fnc: 'LevelMax_up'
-            }
-        ]))
-        this.xiuxianConfigData = config.getConfig('xiuxian', 'xiuxian')
-    }
+export class levelup {
     LevelMax_up = async (e) => {
         const good = await Go(e)
         if (!good) {
@@ -33,14 +17,14 @@ export class levelup extends plugin {
             return
         }
         const player = await Read_level(UID)
-        const LevelMax = await nodefs.readFindId(__PATH['level'],'levellist1',player.levelmax_id)
+        const LevelMax = await nodefs.readFindId(__PATH['level'], 'levellist1', player.levelmax_id)
         if (player.experiencemax < LevelMax.exp) {
             e.reply(`气血不足,再积累${LevelMax.exp - player.experiencemax}气血后方可突破`)
             return
         }
         await redis.set(`xiuxian:player:${UID}:${CDid}`, now_time)
         await redis.expire(`xiuxian:player:${UID}:${CDid}`, CDTime * 60)
-        const rank_name=[
+        const rank_name = [
             '初期', '中期', '后期', '巅峰', '圆满'
         ]
         if (player.levelmax_id > 1 && player.rankmax_id < 4) {
@@ -73,7 +57,7 @@ export class levelup extends plugin {
             return
         }
         player.levelmax_id = player.levelmax_id + 1
-        player.levelnamemax = await nodefs.readFindId(__PATH['level'],'levellist1',player.levelmax_id).name
+        player.levelnamemax = await nodefs.readFindId(__PATH['level'], 'levellist1', player.levelmax_id).name
         player.experiencemax -= LevelMax.exp
         player.rankmax_id = 0
         await Write_level(UID, player)
@@ -96,7 +80,7 @@ export class levelup extends plugin {
             return
         }
         const player = await Read_level(UID)
-        const Level = await nodefs.readFindId(__PATH['level'],'levellist0',player.level_id)
+        const Level = await nodefs.readFindId(__PATH['level'], 'levellist0', player.level_id)
         if (player.experience < Level.exp) {
             e.reply(`修为不足,再积累${Level.exp - player.experience}修为后方可突破`)
             return
@@ -105,7 +89,7 @@ export class levelup extends plugin {
             e.reply(`渡劫期修士需[#渡劫]后,方能[#羽化登仙]`)
             return
         }
-        const rank_name=[
+        const rank_name = [
             '初期', '中期', '后期', '巅峰', '圆满'
         ]
         if (player.level_id > 1 && player.rank_id < 4) {
@@ -136,7 +120,7 @@ export class levelup extends plugin {
             return
         }
         player.level_id = player.level_id + 1
-        player.levelname = await nodefs.readFindId(__PATH['level'],'levellist0',player.level_id).name
+        player.levelname = await nodefs.readFindId(__PATH['level'], 'levellist0', player.level_id).name
         player.experience -= Level.exp
         player.rank_id = 0
         await Write_level(UID, player)
