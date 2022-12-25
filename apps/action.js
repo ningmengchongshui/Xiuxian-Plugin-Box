@@ -1,8 +1,8 @@
 import plugin from '../../../lib/plugins/plugin.js'
 import { yunzaiConfig } from '../moduels/index.js'
-export class place extends plugin {
+export class action extends plugin {
     constructor() {
-        super(yunzaiConfig('place', [
+        super(yunzaiConfig('action', [
             {
                 reg: '^#攻击.*$',
                 fnc: 'userAttack'
