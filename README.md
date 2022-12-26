@@ -13,7 +13,7 @@
 >请在Yunzai-Bot同级目录中安装    
 ```
 git clone  https://github.com/ningmengchongshui/xiuxian-game.git   #安装游戏
-git clone  https://github.com/ningmengchongshui/Xiuxian-Plugin.git ./Yunzai-Bot/plugins/Xiuxian-Plugin/  #安装插件接口#修仙帮助
+git clone  https://github.com/ningmengchongshui/Xiuxian-Plugin.git ./Yunzai-Bot/plugins/xiuxian-plugin/  #安装插件接口#修仙帮助
 ```
 
 ## 企鹅聚集     
