@@ -6,11 +6,11 @@
 - 2022年07月 xiuxian-emulator-plugin V1.0
 
 ## 安装教程      
->是一款独立运行的游戏
->支持网页在线游玩
->修仙游戏并非云崽插件
->若需支持云崽机器人指令
->请在Yunzai-Bot同级目录中安装
+>是一款独立运行的游戏    
+>支持网页在线游玩    
+>修仙游戏并非云崽插件    
+>若需支持云崽机器人指令    
+>请在Yunzai-Bot同级目录中安装    
 ```
 git clone  https://github.com/ningmengchongshui/xiuxian-game.git   #安装游戏
 git clone  https://github.com/ningmengchongshui/Xiuxian-Plugin.git ./Yunzai-Bot/plugins/Xiuxian-Plugin/  #安装插件接口#修仙帮助
