@@ -1,6 +1,6 @@
 import plugin from '../../../lib/plugins/plugin.js'
-import ActionApi from '../game/api/action.api.js'
-import { yunzaiConfig } from '../moduels/index.js'
+import ActionApi from '../../../../gameback/game/api/action.api.js'
+import { yunzaiConfig } from '../moduels/main.js'
 export class action extends plugin {
     constructor() {
         super(yunzaiConfig('action', [

@@ -1,6 +1,6 @@
 import plugin from '../../../lib/plugins/plugin.js'
-import UserApi from '../xiuxian-game/api/user.api.js'
-import { yunzaiConfig } from '../moduels/index.js'
+import UserApi from '../../../../gameback/game/api/user.api.js'
+import { yunzaiConfig } from '../moduels/main.js'
 export class users extends plugin {
     constructor() {
         super(yunzaiConfig('users', [

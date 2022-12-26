@@ -1,6 +1,6 @@
 import plugin from '../../../lib/plugins/plugin.js'
-import ImgApi from '../game/api/img.api.js'
-import { yunzaiConfig } from '../moduels/index.js'
+import ImgApi from '../../../../gameback/game/api/img.api.js'
+import { yunzaiConfig } from '../moduels/main.js'
 export class img extends plugin {
     constructor() {
         super(yunzaiConfig('img', [
