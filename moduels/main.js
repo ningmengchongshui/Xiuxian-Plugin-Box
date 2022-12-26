@@ -1,7 +1,7 @@
 import PATH from 'path'
 import FS from 'fs'
 //插件名字
-export const appname = 'Xiuxian-Plugin'
+export const appname = 'xiuxian-plugin'
 //插件配置
 export const yunzaiConfig = (name, rule) => {
   return { name: name, dsc: name, event: 'message', priority: 400, rule: rule }
