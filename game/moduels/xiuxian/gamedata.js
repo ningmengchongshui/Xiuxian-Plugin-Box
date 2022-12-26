@@ -1,4 +1,4 @@
-import { __dirname } from "../db/nodefs"
+import { __dirname } from "../nodejs/nodefs"
 import { appname } from "../yunzai"
 //修仙地址
 export const NEW__dirname = `${__dirname}/plugins/${appname}`

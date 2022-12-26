@@ -2,7 +2,7 @@ import Cachemonster from '../../moduels/xiuxian/cachemonster.js'
 import { Go } from '../../moduels/yunzai/xiuxian/index.js'
 import { __PATH } from '../../moduels/yunzai/index.js'
 import { Read_action, ForwardMsg, Read_battle, monsterbattle, Add_experiencemax, Add_experience, Add_lingshi, GenerateCD, Add_najie_thing, Read_najie, Write_najie, Read_talent } from '../../moduels/xiuxian/index.js'
-import nodefs from '../../moduels/db/nodefs.js'
+import nodefs from '../db/nodefs.js'
 const MAP = {
     'bag_full': '背包满了',
     'no_serch': '这里并没有,到别处看看吧',

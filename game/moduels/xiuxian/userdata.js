@@ -1,4 +1,4 @@
-import nodefs from "../db/nodefs.js"
+import nodefs from "../nodejs/nodefs.js"
 import { __PATH } from "./gamedata.js"
 export class Userdata {
     readMsg = async () => {

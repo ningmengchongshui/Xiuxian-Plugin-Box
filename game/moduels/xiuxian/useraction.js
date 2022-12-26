@@ -1,5 +1,5 @@
 import algorithm from "../db/algorithm.js"
-import nodefs from "../db/nodefs.js"
+import nodefs from "../nodejs/nodefs.js"
 import { __PATH } from "./gamedata.js"
 import userdata from "./userdata.js"
 const NAME = {

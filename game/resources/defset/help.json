@@ -14,13 +14,13 @@
   [
     {
       "icon": "help-icon_38",
-      "title": "#",
-      "desc": " "
+      "title": "#攻击",
+      "desc": "抢夺装备"
     },
     {
       "icon": "help-icon_16",
-      "title": "#",
-      "desc": " "
+      "title": "#击杀",
+      "desc": "击杀怪物"
     }
   ]
 ]
