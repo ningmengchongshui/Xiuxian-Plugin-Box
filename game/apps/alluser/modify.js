@@ -1,9 +1,4 @@
-import plugin from '../../../../lib/plugins/plugin.js'
-import { Write_player, point_map, Read_action, GenerateCD, Read_player, Read_wealth, Write_Life, Read_Life, Add_lingshi } from '../../moduels/xiuxian/index.js'
-import { Go } from '../../moduels/yunzai/xiuxian/index.js'
-import { get_player_img } from '../../moduels/xiuxian/showimg.js'
-const Filterwords = ['尼玛', '妈的', '他妈', '卧槽', '操', '操蛋', '麻痹', '傻逼', '妈逼']
-export class modify extends plugin {
+export class modify  {
     Change_name = async (e) => {
         const good = await Go(e)
         if (!good) {

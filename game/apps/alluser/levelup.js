@@ -1,26 +1,16 @@
-import { GenerateCD, Read_level, Write_level, updata_equipment, Read_Life, Write_Life } from '../../moduels/xiuxian/index.js'
-import { Go } from '../../moduels/yunzai/xiuxian/index.js'
-import nodefs from '../../moduels/db/nodefs.js'
 export class levelup {
-    LevelMax_up = async (e) => {
-        const good = await Go(e)
-        if (!good) {
-            return
-        }
-        const UID = e.user_id
+    LevelMax_up = async (UID) => {
         const CDTime = this.xiuxianConfigData.CD.LevelMax_up
         const CDid = '7'
         const now_time = new Date().getTime()
         const CD = await GenerateCD(UID, CDid)
         if (CD != 0) {
-            e.reply(CD)
-            return
+            return [CD]
         }
         const player = await Read_level(UID)
         const LevelMax = await nodefs.readFindId(__PATH['level'], 'levellist1', player.levelmax_id)
         if (player.experiencemax < LevelMax.exp) {
-            e.reply(`气血不足,再积累${LevelMax.exp - player.experiencemax}气血后方可突破`)
-            return
+            return [`气血不足,再积累${LevelMax.exp - player.experiencemax}气血后方可突破`]
         }
         await redis.set(`xiuxian:player:${UID}:${CDid}`, now_time)
         await redis.expire(`xiuxian:player:${UID}:${CDid}`, CDTime * 60)
@@ -31,8 +21,7 @@ export class levelup {
             player.rankmax_id = player.rankmax_id + 1
             player.experiencemax -= LevelMax.exp
             await Write_level(UID, player)
-            e.reply(`突破成功至${player.levelnamemax}${rank_name[player.rankmax_id]}`)
-            return
+            return [`突破成功至${player.levelnamemax}${rank_name[player.rankmax_id]}`]
         }
         if (Math.random() >= 1 - player.levelmax_id / 30) {
             const bad_time = Math.random()

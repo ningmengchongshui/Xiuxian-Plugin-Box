@@ -1,8 +1,3 @@
-import { segment } from 'oicq'
-import { __PATH } from '../../moduels/yunzai/index.js.js.js'
-import { Read_action, Read_level, ForwardMsg, existplayer, Read_wealth, Write_action, Write_wealth, Read_battle } from '../../moduels/xiuxian/index.js.js.js'
-import { Go } from '../../moduels/yunzai/xiuxian/index.js.js.js'
-import nodefs from '../../moduels/db/nodefs.js.js.js'
 const MAP = {
     'no_search': '无法探查',
     'return_point': '回到原地',

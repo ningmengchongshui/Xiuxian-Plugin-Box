@@ -1,6 +1,3 @@
-import { segment } from 'oicq'
-import { Read_action, point_map, Read_level, Read_najie, Add_najie_thing, Write_najie, Numbers, Add_lingshi, GenerateCD, Read_wealth, Write_wealth, Write_action } from '../../moduels/xiuxian/index.js'
-import { At, Go } from '../../moduels/yunzai/xiuxian/index.js'
 export class moneyoperation {
     New_lingshi = async (e) => {
         const good = await Go(e)

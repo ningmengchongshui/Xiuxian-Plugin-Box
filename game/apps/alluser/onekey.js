@@ -1,4 +1,3 @@
-import { Add_lingshi, existplayer,point_map,Read_action, Read_najie, Write_najie } from '../../moduels/xiuxian/index.js'
 export class onekey  {
     OneKey_all = async (e) => {
         if (!e.isGroup) {

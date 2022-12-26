@@ -1,11 +1,5 @@
-import { get_player_img } from '../../moduels/xiuxian/showimg.js'
-import { existplayer, exist_najie_thing_name, Read_najie, Add_experiencemax, Write_najie, Numbers, Add_najie_thing, Add_blood, Add_experience, get_talent, Write_talent, player_efficiency, Read_talent, Read_level } from '../../moduels/xiuxian/index.js'
-export class home  {
-    consumption_danyao = async (e) => {
-        if (!e.isGroup) {
-            return
-        }
-        const UID = e.user_id
+export class home {
+    consumption_danyao = async (UID) => {
         const ifexistplay = await existplayer(UID)
         if (!ifexistplay) {
             return
@@ -16,40 +10,35 @@ export class home  {
         thing_acount = await Numbers(thing_acount)
         const najie_thing = await exist_najie_thing_name(UID, thing_name)
         if (najie_thing == 1) {
-            e.reply(`没有${thing_name}`)
-            return
+            return [`没有${thing_name}`]
         }
         if (najie_thing.acount < thing_acount) {
-            e.reply('数量不足')
-            return
+            return ['数量不足']
         }
         const id = najie_thing.id.split('-')
+        const msg = []
         if (id[1] == 1) {
             let blood = parseInt(najie_thing.blood)
             await Add_blood(UID, blood)
-            e.reply(`血量恢复至${blood}%`)
+            msg.push(`血量恢复至${blood}%`)
         } else if (id[1] == 2) {
             let experience = parseInt(najie_thing.experience)
             await Add_experience(UID, thing_acount * experience)
-            e.reply(`修为增加${thing_acount * najie_thing.experience}`)
+            msg.push(`修为增加${thing_acount * najie_thing.experience}`)
         } else if (id[1] == 3) {
             let experiencemax = parseInt(najie_thing.experiencemax)
             await Add_experiencemax(UID, thing_acount * experiencemax)
-            e.reply(`气血增加${thing_acount * najie_thing.experiencemax}`)
+            msg.push(`气血增加${thing_acount * najie_thing.experiencemax}`)
         } else {
-            e.reply(`不可服用${thing_name}`)
-            return
+            msg.push(`不可服用${thing_name}`)
+            return msg
         }
         let najie = await Read_najie(UID)
         najie = await Add_najie_thing(najie, najie_thing, -thing_acount)
         await Write_najie(UID, najie)
-        return
+        return msg
     }
-    add_gongfa = async (e) => {
-        if (!e.isGroup) {
-            return
-        }
-        const UID = e.user_id
+    add_gongfa = async (UID) => {
         const ifexistplay = await existplayer(UID)
         if (!ifexistplay) {
             return
@@ -57,18 +46,16 @@ export class home  {
         const thing_name = e.msg.replace('#学习', '')
         const najie_thing = await exist_najie_thing_name(UID, thing_name)
         if (najie_thing == 1) {
-            e.reply(`没有[${thing_name}]`)
-            return
+            return [`没有[${thing_name}]`]
         }
         const id = najie_thing.id.split('-')
         if (id[0] != 5) {
-            return
+            return []
         }
         const talent = await Read_talent(UID)
         const islearned = talent.AllSorcery.find(item => item.id == najie_thing.id)
         if (islearned) {
-            e.reply('学过了')
-            return
+            return ['学过了']
         }
         if (talent.AllSorcery.length >= this.xiuxianConfigData.myconfig.gongfa) {
             e.reply('你反复看了又看,却怎么也学不进')
@@ -80,14 +67,9 @@ export class home  {
         let najie = await Read_najie(UID)
         najie = await Add_najie_thing(najie, najie_thing, -1)
         await Write_najie(UID, najie)
-        e.reply(`学习${thing_name}`)
-        return
+        return [`学习${thing_name}`]
     }
-    delete_gongfa = async (e) => {
-        if (!e.isGroup) {
-            return
-        }
-        const UID = e.user_id
+    delete_gongfa = async (UID) => {
         const ifexistplay = await existplayer(UID)
         if (!ifexistplay) {
             return
@@ -96,8 +78,7 @@ export class home  {
         const talent = await Read_talent(UID)
         const islearned = talent.AllSorcery.find(item => item.name == thing_name)
         if (!islearned) {
-            e.reply(`没学过${thing_name}`)
-            return
+            return [`没学过${thing_name}`]
         }
         talent.AllSorcery = talent.AllSorcery.filter(item => item.name != thing_name)
         await Write_talent(UID, talent)
@@ -105,14 +86,9 @@ export class home  {
         let najie = await Read_najie(UID)
         najie = await Add_najie_thing(najie, islearned, 1)
         await Write_najie(UID, najie)
-        e.reply(`忘了${thing_name}`)
-        return
+        return [`忘了${thing_name}`]
     }
-    consumption_daoju = async (e) => {
-        if (!e.isGroup) {
-            return
-        }
-        const UID = e.user_id
+    consumption_daoju = async (UID) => {
         const ifexistplay = await existplayer(UID)
         if (!ifexistplay) {
             return
@@ -120,37 +96,36 @@ export class home  {
         const thing_name = e.msg.replace('#消耗', '')
         const najie_thing = await exist_najie_thing_name(UID, thing_name)
         if (najie_thing == 1) {
-            e.reply(`没有[${thing_name}]`)
-            return
+            return [`没有[${thing_name}]`]
         }
         const id = najie_thing.id.split('-')
         if (id[0] != 6) {
-            return
+            return []
         }
+        const msg = []
         if (id[2] == 1) {
             const player = await Read_level(UID)
             if (player.level_id >= 10) {
-                e.reply('[天机门]石昊\n你灵根已定\n此生不可再洗髓')
-                return
+                return ['[天机门]石昊\n你灵根已定\n此生不可再洗髓']
             }
             const talent = await Read_talent(UID)
             talent.talent = await get_talent()
             await Write_talent(UID, talent)
             await player_efficiency(UID)
             const img = await get_player_img(UID)
-            e.reply(img)
+            msg.push(img)
         } else if (id[2] == 2) {
             const talent = await Read_talent(UID)
             talent.talentshow = 0
             await Write_talent(UID, talent)
             const img = await get_player_img(UID)
-            e.reply(img)
+            msg.push(img)
         } else {
-            return
+            return msg
         }
         let najie = await Read_najie(UID)
         najie = await Add_najie_thing(najie, najie_thing, -1)
         await Write_najie(UID, najie)
-        return
+        return msg
     }
 }

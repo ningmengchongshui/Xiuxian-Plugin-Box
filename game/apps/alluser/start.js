@@ -1,5 +1,3 @@
-import { userstart, GenerateCD, deletelife, offaction, exist } from '../../moduels/xiuxian/index.js'
-import { get_player_img } from '../../moduels/xiuxian/showimg.js'
 export class start{
     Create_player = async (e) => {
         if (!e.isGroup || e.user_id == 80000000) {

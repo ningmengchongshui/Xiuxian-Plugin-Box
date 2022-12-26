@@ -1,4 +1,3 @@
-import { existplayer, exist_najie_thing_name, Read_najie, Read_equipment, Write_equipment, Write_najie, Add_najie_thing } from '../../moduels/xiuxian/index.js'
 export class quipment {
     add_equipment = async (e) => {
         if (!e.isGroup) {

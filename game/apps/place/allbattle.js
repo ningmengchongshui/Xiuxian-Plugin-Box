@@ -1,5 +1,3 @@
-import { At, Go } from '../../moduels/yunzai/xiuxian/index.js'
-import { Read_action, point_MAP, existplayer, GenerateCD, Read_level, deletePrestige, randomNuber, addPrestige, addKnapsack, randomEquipment } from '../../moduels/xiuxian/index.js'
 const MAP = {
     'refuse': '[修仙联盟]普通卫兵:城内不可出手',
     'notfind': '未找到',
