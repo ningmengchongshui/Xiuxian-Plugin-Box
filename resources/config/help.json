@@ -1,0 +1,26 @@
+[
+  [
+    {
+      "icon": "help-icon_38",
+      "title": "#踏入仙途",
+      "desc": "创建存档"
+    },
+    {
+      "icon": "help-icon_16",
+      "title": "#再入仙途",
+      "desc": "转世重生"
+    }
+  ],
+  [
+    {
+      "icon": "help-icon_38",
+      "title": "#攻击",
+      "desc": "抢夺装备"
+    },
+    {
+      "icon": "help-icon_16",
+      "title": "#击杀",
+      "desc": "击杀怪物"
+    }
+  ]
+]
