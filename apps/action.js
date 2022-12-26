@@ -1,5 +1,5 @@
 import plugin from '../../../lib/plugins/plugin.js'
-import ActionApi from '../../../../gameback/game/api/action.api.js'
+import ActionApi from '../../../../xiuxian-game/gameback/game/api/action.api.js'
 import { yunzaiConfig } from '../moduels/main.js'
 export class action extends plugin {
     constructor() {
@@ -39,8 +39,14 @@ export class action extends plugin {
         if (!e.isGroup) {
             return
         }
-        //接收消息
-        const arr = await ActionApi.userAttack(UID)
+        //有无AT
+        const isat = e.message.some((item) => item.type === 'at');
+        if (!isat) {
+            return 0;
+        };
+        //获取对方e.user_id
+        const AT = e.message.filter((item) => item.type === 'at')
+        const arr = await ActionApi.userAttack(e.user_id, AT[0].qq)
         //循环发送
         arr.forEach(msg => e.reply(msg))
         return
@@ -51,7 +57,7 @@ export class action extends plugin {
             return
         }
         //接收消息
-        const arr = await ActionApi.userWashHands(UID)
+        const arr = await ActionApi.userWashHands(e.user_id)
         //循环发送
         arr.forEach(msg => e.reply(msg))
         return
@@ -62,7 +68,8 @@ export class action extends plugin {
             return
         }
         //接收消息
-        const arr = await ActionApi.userKill(UID)
+        const name = e.msg.replace('#击杀', '')
+        const arr = await ActionApi.userKill(e.user_id, name)
         //循环发送
         arr.forEach(msg => e.reply(msg))
         return
@@ -73,7 +80,8 @@ export class action extends plugin {
             return
         }
         //接收消息
-        const arr = await ActionApi.userforward(UID)
+        const name = e.msg.replace('#前往', '')
+        const arr = await ActionApi.userforward(e.user_id, name)
         //循环发送
         arr.forEach(msg => e.reply(msg))
         return
@@ -84,7 +92,7 @@ export class action extends plugin {
             return
         }
         //接收消息
-        const arr = await ActionApi.userBackPiont(UID)
+        const arr = await ActionApi.userBackPiont(e.user_id)
         //循环发送
         arr.forEach(msg => e.reply(msg))
         return
@@ -95,7 +103,8 @@ export class action extends plugin {
             return
         }
         //接收消息
-        const arr = await ActionApi.userDelivery(UID)
+        const name = e.msg.replace('#传送', '')
+        const arr = await ActionApi.userDelivery(e.user_id, name)
         //循环发送
         arr.forEach(msg => e.reply(msg))
         return

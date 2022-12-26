@@ -1,5 +1,5 @@
 import plugin from '../../../lib/plugins/plugin.js'
-import ImgApi from '../../../../gameback/game/api/img.api.js'
+import ImgApi from '../../../../xiuxian-game/gameback/game/api/img.api.js'
 import { yunzaiConfig } from '../moduels/main.js'
 export class img extends plugin {
     constructor() {
@@ -36,7 +36,7 @@ export class img extends plugin {
             return
         }
         //接收消息
-        const arr = await ImgApi.showMap(UID)
+        const arr = await ImgApi.showMap()
         //循环发送
         arr.forEach(msg => e.reply(msg))
         return
@@ -47,7 +47,7 @@ export class img extends plugin {
             return
         }
         //接收消息
-        const arr = await ImgApi.showBag(UID)
+        const arr = await ImgApi.showBag(e.user_id)
         //循环发送
         arr.forEach(msg => e.reply(msg))
         return
@@ -58,7 +58,7 @@ export class img extends plugin {
             return
         }
         //接收消息
-        const arr = await ImgApi.showUser(UID)
+        const arr = await ImgApi.showUser(e.user_id)
         //循环发送
         arr.forEach(msg => e.reply(msg))
         return
@@ -69,7 +69,7 @@ export class img extends plugin {
             return
         }
         //接收消息
-        const arr = await ImgApi.showEquipment(UID)
+        const arr = await ImgApi.showEquipment(e.user_id)
         //循环发送
         arr.forEach(msg => e.reply(msg))
         return
@@ -80,7 +80,7 @@ export class img extends plugin {
             return
         }
         //接收消息
-        const arr = await ImgApi.showExercises(UID)
+        const arr = await ImgApi.showExercises(e.user_id)
         //循环发送
         arr.forEach(msg => e.reply(msg))
         return
@@ -91,7 +91,7 @@ export class img extends plugin {
             return
         }
         //接收消息
-        const arr = await ImgApi.showShop(UID)
+        const arr = await ImgApi.showShop(e.user_id)
         //循环发送
         arr.forEach(msg => e.reply(msg))
         return

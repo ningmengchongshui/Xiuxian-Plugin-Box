@@ -5,10 +5,15 @@
 - 2022年08月 xiuxian-emulator-plugin V1.1
 - 2022年07月 xiuxian-emulator-plugin V1.0
 ## 安装教程      
-
+>安装游戏-独立游戏包
+>Yunzai-Bot/目录外指令 
+```
+git clone  https://github.com/ningmengchongshui/xiuxian-game.git  
+```     
+>安装插件-调用
 >Yunzai-Bot/目录下执行      
 ```
-git clone  https://github.com/ningmengchongshui/Xiuxian-Plugin-Box.git ./plugins/Xiuxian-Plugin-Box/   
+git clone  https://github.com/ningmengchongshui/Xiuxian-Plugin.git ./plugins/Xiuxian-Plugin/   
 ```
 >查看具体功能  #修仙帮助     
 

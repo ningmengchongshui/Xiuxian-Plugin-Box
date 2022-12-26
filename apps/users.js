@@ -1,5 +1,5 @@
 import plugin from '../../../lib/plugins/plugin.js'
-import UserApi from '../../../../gameback/game/api/user.api.js'
+import UserApi from '../../../../xiuxian-game/gameback/game/api/user.api.js'
 import { yunzaiConfig } from '../moduels/main.js'
 export class users extends plugin {
     constructor() {
@@ -17,14 +17,6 @@ export class users extends plugin {
             {
                 reg: '^#升级储物袋$',
                 fnc: 'bagUpGrade'
-            },
-            {
-                reg: '^#存灵石.*$',
-                fnc: 'saveMoney'
-            },
-            {
-                reg: '^#取灵石.*$',
-                fnc: 'withdrawMoney'
             },
             //修炼
             {
@@ -101,7 +93,7 @@ export class users extends plugin {
             return
         }
         //接收消息
-        const arr = await UserApi.userStart(UID)
+        const arr = await UserApi.userStart(e.user_id)
         //循环发送
         arr.forEach(msg => e.reply(msg))
         return
@@ -112,7 +104,7 @@ export class users extends plugin {
             return
         }
         //接收消息
-        const arr = await UserApi.userReStart(UID)
+        const arr = await UserApi.userReStart(e.user_id)
         //循环发送
         arr.forEach(msg => e.reply(msg))
         return
@@ -123,29 +115,7 @@ export class users extends plugin {
             return
         }
         //接收消息
-        const arr = await UserApi.bagUpGrade(UID)
-        //循环发送
-        arr.forEach(msg => e.reply(msg))
-        return
-    }
-    saveMoney = async e => {
-        //禁止私聊    
-        if (!e.isGroup) {
-            return
-        }
-        //接收消息
-        const arr = await UserApi.saveMoney(UID)
-        //循环发送
-        arr.forEach(msg => e.reply(msg))
-        return
-    }
-    withdrawMoney = async e => {
-        //禁止私聊    
-        if (!e.isGroup) {
-            return
-        }
-        //接收消息
-        const arr = await UserApi.withdrawMoney(UID)
+        const arr = await UserApi.bagUpGrade(e.user_id)
         //循环发送
         arr.forEach(msg => e.reply(msg))
         return
@@ -156,7 +126,7 @@ export class users extends plugin {
             return
         }
         //接收消息
-        const arr = await UserApi.userShutUp(UID)
+        const arr = await UserApi.userShutUp(e.user_id)
         //循环发送
         arr.forEach(msg => e.reply(msg))
         return
@@ -167,7 +137,7 @@ export class users extends plugin {
             return
         }
         //接收消息
-        const arr = await UserApi.userGoToManchuria(UID)
+        const arr = await UserApi.userGoToManchuria(e.user_id)
         //循环发送
         arr.forEach(msg => e.reply(msg))
         return
@@ -178,7 +148,8 @@ export class users extends plugin {
             return
         }
         //接收消息
-        const arr = await UserApi.userTake(UID)
+        const thing = e.msg.replace('#服用', '')
+        const arr = await UserApi.userTake(e.user_id, thing)
         //循环发送
         arr.forEach(msg => e.reply(msg))
         return
@@ -189,7 +160,8 @@ export class users extends plugin {
             return
         }
         //接收消息
-        const arr = await UserApi.userStudy(UID)
+        const thing = e.msg.replace('#学习', '')
+        const arr = await UserApi.userStudy(e.user_id, thing)
         //循环发送
         arr.forEach(msg => e.reply(msg))
         return
@@ -200,7 +172,8 @@ export class users extends plugin {
             return
         }
         //接收消息
-        const arr = await UserApi.userForget(UID)
+        const thing = e.msg.replace('#忘去', '')
+        const arr = await UserApi.userForget(e.user_id, thing)
         //循环发送
         arr.forEach(msg => e.reply(msg))
         return
@@ -211,7 +184,8 @@ export class users extends plugin {
             return
         }
         //接收消息
-        const arr = await UserApi.userConume(UID)
+        const thing = e.msg.replace('#忘去', '')
+        const arr = await UserApi.userConume(e.user_id, thing)
         //循环发送
         arr.forEach(msg => e.reply(msg))
         return
@@ -222,7 +196,7 @@ export class users extends plugin {
             return
         }
         //接收消息
-        const arr = await UserApi.userLevelUp(UID)
+        const arr = await UserApi.userLevelUp(e.user_id)
         //循环发送
         arr.forEach(msg => e.reply(msg))
         return
@@ -233,7 +207,8 @@ export class users extends plugin {
             return
         }
         //接收消息
-        const arr = await UserApi.userRenaming(UID)
+        const name = e.msg.replace('#改名', '')
+        const arr = await UserApi.userRenaming(e.user_id, name)
         //循环发送
         arr.forEach(msg => e.reply(msg))
         return
@@ -244,7 +219,8 @@ export class users extends plugin {
             return
         }
         //接收消息
-        const arr = await UserApi.userAutograph(UID)
+        const sentence = e.msg.replace('#改道宣', '')
+        const arr = await UserApi.userAutograph(e.user_id, sentence)
         //循环发送
         arr.forEach(msg => e.reply(msg))
         return
@@ -255,7 +231,8 @@ export class users extends plugin {
             return
         }
         //接收消息
-        const arr = await UserApi.userInstallEquipment(UID)
+        const thing = e.msg.replace('#装上', '')
+        const arr = await UserApi.userInstallEquipment(e.user_id, thing)
         //循环发送
         arr.forEach(msg => e.reply(msg))
         return
@@ -266,7 +243,8 @@ export class users extends plugin {
             return
         }
         //接收消息
-        const arr = await UserApi.userRemovingEquipment(UID)
+        const thing = e.msg.replace('#卸下', '')
+        const arr = await UserApi.userRemovingEquipment(e.user_id, thing)
         //循环发送
         arr.forEach(msg => e.reply(msg))
         return
@@ -277,7 +255,8 @@ export class users extends plugin {
             return
         }
         //接收消息
-        const arr = await UserApi.userBuy(UID)
+        const thing = e.msg.replace('#购买', '')
+        const arr = await UserApi.userBuy(e.user_id, thing)
         //循环发送
         arr.forEach(msg => e.reply(msg))
         return
@@ -288,7 +267,8 @@ export class users extends plugin {
             return
         }
         //接收消息
-        const arr = await UserApi.userSell(UID)
+        const thing = e.msg.replace('#出售', '')
+        const arr = await UserApi.userSell(e.user_id, thing)
         //循环发送
         arr.forEach(msg => e.reply(msg))
         return
@@ -299,7 +279,7 @@ export class users extends plugin {
             return
         }
         //接收消息
-        const arr = await UserApi.userSellAll(UID)
+        const arr = await UserApi.userSellAll(e.user_id)
         //循环发送
         arr.forEach(msg => e.reply(msg))
         return
@@ -309,8 +289,16 @@ export class users extends plugin {
         if (!e.isGroup) {
             return
         }
-        //接收消息
-        const arr = await UserApi.userGiveMoney(UID)
+        //有无AT
+        const isat = e.message.some((item) => item.type === 'at');
+        if (!isat) {
+            return 0;
+        };
+        //获取对方e.user_id
+        const AT = e.message.filter((item) => item.type === 'at')
+        //赠送数量
+        const number = e.msg.replace('#赠送', '')
+        const arr = await UserApi.userGiveMoney(e.user_id, AT[0].qq, number)
         //循环发送
         arr.forEach(msg => e.reply(msg))
         return

@@ -1,7 +1,5 @@
-import Noderequire from '../game/moduels/db/Noderequire.js'
-import { __dirname } from '../game/moduels/db/nodefs.js'
-const FS = Noderequire.fs()
-const PATH = Noderequire.path()
+import PATH from 'path'
+import FS from 'fs'
 //插件名字
 export const appname = 'Xiuxian-Plugin-Box'
 //插件配置
@@ -11,7 +9,7 @@ export const yunzaiConfig = (name, rule) => {
 //导入所有js文件到index.js
 class index {
   toindex = async (input) => {
-    let filepath = `./plugins/${appname}}/` + input;
+    let filepath = `./plugins/${appname}/` + input;
     let apps = {};
     let name = [];
     let newsum = [];
