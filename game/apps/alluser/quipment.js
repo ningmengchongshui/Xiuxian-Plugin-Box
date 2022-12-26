@@ -26,16 +26,11 @@ export class quipment {
         e.reply(`装备${thing_name}`)
         return
     }
-    delete_equipment = async (e) => {
-        if (!e.isGroup) {
-            return
-        }
-        const UID = e.user_id
+    delete_equipment = async (UID,thing_name) => {
         const ifexistplay = await existplayer(UID)
         if (!ifexistplay) {
-            return
+            return []
         }
-        const thing_name = e.msg.replace('#卸下', '')
         let equipment = await Read_equipment(UID)
         const islearned = equipment.find(item => item.name == thing_name)
         if (!islearned) {
@@ -54,7 +49,6 @@ export class quipment {
         let najie = await Read_najie(UID)
         najie = await Add_najie_thing(najie, islearned, 1)
         await Write_najie(UID, najie)
-        e.reply(`已卸下${thing_name}`)
-        return
+        return [`已卸下${thing_name}`]
     }
 }

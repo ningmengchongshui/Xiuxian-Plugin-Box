@@ -6,24 +6,16 @@ const MAP = {
     'xiuwei': '修为'
 }
 export class battlesite {
-    Kill = async (e) => {
-        const good = await Go(e)
-        if (!good) {
-            return
-        }
-        const UID = e.user_id
-        const name = e.msg.replace('#击杀', '')
+    Kill = async (UID,name) => {
         const action = await Read_action(UID)
         const monstersdata = await Cachemonster.monsterscache(action.region)
         const mon = monstersdata.find(item => item.name == name)
         if (!mon) {
-            e.reply(MAP['no_serch'])
-            return
+            return [MAP['no_serch']]
         }
         const CD = await GenerateCD(e.user_id, '10', this.xiuxianConfigData.CD.Kill)
         if (CD != 0) {
-            e.reply(CD)
-            return
+            return [CD]
         }
         const acount = await Cachemonster.add(action.region, Number(1))
         const msg = [`${UID}[击杀]`]
@@ -62,7 +54,7 @@ export class battlesite {
                     msg.push(`[${dropsItemList[random].name}]`)
                     await Write_najie(UID, najie)
                 } else {
-                    e.reply(MAP['bag_full'])
+                    msg.push(MAP['bag_full'])
                 }
             }
             if (m < mon.level * 6) {
@@ -82,16 +74,10 @@ export class battlesite {
                 await Add_lingshi(UID, mon.level * 25)
             }
         }
-        await ForwardMsg(e, msg)
-        return
+        return msg
     }
-
-    Exploremonsters = async (e) => {
-        const good = await Go(e)
-        if (!good) {
-            return
-        }
-        const action = await Read_action(e.user_id)
+    Exploremonsters = async (UID) => {
+        const action = await Read_action(UID)
         const msg = []
         const monster = await Cachemonster.monsterscache(action.region)
         monster.forEach((item) => {
@@ -100,7 +86,6 @@ export class battlesite {
                 'grade:' + item.level + '\n'
             )
         })
-        await ForwardMsg(e, msg)
-        return
+        return msg
     }
 }

@@ -1,21 +1,19 @@
 export class transaction {
-    ningmenghome = async (e) => {
-        const UID = e.user_id
+    ningmenghome = async (UID) => {
         const ifexistplay = await existplayer(UID)
         if (!ifexistplay) {
-            return
+            return []
         }
         const action = await Read_action(UID)
         const address_name = '凡仙堂'
         const map = await point_map(action, address_name)
         if (!map) {
-            e.reply(`需[#城池名+${address_name}]`)
-            return
+            return [`需[#城池名+${address_name}]`]
         }
         const msg = [
             '___[凡仙堂]___\n#购买+物品名*数量\n不填数量,默认为1'
         ]
-        const commodities_list = nodefs.Read('commodities',__PATH['all'])
+        const commodities_list = nodefs.Read('commodities', __PATH['all'])
         commodities_list.forEach((item) => {
             const id = item.id.split('-')
             if (id[0] == 4) {
@@ -28,26 +26,19 @@ export class transaction {
                 msg.push(`物品:${item.name}\n天赋:${item.size}%\n价格:${item.price}`)
             }
         })
-        await ForwardMsg(e, msg)
-        return
+        return msg
     }
-    Buy_comodities = async (e) => {
-        if (!e.isGroup) {
-            return
-        }
-        const UID = e.user_id
+    Buy_comodities = async (UID, thing) => {
         const ifexistplay = await existplayer(UID)
         if (!ifexistplay) {
-            return
+            return []
         }
         const action = await Read_action(UID)
         const address_name = '凡仙堂'
         const map = await point_map(action, address_name)
         if (!map) {
-            e.reply(`需[#城池名+${address_name}]`)
-            return
+            return [`需[#城池名+${address_name}]`]
         }
-        const thing = e.msg.replace('#购买', '')
         const code = thing.split('\*')
         const [thing_name, thing_acount] = code
         const the = {
@@ -58,46 +49,36 @@ export class transaction {
         if (the.quantity > 99) {
             the.quantity = 99
         }
-        const ifexist = await nodefs.readFindName(__PATH['all'],'commodities',thing_name)
+        const ifexist = await nodefs.readFindName(__PATH['all'], 'commodities', thing_name)
         if (!ifexist) {
-            e.reply(`[凡仙堂]小二\n不卖:${thing_name}`)
-            return
+            return [`[凡仙堂]小二\n不卖:${thing_name}`]
         }
         const player = await Read_wealth(UID)
         const lingshi = player.lingshi
         const commodities_price = ifexist.price * the.quantity
         if (lingshi < commodities_price) {
-            e.reply(`[凡仙堂]小二\n灵石不足`)
-            return
+            return [`[凡仙堂]小二\n灵石不足`]
         }
         the.najie = await Read_najie(UID)
         if (the.najie.thing.length > 21) {
-            e.reply('储物袋已满')
-            return
+            return ['储物袋已满']
         }
         the.najie = await Add_najie_thing(the.najie, ifexist, the.quantity)
         await Write_najie(UID, the.najie)
         await Add_lingshi(UID, -commodities_price)
-        e.reply(`[凡仙堂]薛仁贵\n你花[${commodities_price}]灵石购买了[${thing_name}]*${the.quantity},`)
-        return
+        return [`[凡仙堂]薛仁贵\n你花[${commodities_price}]灵石购买了[${thing_name}]*${the.quantity}`]
     }
-    Sell_comodities = async (e) => {
-        if (!e.isGroup) {
-            return
-        }
-        const UID = e.user_id
+    Sell_comodities = async (UID, thing) => {
         const ifexistplay = await existplayer(UID)
         if (!ifexistplay) {
-            return
+            return []
         }
         const action = await Read_action(UID)
         const address_name = '凡仙堂'
         const map = await point_map(action, address_name)
         if (!map) {
-            e.reply(`需[#城池名+${address_name}]`)
-            return
+            return [`需[#城池名+${address_name}]`]
         }
-        const thing = e.msg.replace('#出售', '')
         const code = thing.split('\*')
         const [thing_name, thing_acount] = code//数量
         const the = {
@@ -110,19 +91,16 @@ export class transaction {
         }
         const najie_thing = await exist_najie_thing_name(UID, thing_name)
         if (najie_thing == 1) {
-            e.reply(`[凡仙堂]小二\n你没[${thing_name}]`)
-            return
+            return [`[凡仙堂]小二\n你没[${thing_name}]`]
         }
         if (najie_thing.acount < the.quantity) {
-            e.reply('[凡仙堂]小二\n数量不足')
-            return
+            return ['[凡仙堂]小二\n数量不足']
         }
         the.najie = await Read_najie(UID)
         the.najie = await Add_najie_thing(the.najie, najie_thing, -the.quantity)
         await Write_najie(UID, the.najie)
         const commodities_price = najie_thing.price * the.quantity
         await Add_lingshi(UID, commodities_price)
-        e.reply(`[凡仙堂]欧阳峰\n出售得${commodities_price}灵石 `)
-        return
+        return [`[凡仙堂]欧阳峰\n出售得${commodities_price}灵石 `]
     }
 }

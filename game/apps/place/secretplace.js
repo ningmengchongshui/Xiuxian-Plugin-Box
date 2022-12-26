@@ -11,19 +11,14 @@ const forwardsetTime = []
 const deliverysetTime = []
 const useraction = []
 export class secretplace {
-    show_city = async (e) => {
-        if (!e.isGroup) {
-            return
-        }
-        const UID = e.user_id
+    show_city = async (UID) => {
         const ifexistplay = await existplayer(UID)
         if (!ifexistplay) {
-            return
+            return []
         }
         const action = await Read_action(UID)
         if (action.address != 1) {
-            e.reply(MAP['no_search'])
-            return
+            return [MAP['no_search']]
         }
         const addressId = `${action.z}-${action.region}-${action.address}`
         const point = ''
@@ -37,39 +32,22 @@ export class secretplace {
         address.forEach((item) => {
             msg.push(`${item.name}\n(${item.x},${item.y})`)
         })
-        await ForwardMsg(e, msg)
-        return
+        return msg
     }
-    returnpiont = async (e) => {
-        const good = await Go(e)
-        if (!good) {
-            return
-        }
-        const UID = e.user_id
+    returnpiont = async (UID) => {
         forwardsetTime[UID] = 0
         clearTimeout(useraction[UID])
-        e.reply(MAP['return_point'])
-        return
+        return [MAP['return_point']]
     }
-    xyzaddress = async (e) => {
-        if (!e.isGroup) {
-            return
-        }
-        const UID = e.user_id
+    xyzaddress = async (UID) => {
         const ifexistplay = await existplayer(UID)
         if (!ifexistplay) {
             return
         }
         const action = await Read_action(UID)
-        e.reply(`(${action.x},${action.y},${action.z})`)
-        return
+        return [`(${action.x},${action.y},${action.z})`]
     }
-    forward = async (e) => {
-        const good = await Go(e)
-        if (!good) {
-            return
-        }
-        const UID = e.user_id
+    forward = async (UID) => {
         if (forwardsetTime[UID] == 1) {
             return
         }
@@ -79,15 +57,14 @@ export class secretplace {
         const address = e.msg.replace('#前往', '')
         const point = ''
         if (!point) {
-            return
+            return []
         }
         const mx = point.x
         const my = point.y
         const PointId = point.id.split('-')
         const level = await Read_level(UID)
         if (level.level_id < PointId[3]) {
-            e.reply(MAP['refuse_to_go'])
-            return
+            return [MAP['refuse_to_go']]
         }
         const a = x - mx >= 0 ? x - mx : mx - x
         const b = y - my >= 0 ? y - my : my - y
@@ -104,25 +81,18 @@ export class secretplace {
             e.reply([segment.at(UID), `${MAP['successfully_arrived']}${address}`])
         }, 1000 * time)
         forwardsetTime[UID] = 1
-        e.reply(`${MAP['going']}${address}:${time}s`)
-        return
+        return [`${MAP['going']}${address}:${time}s`]
     }
-    delivery = async (e) => {
-        const good = await Go(e)
-        if (!good) {
-            return
-        }
-        const UID = e.user_id
+    delivery = async (UID, address) => {
         if (deliverysetTime[UID] == 1) {
             return
         }
         const action = await Read_action(UID)
         const x = action.x
         const y = action.y
-        const address = e.msg.replace('#传送', '')
         const position = await nodefs.readFindName(__PATH['position'], 'position', address)
         if (!position) {
-            return
+            return []
         }
         const positionID = position.id.split('-')
         const level = await Read_level(UID)
@@ -158,6 +128,7 @@ export class secretplace {
         const my = Math.floor((Math.random() * (position.y2 - position.y1))) + Number(position.y1)
         const the = Math.floor(((x - mx >= 0 ? x - mx : mx - x) + (y - my >= 0 ? y - my : my - y)) / 100)
         const time = the > 0 ? the : 1
+        msg=[]
         setTimeout(async () => {
             deliverysetTime[UID] = 0
             action.x = mx
@@ -165,10 +136,10 @@ export class secretplace {
             action.region = positionID[1]
             action.address = positionID[2]
             await Write_action(UID, action)
-            e.reply([segment.at(UID), `${MAP['successfully_arrived']}${address}`])
+            msg.push([segment.at(UID), `${MAP['successfully_arrived']}${address}`])
         }, 1000 * time)
         deliverysetTime[UID] = 1
-        e.reply(`${MAP['need_time']}${time}s`)
-        return
+        msg.push([`${MAP['need_time']}${time}s`])
+        return msg
     }
 }
