@@ -1,20 +1,14 @@
-![我裂开了](https://s1.ax1x.com/2022/11/02/xH9Kcd.jpg)       
+## 修仙文游-云崽接口插件   
 - 2023年06月 xiuxian-plugin V3.0
 - 2022年12月 Xiuxian-Plugin-Box V2.0
 - 2022年09月 xiuxian-emulator-plugin V1.2
 - 2022年08月 xiuxian-emulator-plugin V1.1
 - 2022年07月 xiuxian-emulator-plugin V1.0
 
-## 安装教程      
->是一款独立运行的游戏    
->支持网页在线游玩    
->修仙游戏并非云崽插件    
->若需支持云崽机器人指令    
->请在Yunzai-Bot同级目录中安装    
-```
-git clone  https://github.com/ningmengchongshui/xiuxian-game.git   #安装游戏
-git clone  https://github.com/ningmengchongshui/Xiuxian-Plugin.git ./Yunzai-Bot/plugins/xiuxian-plugin/  #安装插件接口#修仙帮助
-```
+## 文档说明
+>Yunzai-Bot接口文件库    
+>修仙文游可通过此插件进行信息交互   
+[安装教程](https://gitee.com/ningmengchongshui)   
 
 ## 企鹅聚集     
 群名  | 群号  |  群主 
