@@ -8,7 +8,7 @@
 ## 文档说明
 >Yunzai-Bot接口文件库    
 >修仙文游可通过此插件进行信息交互   
-[安装教程](https://gitee.com/ningmengchongshui)   
+[修仙仓库](https://github.com/ningmengchongshui/xiuxian-game) 
 
 ## 企鹅聚集     
 群名  | 群号  |  群主 
